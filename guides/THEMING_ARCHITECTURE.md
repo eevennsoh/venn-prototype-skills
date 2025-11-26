@@ -15,15 +15,11 @@ Deep dive into how the theming system works.
 │  │  │  │ <ThemeProvider>                              │  │ │ │
 │  │  │  │  - Manages theme state                       │  │ │ │
 │  │  │  │  - Applies .dark class to <html>            │  │ │ │
-│  │  │  │  - Calls setGlobalTheme()                    │  │ │ │
+│  │  │  │  - Calls setGlobalTheme() for ADS tokens    │  │ │ │
 │  │  │  │  - Listens to system preference changes      │  │ │ │
 │  │  │  │  ┌──────────────────────────────────────────┐  │ │ │
-│  │  │  │  │ <TokenProvider>                          │  │ │ │
-│  │  │  │  │ - ADS token initialization               │  │ │ │
-│  │  │  │  │ ┌────────────────────────────────────┐   │  │ │ │
-│  │  │  │  │ │ <SystemPromptProvider>             │   │  │ │ │
-│  │  │  │  │ │ - Your app components              │   │  │ │ │
-│  │  │  │  │ └────────────────────────────────────┘   │  │ │ │
+│  │  │  │  │ <SystemPromptProvider>                   │  │ │ │
+│  │  │  │  │ - Your app components                    │  │ │ │
 │  │  │  │  └──────────────────────────────────────────┘  │ │ │
 │  │  │  └──────────────────────────────────────────────┘  │ │ │
 │  │  └────────────────────────────────────────────────────┘ │ │
@@ -52,14 +48,14 @@ Deep dive into how the theming system works.
 ```
 Root Layout (app/layout.tsx)
 └── ThemeProvider (app/contexts/ThemeContext.tsx)
-    ├── TokenProvider (app/components/TokenProvider.tsx)
-    │   └── SystemPromptProvider
-    │       └── [Your App Components]
-    │           ├── Header
-    │           │   └── ThemeToggle (app/components/ThemeToggle.tsx)
-    │           ├── Dashboard
-    │           ├── Cards
-    │           └── ... other components
+    ├── Initializes ADS tokens via setGlobalTheme()
+    ├── SystemPromptProvider
+    │   └── [Your App Components]
+    │       ├── Header
+    │       │   └── ThemeToggle (app/components/ThemeToggle.tsx)
+    │       ├── Dashboard
+    │       ├── Cards
+    │       └── ... other components
     └── (Listeners for system theme changes)
 ```
 
@@ -69,19 +65,19 @@ Root Layout (app/layout.tsx)
 
 ```typescript
 interface ThemeContextType {
-  theme: 'light' | 'dark' | 'system';      // User's preference
-  resolvedTheme: 'light' | 'dark';          // Actual theme shown
-  setTheme: (theme: Theme) => void;         // Update preference
+	theme: "light" | "dark" | "system"; // User's preference
+	resolvedTheme: "light" | "dark"; // Actual theme shown
+	setTheme: (theme: Theme) => void; // Update preference
 }
 ```
 
 ### Internal State in Provider
 
 ```typescript
-const [theme, setThemeState] = useState<Theme>('system');
+const [theme, setThemeState] = useState<Theme>("system");
 // Defaults to system, loads from localStorage on mount
 
-const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>('light');
+const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">("light");
 // The actual theme being shown
 
 const [mounted, setMounted] = useState(false);
@@ -194,17 +190,17 @@ const [mounted, setMounted] = useState(false);
 
 ```css
 :root {
-  /* All light mode tokens */
-  --elevation-surface: white;
-  --text: #1e1f21;
-  --background-neutral: #f8f8f8;
-  --color-border: #dddee1;
-  /* ... hundreds of tokens ... */
+	/* All light mode tokens */
+	--elevation-surface: white;
+	--text: #1e1f21;
+	--background-neutral: #f8f8f8;
+	--color-border: #dddee1;
+	/* ... hundreds of tokens ... */
 }
 
 /* When no .dark class */
 html {
-  /* Uses :root tokens */
+	/* Uses :root tokens */
 }
 ```
 
@@ -212,17 +208,17 @@ html {
 
 ```css
 .dark {
-  /* Dark mode tokens override :root */
-  --elevation-surface: #18191a;
-  --text: #e2e3e4;
-  --background-neutral: #1f1f21;
-  --color-border: #303134;
-  /* ... hundreds of tokens ... */
+	/* Dark mode tokens override :root */
+	--elevation-surface: #18191a;
+	--text: #e2e3e4;
+	--background-neutral: #1f1f21;
+	--color-border: #303134;
+	/* ... hundreds of tokens ... */
 }
 
 /* When .dark class present */
 html.dark {
-  /* Uses .dark tokens */
+	/* Uses .dark tokens */
 }
 ```
 
@@ -231,9 +227,9 @@ html.dark {
 ```css
 /* Components use tokens via CSS variables */
 .my-component {
-  background-color: var(--elevation-surface);
-  color: var(--text);
-  border-color: var(--color-border);
+	background-color: var(--elevation-surface);
+	color: var(--text);
+	border-color: var(--color-border);
 }
 
 /* Automatically switches when .dark class applied */
@@ -244,18 +240,18 @@ html.dark {
 ### System Preference Listener
 
 ```typescript
-const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
-mediaQuery.addEventListener('change', () => {
-  // Only responds if theme === 'system'
-  if (theme === 'system') {
-    const resolved = resolveTheme('system');
-    applyTheme(resolved);
-  }
+mediaQuery.addEventListener("change", () => {
+	// Only responds if theme === 'system'
+	if (theme === "system") {
+		const resolved = resolveTheme("system");
+		applyTheme(resolved);
+	}
 });
 
 // Cleanup on unmount
-mediaQuery.removeEventListener('change', handleChange);
+mediaQuery.removeEventListener("change", handleChange);
 ```
 
 ## Storage
@@ -266,10 +262,10 @@ mediaQuery.removeEventListener('change', handleChange);
 // Key: 'theme'
 // Values: 'light' | 'dark' | 'system' | null
 
-localStorage.setItem('theme', 'dark');
+localStorage.setItem("theme", "dark");
 // Now persisted across page reloads
 
-localStorage.getItem('theme'); // 'dark'
+localStorage.getItem("theme"); // 'dark'
 
 // Automatically cleared when component unmounts
 // (no manual cleanup needed)
@@ -300,11 +296,11 @@ localStorage.getItem('theme'); // 'dark'
 
 ```typescript
 // Light mode
-document.documentElement.classList.remove('dark');
+document.documentElement.classList.remove("dark");
 // Result: <html> (no class)
 
 // Dark mode
-document.documentElement.classList.add('dark');
+document.documentElement.classList.add("dark");
 // Result: <html class="dark">
 ```
 
@@ -333,10 +329,10 @@ html.dark {
 ### Token Update
 
 ```typescript
-import { setGlobalTheme } from '@atlaskit/tokens';
+import { setGlobalTheme } from "@atlaskit/tokens";
 
 // Called when theme changes
-setGlobalTheme({ colorMode: 'light' });  // or 'dark'
+setGlobalTheme({ colorMode: "light" }); // or 'dark'
 
 // ADS components notify about new tokens
 // All @atlaskit components re-evaluate tokens
@@ -360,17 +356,15 @@ setGlobalTheme({ colorMode: 'light' });  // or 'dark'
 ```typescript
 // Problem: Component renders before theme applied
 <html>
-  <head>...</head>
-  <body>
-    {/* Renders with wrong theme first */}
-  </body>
-</html>
+	<head>...</head>
+	<body>{/* Renders with wrong theme first */}</body>
+</html>;
 
 // Solution: Wait for mount
 const [mounted, setMounted] = useState(false);
 
 if (!mounted) {
-  return <>{children}</>; // Minimal render
+	return <>{children}</>; // Minimal render
 }
 
 // After theme applied and mounted = true
@@ -380,21 +374,25 @@ if (!mounted) {
 ## Performance Characteristics
 
 ### CSS Variable Update
+
 - ⚡ **O(1)** - single operation on `<html>`
 - No CSS recompile needed
 - Cascades to all descendants
 
 ### Component Re-renders
+
 - 🔄 Only components using `useTheme()` or ADS tokens
 - Not triggered by CSS variable change
 - Controlled via React context
 
 ### DOM Operations
+
 - 📍 One class toggle: `classList.add/remove('dark')`
 - Optional: `setGlobalTheme()` call to ADS
 - Very efficient
 
 ### Memory
+
 - 💾 One listener for system preference
 - Cleaned up on unmount
 - localStorage read once on mount
@@ -404,25 +402,23 @@ if (!mounted) {
 
 ```typescript
 // System preference detection
-window.matchMedia('(prefers-color-scheme: dark)')
-  .matches  // true/false
-  .addEventListener('change', handler)  // watch for changes
+window
+	.matchMedia("(prefers-color-scheme: dark)")
+	.matches // true/false
+	.addEventListener("change", handler); // watch for changes
 
 // DOM manipulation
-document.documentElement  // <html> element
-  .classList.add('dark')
-  .remove('dark')
+document.documentElement.classList // <html> element
+	.add("dark")
+	.remove("dark");
 
 // Storage
-localStorage
-  .getItem('theme')
-  .setItem('theme', value)
-  .clear()
+localStorage.getItem("theme").setItem("theme", value).clear();
 
 // React
-useState()      // theme, resolvedTheme, mounted
-useContext()    // access ThemeContext
-useEffect()     // setup/cleanup
+useState(); // theme, resolvedTheme, mounted
+useContext(); // access ThemeContext
+useEffect(); // setup/cleanup
 ```
 
 ## Error Handling
@@ -432,25 +428,26 @@ useEffect()     // setup/cleanup
 ```typescript
 // If localStorage not available
 try {
-  const saved = localStorage.getItem('theme');
+	const saved = localStorage.getItem("theme");
 } catch (e) {
-  // Falls back to 'system'
+	// Falls back to 'system'
 }
 
 // If matchMedia not supported
 if (window.matchMedia) {
-  mediaQuery.addEventListener('change', handler);
+	mediaQuery.addEventListener("change", handler);
 }
 
 // If document.documentElement unavailable
-if (typeof document !== 'undefined') {
-  document.documentElement.classList.add('dark');
+if (typeof document !== "undefined") {
+	document.documentElement.classList.add("dark");
 }
 ```
 
 ## Optimization Strategies
 
 ### 1. Lazy Theme Detection
+
 ```typescript
 // Don't detect system theme until needed
 const getSystemTheme = () => {
@@ -460,16 +457,20 @@ const getSystemTheme = () => {
 ```
 
 ### 2. Memoized Theme Context
+
 ```typescript
 const value: ThemeContextType = {
-  theme, resolvedTheme, setTheme
+	theme,
+	resolvedTheme,
+	setTheme,
 };
 // Stable reference unless values change
 ```
 
 ### 3. Cleanup Functions
+
 ```typescript
-return () => mediaQuery.removeEventListener('change', handleChange);
+return () => mediaQuery.removeEventListener("change", handleChange);
 // Prevents memory leaks
 ```
 
@@ -478,6 +479,7 @@ return () => mediaQuery.removeEventListener('change', handleChange);
 ### Possible Extensions
 
 1. **Transition Animations**
+
    ```tsx
    html {
      transition: background-color 0.3s ease;
@@ -485,24 +487,25 @@ return () => mediaQuery.removeEventListener('change', handleChange);
    ```
 
 2. **Per-Component Overrides**
+
    ```tsx
-   <div data-theme="light">
-     Force light mode in this subtree
-   </div>
+   <div data-theme="light">Force light mode in this subtree</div>
    ```
 
 3. **Theme Sync Across Tabs**
+
    ```tsx
-   window.addEventListener('storage', ({ key, newValue }) => {
-     if (key === 'theme') setTheme(newValue);
+   window.addEventListener("storage", ({ key, newValue }) => {
+   	if (key === "theme") setTheme(newValue);
    });
    ```
 
 4. **Scheduled Theme Changes**
+
    ```tsx
    // Sunrise: light, Sunset: dark
    const hour = new Date().getHours();
-   setTheme(hour > 6 && hour < 18 ? 'light' : 'dark');
+   setTheme(hour > 6 && hour < 18 ? "light" : "dark");
    ```
 
 5. **Custom Color Themes**
@@ -517,4 +520,3 @@ return () => mediaQuery.removeEventListener('change', handleChange);
 ---
 
 **Questions?** Check the implementation in `app/contexts/ThemeContext.tsx`
-

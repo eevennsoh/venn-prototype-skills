@@ -6,13 +6,31 @@ import { RovoChatProvider } from "./contexts/RovoChatContext";
 import RovoChatPanel from "./components/RovoChatPanel";
 
 export default function Home() {
-	const [apiUrl, setApiUrl] = useState<string>("");
+	const [isMounted, setIsMounted] = useState(false);
 
 	useEffect(() => {
-		// Get the current origin and construct the API URL
-		const origin = window.location.origin;
-		setApiUrl(`${origin}/api/ai-gateway/stream`);
+		setIsMounted(true);
 	}, []);
+
+	// Only construct API URL on client side, avoid hydration mismatch
+	const apiUrl = isMounted ? `${window.location.origin}/api/ai-gateway/stream` : "";
+
+	// Don't render the panel until mounted to avoid hydration issues
+	if (!isMounted) {
+		return (
+			<div
+				style={{
+					minHeight: "100vh",
+					backgroundColor: token("color.background.neutral.subtle"),
+					display: "flex",
+					flexDirection: "column",
+					alignItems: "center",
+					justifyContent: "center",
+					padding: "0 16px",
+				}}
+			/>
+		);
+	}
 
 	return (
 		<RovoChatProvider>

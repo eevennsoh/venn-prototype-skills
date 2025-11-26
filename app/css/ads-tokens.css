@@ -166,19 +166,25 @@
 
 	/* Shape Tokens */
 	/* Size Tokens */
-	--ds-size0: 0;
+	--ds-size0: 0px;
 	--ds-size050: 1px;
 	--ds-size100: 2px;
 	--ds-size200: 3px;
 
 	/* Border Radius Tokens */
-	--ds-radius050: 2px;
-	--ds-radius075: 3px;
-	--ds-radius100: 4px;
-	--ds-radius150: 6px;
-	--ds-radius200: 8px;
-	--ds-radius300: 12px;
-	--ds-radius400: 16px;
+	--ds-border-radius-050: 2px;
+	--ds-border-radius: 4px;
+	--ds-border-radius-100: 4px;
+	--ds-border-radius-200: 8px;
+	--ds-border-radius-300: 12px;
+	--ds-border-radius-400: 16px;
+	--ds-border-radius-circle: 32032px;
+	--ds-border-radius-tile: 25%;
+
+	/* Border Width Tokens */
+	--ds-border-width-0: 0px;
+	--ds-border-width: 1px;
+	--ds-border-width-outline: 2px;
 
 	/* Spacing Tokens */
 	/* Positive Spacing */

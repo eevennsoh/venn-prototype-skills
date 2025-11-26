@@ -81,14 +81,14 @@ export default function RootLayout({ children }) {
 	return (
 		<html lang="en">
 			<ThemeProvider>
-				<TokenProvider>
-					<SystemPromptProvider>{children}</SystemPromptProvider>
-				</TokenProvider>
+				<SystemPromptProvider>{children}</SystemPromptProvider>
 			</ThemeProvider>
 		</html>
 	);
 }
 ```
+
+**Note:** The ThemeProvider automatically initializes ADS tokens via `setGlobalTheme()`, so no separate token provider is needed.
 
 ### Adding a Theme Toggle Button
 

@@ -34,7 +34,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 	// Update the DOM and ADS tokens
 	const applyTheme = (resolved: "light" | "dark") => {
 		if (typeof window === "undefined") return;
-		
+
 		const htmlElement = document.documentElement;
 
 		if (resolved === "dark") {
@@ -44,7 +44,12 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 		}
 
 		// Update ADS tokens
-		setGlobalTheme({ colorMode: resolved });
+		setGlobalTheme({
+			colorMode: resolved,
+			light: "light",
+			dark: "dark",
+			shape: "shape",
+		});
 		setResolvedTheme(resolved);
 	};
 

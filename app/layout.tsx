@@ -1,5 +1,5 @@
-import "./globals.css";
 import "@atlaskit/css-reset";
+import "./globals.css";
 import { ClientLayout } from "./components/ClientLayout";
 
 export const metadata = {

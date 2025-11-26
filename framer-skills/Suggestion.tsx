@@ -1,6 +1,6 @@
 import { addPropertyControls, ControlType } from "framer";
 import { type CSSProperties } from "react";
-import { ATLASSIAN_SKILLS, EMPTY_STATE_SUGGESTIONS, useSearchStore } from "./Store.tsx";
+import { ATLASSIAN_SKILLS, EMPTY_STATE_SUGGESTIONS, useSearchStore } from "./Store.jsx";
 import ListItem from "https://framer.com/m/List-item-svg-icon-bbLQ.js";
 import MenuHeader from "https://framer.com/m/MenuHeader-Bk9S.js";
 

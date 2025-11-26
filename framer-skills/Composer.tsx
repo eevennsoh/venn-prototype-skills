@@ -1,7 +1,7 @@
 // Auto-complete text input with tag conversion on Tab key press
 import React, { useState, useRef, useEffect, startTransition, useId, useMemo, type CSSProperties } from "react";
 import { addPropertyControls, ControlType } from "framer";
-import { useSearchStore, ATLASSIAN_SKILLS, TagProps } from "./Store.tsx";
+import { useSearchStore, ATLASSIAN_SKILLS, TagProps } from "./Store.jsx";
 
 interface SuggestionProps {
 	text: string;

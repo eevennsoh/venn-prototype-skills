@@ -2,6 +2,7 @@
 
 import React from "react";
 import { token } from "@atlaskit/tokens";
+import { Text } from "@atlaskit/primitives";
 
 export interface SkillLozengeProps {
 	icon: React.ReactNode;
@@ -12,12 +13,12 @@ export interface SkillLozengeProps {
 }
 
 const colorMap: Record<string, string> = {
-	blue: "#357de8",
-	green: "#22a06b",
-	red: "#e2483d",
-	yellow: "#ddb30e",
-	purple: "#7c3aed",
-	teal: "#0d7377",
+	blue: token("color.border.brand"),
+	green: token("color.border.success"),
+	red: token("color.border.danger"),
+	yellow: token("color.border.warning"),
+	purple: token("color.border.discovery"),
+	teal: token("color.border.information"),
 };
 
 export default function SkillLozenge({ icon, label, color = "blue", onClick, isSelected = false }: SkillLozengeProps) {
@@ -41,21 +42,23 @@ export default function SkillLozenge({ icon, label, color = "blue", onClick, isS
 				cursor: onClick ? "pointer" : "default",
 				transition: "all 0.15s ease",
 				transform: "skewX(-12deg)",
-				overflow: "hidden",
+				overflow: "visible",
 				height: "20px",
 				boxSizing: "border-box",
 				marginRight: token("space.025"),
 			}}
 		>
-			{/* Colored left border slash */}
+			{/* Colored slash stroke */}
 			<div
 				style={{
 					position: "absolute",
-					left: 0,
-					top: 0,
-					bottom: 0,
-				width: token("border.width.selected"),
+					left: "0px",
+					top: "0px",
+					bottom: "0px",
+					width: "2px",
 					backgroundColor: borderColor,
+					borderRadius: `${token("radius.small")} 0 0 ${token("radius.small")}`,
+					zIndex: 1,
 				}}
 			/>
 
@@ -76,19 +79,16 @@ export default function SkillLozenge({ icon, label, color = "blue", onClick, isS
 			</div>
 
 			{/* Label */}
-			<span
+			<div
 				style={{
-					fontSize: "14px",
-					fontWeight: 400,
-					color: token("color.text"),
-					whiteSpace: "nowrap",
 					transform: "skewX(12deg)",
-					display: "inline-block",
-					lineHeight: "20px",
+					whiteSpace: "nowrap",
 				}}
 			>
-				{label}
-			</span>
+				<Text size="medium" color="color.text">
+					{label}
+				</Text>
+			</div>
 		</div>
 	);
 }

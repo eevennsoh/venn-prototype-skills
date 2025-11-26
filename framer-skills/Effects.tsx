@@ -1,5 +1,5 @@
 import { ComponentType } from "react";
-import { useSearchStore } from "./Store.tsx";
+import { useSearchStore } from "./Store.jsx";
 
 /**
  * Changes the variant of a layer based on whether the Search input has text.

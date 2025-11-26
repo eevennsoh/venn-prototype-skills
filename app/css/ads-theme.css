@@ -515,6 +515,21 @@
 	--blanket: var(--ds-neutral500a);
 	--blanket-danger: #ef5c4814;
 	--blanket-selected: #4688ec14;
+
+	/* Border Radius */
+	--radius-xsmall: var(--ds-border-radius);
+	--radius-small: var(--ds-border-radius-050);
+	--radius-medium: var(--ds-border-radius-100);
+	--radius-large: var(--ds-border-radius-200);
+	--radius-xlarge: var(--ds-border-radius-300);
+	--radius-xxlarge: var(--ds-border-radius-400);
+	--radius-circle: var(--ds-border-radius-circle);
+	--radius-tile: var(--ds-border-radius-tile);
+
+	/* Border Width */
+	--border-width: var(--ds-border-width);
+	--border-width-selected: var(--ds-border-width-outline);
+	--border-width-focused: var(--ds-border-width-outline);
 }
 
 .dark {
