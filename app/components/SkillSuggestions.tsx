@@ -22,7 +22,7 @@ export default function SkillSuggestions({ onSkillSelect, searchQuery = "" }: Sk
 	// Memoize skills calculation based on search query
 	const displayedSkills = useMemo(() => {
 		const skillsToDisplay = searchQuery.trim() ? searchSkills(searchQuery).slice(0, 6) : getDefaultSuggestions(6);
-		
+
 		return skillsToDisplay.map((skill) => ({
 			id: skill.id,
 			label: skill.name,
@@ -41,7 +41,10 @@ export default function SkillSuggestions({ onSkillSelect, searchQuery = "" }: Sk
 				justifyContent: "flex-end",
 				width: "100%",
 				flex: 1,
-				padding: `${token("space.200")} ${token("space.200")} ${token("space.400")}`,
+				paddingTop: token("space.200"),
+				paddingRight: token("space.200"),
+				paddingBottom: token("space.400"),
+				paddingLeft: token("space.200"),
 				maxWidth: "360px",
 				margin: "0 auto",
 			}}
@@ -80,20 +83,20 @@ export default function SkillSuggestions({ onSkillSelect, searchQuery = "" }: Sk
 				</h2>
 			</div>
 
-		{/* Skills list */}
-		<div
-			style={{
-				display: "flex",
-				flexDirection: "column",
-				gap: token("space.050"),
-				width: "100%",
-				maxWidth: "360px",
-			}}
-		>
-			{displayedSkills.map((skill) => (
-				<SkillListItem key={skill.id} icon={skill.icon} label={skill.label} byline={skill.byline} onClick={() => onSkillSelect?.(skill.label)} />
-			))}
-		</div>
+			{/* Skills list */}
+			<div
+				style={{
+					display: "flex",
+					flexDirection: "column",
+					gap: token("space.050"),
+					width: "100%",
+					maxWidth: "360px",
+				}}
+			>
+				{displayedSkills.map((skill) => (
+					<SkillListItem key={skill.id} icon={skill.icon} label={skill.label} byline={skill.byline} onClick={() => onSkillSelect?.(skill.label)} />
+				))}
+			</div>
 		</div>
 	);
 }

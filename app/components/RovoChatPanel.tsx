@@ -348,14 +348,12 @@ export default function RovoChatPanel({ onClose, apiUrl }: RovoChatPanelProps) {
 							))}
 						</div>
 						{/* Show SkillSuggestions below messages */}
-						<div style={{ padding: token("space.200") }}>
 							<SkillSuggestions
 								searchQuery={prompt}
 								onSkillSelect={(skill) => {
 									setPrompt(skill);
 								}}
 							/>
-						</div>
 					</>
 				)}
 			</div>
