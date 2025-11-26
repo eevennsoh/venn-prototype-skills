@@ -1,0 +1,17 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "stop-dev-servers",
+      "type": "shell",
+      "command": "bash",
+      "args": ["${workspaceFolder}/scripts/stop-dev.sh"],
+      "isBackground": false,
+      "presentation": {
+        "reveal": "silent",
+        "revealProblems": "onProblem"
+      },
+      "problemMatcher": []
+    }
+  ]
+}

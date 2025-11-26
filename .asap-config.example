@@ -1,0 +1,8 @@
+{
+  "kid": "your_kid_id",
+  "issuer": "your_issuer_id",
+  "audience": [],
+  "expiry": 60,
+  "privateKey": "your_private_key",
+  "publicKey": "your_public_key"
+}

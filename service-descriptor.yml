@@ -1,0 +1,23 @@
+# ⚠️  IF YOU FORKED THIS REPO: Replace ALL instances of 'kg-prototyping' with your actual service name
+# Your service name should be ≤26 chars, lowercase-with-hyphens (e.g., yourname-prototype)
+# Update lines: 11 (image), 16-20 (SSM paths), and 7 (email)
+description: "AI-powered prototyping service"
+organization: Engineering Services
+notifications:
+  email: esoh@atlassian.com
+buildNumber: ${VERSION}
+compose:
+  app:
+    image: docker.atl-paas.net/rad-venn-prototype
+    tag: app-${VERSION}
+    ports:
+      - "8080:8080"
+    environment:
+      AI_GATEWAY_URL: ((ssm:/rad-venn-prototype/AI_GATEWAY_URL))
+      AI_GATEWAY_USE_CASE_ID: ((ssm:/rad-venn-prototype/AI_GATEWAY_USE_CASE_ID))
+      AI_GATEWAY_CLOUD_ID: ((ssm:/rad-venn-prototype/AI_GATEWAY_CLOUD_ID))
+      AI_GATEWAY_USER_ID: ((ssm:/rad-venn-prototype/AI_GATEWAY_USER_ID))
+      ASAP_PRIVATE_KEY: ((ssm:/rad-venn-prototype/ASAP_PRIVATE_KEY))
+      ASAP_KID: ((ssm:/rad-venn-prototype/ASAP_KID))
+      ASAP_ISSUER: ((ssm:/rad-venn-prototype/ASAP_ISSUER))
+      PORT: "8080"
