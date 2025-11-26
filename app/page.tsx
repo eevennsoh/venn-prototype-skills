@@ -27,10 +27,18 @@ export default function Home() {
 					padding: "0 16px",
 				}}
 			>
-				<RovoChatPanel 
-					onClose={() => {}} 
-					apiUrl={apiUrl}
-				/>
+				<div
+					style={{
+						display: "flex",
+						alignItems: "center",
+						justifyContent: "center",
+					}}
+				>
+					<RovoChatPanel 
+						onClose={() => {}} 
+						apiUrl={apiUrl}
+					/>
+				</div>
 			</div>
 		</RovoChatProvider>
 	);

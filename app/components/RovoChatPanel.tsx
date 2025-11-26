@@ -3,21 +3,13 @@
 import React, { useState, useRef, useEffect } from "react";
 
 import { token } from "@atlaskit/tokens";
-import { IconButton } from "@atlaskit/button/new";
-import MenuIcon from "@atlaskit/icon/core/menu";
-import ChevronDownIcon from "@atlaskit/icon/core/chevron-down";
-import EditIcon from "@atlaskit/icon/core/edit";
-import GridIcon from "@atlaskit/icon/core/grid";
-import ShowMoreHorizontalIcon from "@atlaskit/icon/core/show-more-horizontal";
-import CrossIcon from "@atlaskit/icon/core/cross";
-import MicrophoneIcon from "@atlaskit/icon/core/microphone";
-import ArrowUpIcon from "@atlaskit/icon/core/arrow-up";
-import { Inline } from "@atlaskit/primitives/compiled";
+import ChatHeader from "./ChatHeader";
+import ChatComposer from "./ChatComposer";
 import WorkItemsWidget from "./WorkItemsWidget";
 import SkillSuggestions from "./SkillSuggestions";
 import { useRovoChat, Message } from "../contexts/RovoChatContext";
 import { useSystemPrompt } from "../contexts/SystemPromptContext";
-import { API_ENDPOINTS } from "../lib/api-config";
+import { API_ENDPOINTS } from "@/lib/api-config";
 
 // Minimal markdown-to-HTML renderer for assistant messages
 function renderMarkdownToHtml(text: string): string {
@@ -90,7 +82,6 @@ function LoadingWidget({ widgetType }: { widgetType?: string }) {
 export default function RovoChatPanel({ onClose, apiUrl }: RovoChatPanelProps) {
 	const [prompt, setPrompt] = useState("");
 	const scrollRef = useRef<HTMLDivElement>(null);
-	const textareaRef = useRef<HTMLTextAreaElement>(null);
 	const { messages, setMessages } = useRovoChat();
 	const { customPrompt } = useSystemPrompt();
 
@@ -263,24 +254,6 @@ export default function RovoChatPanel({ onClose, apiUrl }: RovoChatPanelProps) {
 		}
 	};
 
-	const handleKeyDown = (e: React.KeyboardEvent) => {
-		if (e.key === "Enter" && !e.shiftKey) {
-			e.preventDefault();
-			handleSubmit();
-		}
-	};
-
-	const adjustTextareaHeight = () => {
-		if (textareaRef.current) {
-			textareaRef.current.style.height = "auto";
-			textareaRef.current.style.height = `${Math.min(textareaRef.current.scrollHeight, 120)}px`;
-		}
-	};
-
-	useEffect(() => {
-		adjustTextareaHeight();
-	}, [prompt]);
-
 	return (
 		<div
 			style={{
@@ -292,44 +265,7 @@ export default function RovoChatPanel({ onClose, apiUrl }: RovoChatPanelProps) {
 				flexDirection: "column",
 			}}
 		>
-			{/* Header - Side panel */}
-			<div
-				style={{
-					padding: token("space.150"),
-					display: "flex",
-					alignItems: "center",
-					justifyContent: "space-between",
-				}}
-			>
-				{/* Left side: Menu icon and Title */}
-				<Inline space="space.050" alignBlock="center">
-					<IconButton icon={MenuIcon} label="New chat" appearance="subtle" spacing="default" />
-					<Inline space="space.100" alignBlock="center">
-						<img src="/Rovo.svg" alt="Rovo" style={{ width: 20, height: 20, objectFit: "contain" }} />
-						<div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-							<span
-								style={{
-									fontSize: "14px",
-									fontWeight: 653,
-									color: token("color.text"),
-									whiteSpace: "nowrap",
-								}}
-							>
-								Rovo
-							</span>
-							<ChevronDownIcon label="Expand menu" size="small" />
-						</div>
-					</Inline>
-				</Inline>
-
-				{/* Right side: Chat actions */}
-				<Inline space="space.050" alignBlock="center">
-					<IconButton icon={EditIcon} label="Edit" appearance="subtle" spacing="default" />
-					<IconButton icon={GridIcon} label="Switch view" appearance="subtle" spacing="default" />
-					<IconButton icon={ShowMoreHorizontalIcon} label="More" appearance="subtle" spacing="default" />
-					<IconButton icon={CrossIcon} label="Close" appearance="subtle" spacing="default" onClick={onClose} />
-				</Inline>
-			</div>
+			<ChatHeader onClose={onClose} />
 
 			<div
 				ref={scrollRef}
@@ -342,139 +278,88 @@ export default function RovoChatPanel({ onClose, apiUrl }: RovoChatPanelProps) {
 					scrollbarGutter: "stable" as any,
 				}}
 			>
-				<div style={{ padding: "12px", display: "flex", flexDirection: "column", gap: "24px", paddingBottom: "calc(32px + 80px)" }}>
-					{messages.length === 0 ? (
-						<SkillSuggestions
-							onSkillSelect={(skill) => {
-								setPrompt(skill);
-								// Optionally auto-submit after a short delay
-								setTimeout(() => {
-									const userMessage: Message = {
-										id: Date.now().toString(),
-										type: "user",
-										content: skill,
-									};
-									setMessages((prev) => [...prev, userMessage]);
-									setPrompt("");
-									// You can trigger handleSubmit here or let the user click send
-								}, 0);
-							}}
-						/>
-					) : (
-						messages.map((message) => (
-							<div
-								key={message.id}
-								style={{
-									display: "flex",
-									justifyContent: message.type === "user" ? "flex-end" : "flex-start",
-									paddingLeft: message.type === "user" ? "24px" : "0",
-								}}
-							>
-								{message.type === "user" ? (
-									<div
-										style={{
-											backgroundColor: "#1868DB",
-											borderRadius: "12px 12px 4px 12px",
-											padding: "12px 16px",
-											color: token("elevation.surface"),
-											fontSize: "14px",
-											lineHeight: "1.43",
-											maxWidth: "85%",
-										}}
-									>
-										{message.content}
-									</div>
-								) : (
-									<div
-										style={{
-											width: "100%",
-										}}
-									>
+				{messages.length === 0 ? (
+					<SkillSuggestions
+						searchQuery={prompt}
+						onSkillSelect={(skill) => {
+							setPrompt(skill);
+							// Optionally auto-submit after a short delay
+							setTimeout(() => {
+								const userMessage: Message = {
+									id: Date.now().toString(),
+									type: "user",
+									content: skill,
+								};
+								setMessages((prev) => [...prev, userMessage]);
+								setPrompt("");
+								// You can trigger handleSubmit here or let the user click send
+							}, 0);
+						}}
+					/>
+				) : (
+					<>
+						<div style={{ padding: "12px", display: "flex", flexDirection: "column", gap: "24px", paddingBottom: "calc(32px + 80px)" }}>
+							{messages.map((message) => (
+								<div
+									key={message.id}
+									style={{
+										display: "flex",
+										justifyContent: message.type === "user" ? "flex-end" : "flex-start",
+										paddingLeft: message.type === "user" ? "24px" : "0",
+									}}
+								>
+									{message.type === "user" ? (
 										<div
 											style={{
+												backgroundColor: "#1868DB",
+												borderRadius: "12px 12px 4px 12px",
+												padding: "12px 16px",
+												color: token("elevation.surface"),
 												fontSize: "14px",
 												lineHeight: "1.43",
-												color: token("color.text"),
-												marginBottom: message.widget || message.widgetLoading ? token("space.100") : "0",
-												paddingLeft: "12px",
-												paddingRight: "12px",
+												maxWidth: "85%",
 											}}
-											dangerouslySetInnerHTML={{ __html: renderMarkdownToHtml(message.content) }}
-										/>
-										{message.widgetLoading && <LoadingWidget widgetType={message.widget?.type} />}
-										{message.widget && !message.widgetLoading && <>{message.widget.type === "work-items" && <WorkItemsWidget data={message.widget.data} />}</>}
-									</div>
-								)}
-							</div>
-						))
-					)}
-				</div>
-			</div>
-
-			<div style={{ padding: "0 12px" }}>
-				<div
-					style={{
-						backgroundColor: token("elevation.surface"),
-						border: `1px solid ${token("color.border")}`,
-						borderRadius: "12px",
-						padding: "16px 16px 12px",
-						boxShadow: "0px -2px 50px 8px rgba(30, 31, 33, 0.08)",
-					}}
-				>
-					<div style={{ position: "relative", width: "100%" }}>
-						<textarea
-							ref={textareaRef}
-							value={prompt}
-							onChange={(e) => {
-								setPrompt(e.target.value);
-								setTimeout(adjustTextareaHeight, 0);
-							}}
-							onKeyDown={handleKeyDown}
-							placeholder="Ask, @mention, or / for actions"
-							rows={1}
-							style={{
-								width: "100%",
-								border: "none",
-								outline: "none",
-								backgroundColor: "transparent",
-								resize: "none",
-								fontSize: "14px",
-								fontFamily: "inherit",
-								color: token("color.text"),
-								lineHeight: "1.43",
-								minHeight: "20px",
-								maxHeight: "120px",
-								overflowY: "auto",
-							}}
-						/>
-					</div>
-
-					<div
-						style={{
-							display: "flex",
-							justifyContent: "space-between",
-							alignItems: "center",
-							marginTop: token("space.150"),
-						}}
-					>
-						<div style={{ display: "flex", alignItems: "center", gap: token("space.050") }}>
-							<IconButton icon={MicrophoneIcon} label="Voice" appearance="subtle" spacing="default" shape="circle" isDisabled />
-							<IconButton icon={ArrowUpIcon} label="Submit" appearance="primary" spacing="default" shape="circle" isDisabled={!prompt.trim()} onClick={handleSubmit} />
+										>
+											{message.content}
+										</div>
+									) : (
+										<div
+											style={{
+												width: "100%",
+											}}
+										>
+											<div
+												style={{
+													fontSize: "14px",
+													lineHeight: "1.43",
+													color: token("color.text"),
+													marginBottom: message.widget || message.widgetLoading ? token("space.100") : "0",
+													paddingLeft: "12px",
+													paddingRight: "12px",
+												}}
+												dangerouslySetInnerHTML={{ __html: renderMarkdownToHtml(message.content) }}
+											/>
+											{message.widgetLoading && <LoadingWidget widgetType={message.widget?.type} />}
+											{message.widget && !message.widgetLoading && <>{message.widget.type === "work-items" && <WorkItemsWidget data={message.widget.data} />}</>}
+										</div>
+									)}
+								</div>
+							))}
 						</div>
-					</div>
-				</div>
-
-				<div
-					style={{
-						display: "flex",
-						justifyContent: "center",
-						alignItems: "center",
-						padding: "8px 0",
-					}}
-				>
-					<span style={{ fontSize: "12px", color: token("color.text.subtlest") }}>Uses AI. Verify results.</span>
-				</div>
+						{/* Show SkillSuggestions below messages */}
+						<div style={{ padding: token("space.200") }}>
+							<SkillSuggestions
+								searchQuery={prompt}
+								onSkillSelect={(skill) => {
+									setPrompt(skill);
+								}}
+							/>
+						</div>
+					</>
+				)}
 			</div>
+
+			<ChatComposer prompt={prompt} onPromptChange={setPrompt} onSubmit={handleSubmit} />
 		</div>
 	);
 }

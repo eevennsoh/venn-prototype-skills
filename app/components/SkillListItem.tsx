@@ -6,10 +6,13 @@ import { token } from "@atlaskit/tokens";
 export interface SkillListItemProps {
 	icon: React.ReactNode;
 	label: string;
+	byline?: string;
 	onClick?: () => void;
 }
 
-export default function SkillListItem({ icon, label, onClick }: SkillListItemProps) {
+export default function SkillListItem({ icon, label, byline, onClick }: SkillListItemProps) {
+	const [isHovered, setIsHovered] = React.useState(false);
+
 	return (
 		<div
 			onClick={onClick}
@@ -17,19 +20,19 @@ export default function SkillListItem({ icon, label, onClick }: SkillListItemPro
 				display: "flex",
 				gap: token("space.150"),
 				alignItems: "center",
-				padding: "8px 12px",
+				padding: "6px",
 				borderRadius: "6px",
 				cursor: onClick ? "pointer" : "default",
 				transition: "background-color 0.15s ease",
-				backgroundColor: "transparent",
+				backgroundColor: isHovered && onClick ? token("elevation.surface.hovered") : "transparent",
+				height: "44px",
+				boxSizing: "border-box",
 			}}
-			onMouseEnter={(e) => {
-				if (onClick) {
-					(e.currentTarget as HTMLDivElement).style.backgroundColor = token("elevation.surface.hovered");
-				}
+			onMouseEnter={() => {
+				setIsHovered(true);
 			}}
-			onMouseLeave={(e) => {
-				(e.currentTarget as HTMLDivElement).style.backgroundColor = "transparent";
+			onMouseLeave={() => {
+				setIsHovered(false);
 			}}
 		>
 			{/* Skill icon */}
@@ -38,10 +41,12 @@ export default function SkillListItem({ icon, label, onClick }: SkillListItemPro
 					display: "flex",
 					alignItems: "center",
 					justifyContent: "center",
-					padding: token("space.050"),
+					width: "30px",
+					height: "30px",
 					border: `1px solid ${token("color.border")}`,
-					borderRadius: "4px",
+					borderRadius: "8px",
 					flexShrink: 0,
+					boxSizing: "border-box",
 				}}
 			>
 				{icon}
@@ -70,6 +75,21 @@ export default function SkillListItem({ icon, label, onClick }: SkillListItemPro
 				>
 					{label}
 				</p>
+				{isHovered && byline && (
+					<p
+						style={{
+							margin: 0,
+							fontSize: "12px",
+							fontWeight: 400,
+							color: token("color.text.subtlest"),
+							whiteSpace: "nowrap",
+							overflow: "hidden",
+							textOverflow: "ellipsis",
+						}}
+					>
+						{byline}
+					</p>
+				)}
 			</div>
 		</div>
 	);

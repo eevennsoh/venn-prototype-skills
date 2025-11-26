@@ -1,65 +1,736 @@
+@import "./css/ads-tokens.css";
+@import "./css/ads-theme.css";
+@import "./css/tailwind-theme.css";
+@import "./css/shadcn-theme.css";
 @import "tailwindcss";
+@import "tw-animate-css";
 
-/* Reset some default styles to work better with Atlassian Design System */
-* {
-  box-sizing: border-box;
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+	/* Atlassian Design System x Tailwind Mapping
+
+  /* Background Tokens */
+	/* Neutral Backgrounds */
+	--color-background-neutral: var(--background-neutral);
+	--color-background-neutral-hovered: var(--background-neutral-hovered);
+	--color-background-neutral-pressed: var(--background-neutral-pressed);
+	--color-background-neutral-bold: var(--background-neutral-bold);
+	--color-background-neutral-bold-hovered: var(--background-neutral-bold-hovered);
+	--color-background-neutral-bold-pressed: var(--background-neutral-bold-pressed);
+	--color-background-neutral-subtle: var(--background-neutral-subtle);
+	--color-background-neutral-subtle-hovered: var(--background-neutral-subtle-hovered);
+	--color-background-neutral-subtle-pressed: var(--background-neutral-subtle-pressed);
+
+	/* Brand Backgrounds */
+	--color-background-brand-bold: var(--background-brand-bold);
+	--color-background-brand-bold-hovered: var(--background-brand-bold-hovered);
+	--color-background-brand-bold-pressed: var(--background-brand-bold-pressed);
+	--color-background-brand-boldest: var(--background-brand-boldest);
+	--color-background-brand-boldest-hovered: var(--background-brand-boldest-hovered);
+	--color-background-brand-boldest-pressed: var(--background-brand-boldest-pressed);
+	--color-background-brand-subtlest: var(--background-brand-subtlest);
+	--color-background-brand-subtlest-hovered: var(--background-brand-subtlest-hovered);
+	--color-background-brand-subtlest-pressed: var(--background-brand-subtlest-pressed);
+
+	/* Semantic Backgrounds */
+	--color-background-danger: var(--background-danger);
+	--color-background-danger-bold: var(--background-danger-bold);
+	--color-background-danger-bold-hovered: var(--background-danger-bold-hovered);
+	--color-background-danger-bold-pressed: var(--background-danger-bold-pressed);
+	--color-background-danger-hovered: var(--background-danger-hovered);
+	--color-background-danger-pressed: var(--background-danger-pressed);
+
+	--color-background-success: var(--background-success);
+	--color-background-success-bold: var(--background-success-bold);
+	--color-background-success-bold-hovered: var(--background-success-bold-hovered);
+	--color-background-success-bold-pressed: var(--background-success-bold-pressed);
+	--color-background-success-hovered: var(--background-success-hovered);
+	--color-background-success-pressed: var(--background-success-pressed);
+
+	--color-background-warning: var(--background-warning);
+	--color-background-warning-bold: var(--background-warning-bold);
+	--color-background-warning-bold-hovered: var(--background-warning-bold-hovered);
+	--color-background-warning-bold-pressed: var(--background-warning-bold-pressed);
+	--color-background-warning-hovered: var(--background-warning-hovered);
+	--color-background-warning-pressed: var(--background-warning-pressed);
+
+	--color-background-information: var(--background-information);
+	--color-background-information-bold: var(--background-information-bold);
+	--color-background-information-bold-hovered: var(--background-information-bold-hovered);
+	--color-background-information-bold-pressed: var(--background-information-bold-pressed);
+	--color-background-information-hovered: var(--background-information-hovered);
+	--color-background-information-pressed: var(--background-information-pressed);
+
+	--color-background-discovery: var(--background-discovery);
+	--color-background-discovery-bold: var(--background-discovery-bold);
+	--color-background-discovery-bold-hovered: var(--background-discovery-bold-hovered);
+	--color-background-discovery-bold-pressed: var(--background-discovery-bold-pressed);
+	--color-background-discovery-hovered: var(--background-discovery-hovered);
+	--color-background-discovery-pressed: var(--background-discovery-pressed);
+
+	--color-background-selected: var(--background-selected);
+	--color-background-selected-bold: var(--background-selected-bold);
+	--color-background-selected-bold-hovered: var(--background-selected-bold-hovered);
+	--color-background-selected-bold-pressed: var(--background-selected-bold-pressed);
+	--color-background-selected-hovered: var(--background-selected-hovered);
+	--color-background-selected-pressed: var(--background-selected-pressed);
+
+	/* Input & Special Backgrounds */
+	--color-background-input: var(--background-input);
+	--color-background-input-hovered: var(--background-input-hovered);
+	--color-background-input-pressed: var(--background-input-pressed);
+	--color-background-disabled: var(--background-disabled);
+
+	/* Accent Color Backgrounds - Blue */
+	--color-background-accent-blue-bolder: var(--background-accent-blue-bolder);
+	--color-background-accent-blue-bolder-hovered: var(--background-accent-blue-bolder-hovered);
+	--color-background-accent-blue-bolder-pressed: var(--background-accent-blue-bolder-pressed);
+	--color-background-accent-blue-subtle: var(--background-accent-blue-subtle);
+	--color-background-accent-blue-subtle-hovered: var(--background-accent-blue-subtle-hovered);
+	--color-background-accent-blue-subtle-pressed: var(--background-accent-blue-subtle-pressed);
+	--color-background-accent-blue-subtler: var(--background-accent-blue-subtler);
+	--color-background-accent-blue-subtler-hovered: var(--background-accent-blue-subtler-hovered);
+	--color-background-accent-blue-subtler-pressed: var(--background-accent-blue-subtler-pressed);
+	--color-background-accent-blue-subtlest: var(--background-accent-blue-subtlest);
+	--color-background-accent-blue-subtlest-hovered: var(--background-accent-blue-subtlest-hovered);
+	--color-background-accent-blue-subtlest-pressed: var(--background-accent-blue-subtlest-pressed);
+
+	/* Accent Color Backgrounds - Gray */
+	--color-background-accent-gray-bolder: var(--background-accent-gray-bolder);
+	--color-background-accent-gray-bolder-hovered: var(--background-accent-gray-bolder-hovered);
+	--color-background-accent-gray-bolder-pressed: var(--background-accent-gray-bolder-pressed);
+	--color-background-accent-gray-subtle: var(--background-accent-gray-subtle);
+	--color-background-accent-gray-subtle-hovered: var(--background-accent-gray-subtle-hovered);
+	--color-background-accent-gray-subtle-pressed: var(--background-accent-gray-subtle-pressed);
+	--color-background-accent-gray-subtler: var(--background-accent-gray-subtler);
+	--color-background-accent-gray-subtler-hovered: var(--background-accent-gray-subtler-hovered);
+	--color-background-accent-gray-subtler-pressed: var(--background-accent-gray-subtler-pressed);
+	--color-background-accent-gray-subtlest: var(--background-accent-gray-subtlest);
+	--color-background-accent-gray-subtlest-hovered: var(--background-accent-gray-subtlest-hovered);
+
+	/* Accent Color Backgrounds - Green */
+	--color-background-accent-green-bolder: var(--background-accent-green-bolder);
+	--color-background-accent-green-bolder-hovered: var(--background-accent-green-bolder-hovered);
+	--color-background-accent-green-bolder-pressed: var(--background-accent-green-bolder-pressed);
+	--color-background-accent-green-subtle: var(--background-accent-green-subtle);
+	--color-background-accent-green-subtle-hovered: var(--background-accent-green-subtle-hovered);
+	--color-background-accent-green-subtle-pressed: var(--background-accent-green-subtle-pressed);
+	--color-background-accent-green-subtler: var(--background-accent-green-subtler);
+	--color-background-accent-green-subtler-hovered: var(--background-accent-green-subtler-hovered);
+	--color-background-accent-green-subtler-pressed: var(--background-accent-green-subtler-pressed);
+	--color-background-accent-green-subtlest: var(--background-accent-green-subtlest);
+	--color-background-accent-green-subtlest-hovered: var(--background-accent-green-subtlest-hovered);
+	--color-background-accent-green-subtlest-pressed: var(--background-accent-green-subtlest-pressed);
+
+	/* Accent Color Backgrounds - Lime */
+	--color-background-accent-lime-bolder: var(--background-accent-lime-bolder);
+	--color-background-accent-lime-bolder-hovered: var(--background-accent-lime-bolder-hovered);
+	--color-background-accent-lime-bolder-pressed: var(--background-accent-lime-bolder-pressed);
+	--color-background-accent-lime-subtle: var(--background-accent-lime-subtle);
+	--color-background-accent-lime-subtle-hovered: var(--background-accent-lime-subtle-hovered);
+	--color-background-accent-lime-subtle-pressed: var(--background-accent-lime-subtle-pressed);
+	--color-background-accent-lime-subtler: var(--background-accent-lime-subtler);
+	--color-background-accent-lime-subtler-hovered: var(--background-accent-lime-subtler-hovered);
+	--color-background-accent-lime-subtler-pressed: var(--background-accent-lime-subtler-pressed);
+	--color-background-accent-lime-subtlest: var(--background-accent-lime-subtlest);
+	--color-background-accent-lime-subtlest-hovered: var(--background-accent-lime-subtlest-hovered);
+	--color-background-accent-lime-subtlest-pressed: var(--background-accent-lime-subtlest-pressed);
+
+	/* Accent Color Backgrounds - Magenta */
+	--color-background-accent-magenta-bolder: var(--background-accent-magenta-bolder);
+	--color-background-accent-magenta-bolder-hovered: var(--background-accent-magenta-bolder-hovered);
+	--color-background-accent-magenta-bolder-pressed: var(--background-accent-magenta-bolder-pressed);
+	--color-background-accent-magenta-subtle: var(--background-accent-magenta-subtle);
+	--color-background-accent-magenta-subtle-hovered: var(--background-accent-magenta-subtle-hovered);
+	--color-background-accent-magenta-subtle-pressed: var(--background-accent-magenta-subtle-pressed);
+	--color-background-accent-magenta-subtler: var(--background-accent-magenta-subtler);
+	--color-background-accent-magenta-subtler-hovered: var(--background-accent-magenta-subtler-hovered);
+	--color-background-accent-magenta-subtler-pressed: var(--background-accent-magenta-subtler-pressed);
+	--color-background-accent-magenta-subtlest: var(--background-accent-magenta-subtlest);
+	--color-background-accent-magenta-subtlest-hovered: var(--background-accent-magenta-subtlest-hovered);
+	--color-background-accent-magenta-subtlest-pressed: var(--background-accent-magenta-subtlest-pressed);
+
+	/* Accent Color Backgrounds - Orange */
+	--color-background-accent-orange-bolder: var(--background-accent-orange-bolder);
+	--color-background-accent-orange-bolder-hovered: var(--background-accent-orange-bolder-hovered);
+	--color-background-accent-orange-bolder-pressed: var(--background-accent-orange-bolder-pressed);
+	--color-background-accent-orange-subtle: var(--background-accent-orange-subtle);
+	--color-background-accent-orange-subtle-hovered: var(--background-accent-orange-subtle-hovered);
+	--color-background-accent-orange-subtle-pressed: var(--background-accent-orange-subtle-pressed);
+	--color-background-accent-orange-subtler: var(--background-accent-orange-subtler);
+	--color-background-accent-orange-subtler-hovered: var(--background-accent-orange-subtler-hovered);
+	--color-background-accent-orange-subtler-pressed: var(--background-accent-orange-subtler-pressed);
+	--color-background-accent-orange-subtlest: var(--background-accent-orange-subtlest);
+	--color-background-accent-orange-subtlest-hovered: var(--background-accent-orange-subtlest-hovered);
+	--color-background-accent-orange-subtlest-pressed: var(--background-accent-orange-subtlest-pressed);
+
+	/* Accent Color Backgrounds - Purple */
+	--color-background-accent-purple-bolder: var(--background-accent-purple-bolder);
+	--color-background-accent-purple-bolder-hovered: var(--background-accent-purple-bolder-hovered);
+	--color-background-accent-purple-bolder-pressed: var(--background-accent-purple-bolder-pressed);
+	--color-background-accent-purple-subtle: var(--background-accent-purple-subtle);
+	--color-background-accent-purple-subtle-hovered: var(--background-accent-purple-subtle-hovered);
+	--color-background-accent-purple-subtle-pressed: var(--background-accent-purple-subtle-pressed);
+	--color-background-accent-purple-subtler: var(--background-accent-purple-subtler);
+	--color-background-accent-purple-subtler-hovered: var(--background-accent-purple-subtler-hovered);
+	--color-background-accent-purple-subtler-pressed: var(--background-accent-purple-subtler-pressed);
+	--color-background-accent-purple-subtlest: var(--background-accent-purple-subtlest);
+	--color-background-accent-purple-subtlest-hovered: var(--background-accent-purple-subtlest-hovered);
+	--color-background-accent-purple-subtlest-pressed: var(--background-accent-purple-subtlest-pressed);
+
+	/* Accent Color Backgrounds - Red */
+	--color-background-accent-red-bolder: var(--background-accent-red-bolder);
+	--color-background-accent-red-bolder-hovered: var(--background-accent-red-bolder-hovered);
+	--color-background-accent-red-bolder-pressed: var(--background-accent-red-bolder-pressed);
+	--color-background-accent-red-subtle: var(--background-accent-red-subtle);
+	--color-background-accent-red-subtle-hovered: var(--background-accent-red-subtle-hovered);
+	--color-background-accent-red-subtle-pressed: var(--background-accent-red-subtle-pressed);
+	--color-background-accent-red-subtler: var(--background-accent-red-subtler);
+	--color-background-accent-red-subtler-hovered: var(--background-accent-red-subtler-hovered);
+	--color-background-accent-red-subtler-pressed: var(--background-accent-red-subtler-pressed);
+	--color-background-accent-red-subtlest: var(--background-accent-red-subtlest);
+	--color-background-accent-red-subtlest-hovered: var(--background-accent-red-subtlest-hovered);
+	--color-background-accent-red-subtlest-pressed: var(--background-accent-red-subtlest-pressed);
+
+	/* Accent Color Backgrounds - Teal */
+	--color-background-accent-teal-bolder: var(--background-accent-teal-bolder);
+	--color-background-accent-teal-bolder-hovered: var(--background-accent-teal-bolder-hovered);
+	--color-background-accent-teal-bolder-pressed: var(--background-accent-teal-bolder-pressed);
+	--color-background-accent-teal-subtle: var(--background-accent-teal-subtle);
+	--color-background-accent-teal-subtle-hovered: var(--background-accent-teal-subtle-hovered);
+	--color-background-accent-teal-subtle-pressed: var(--background-accent-teal-subtle-pressed);
+	--color-background-accent-teal-subtler: var(--background-accent-teal-subtler);
+	--color-background-accent-teal-subtler-hovered: var(--background-accent-teal-subtler-hovered);
+	--color-background-accent-teal-subtler-pressed: var(--background-accent-teal-subtler-pressed);
+	--color-background-accent-teal-subtlest: var(--background-accent-teal-subtlest);
+	--color-background-accent-teal-subtlest-hovered: var(--background-accent-teal-subtlest-hovered);
+	--color-background-accent-teal-subtlest-pressed: var(--background-accent-teal-subtlest-pressed);
+
+	/* Accent Color Backgrounds - Yellow */
+	--color-background-accent-yellow-bolder: var(--background-accent-yellow-bolder);
+	--color-background-accent-yellow-bolder-hovered: var(--background-accent-yellow-bolder-hovered);
+	--color-background-accent-yellow-bolder-pressed: var(--background-accent-yellow-bolder-pressed);
+	--color-background-accent-yellow-subtle: var(--background-accent-yellow-subtle);
+	--color-background-accent-yellow-subtle-hovered: var(--background-accent-yellow-subtle-hovered);
+	--color-background-accent-yellow-subtle-pressed: var(--background-accent-yellow-subtle-pressed);
+	--color-background-accent-yellow-subtler: var(--background-accent-yellow-subtler);
+	--color-background-accent-yellow-subtler-hovered: var(--background-accent-yellow-subtler-hovered);
+	--color-background-accent-yellow-subtler-pressed: var(--background-accent-yellow-subtler-pressed);
+	--color-background-accent-yellow-subtlest: var(--background-accent-yellow-subtlest);
+	--color-background-accent-yellow-subtlest-hovered: var(--background-accent-yellow-subtlest-hovered);
+	--color-background-accent-yellow-subtlest-pressed: var(--background-accent-yellow-subtlest-pressed);
+
+	/* Inverse & Special Backgrounds */
+	--color-background-inverse-subtle: var(--background-inverse-subtle);
+	--color-background-inverse-subtle-hovered: var(--background-inverse-subtle-hovered);
+	--color-background-inverse-subtle-pressed: var(--background-inverse-subtle-pressed);
+
+	/* Text Tokens */
+	/* Basic Text */
+	--color-text: var(--text);
+	--color-text-subtle: var(--text-subtle);
+	--color-text-subtlest: var(--text-subtlest);
+	--color-text-inverse: var(--text-inverse);
+	--color-text-disabled: var(--text-disabled);
+
+	/* Semantic Text */
+	--color-text-brand: var(--text-brand);
+	--color-text-danger: var(--text-danger);
+	--color-text-success: var(--text-success);
+	--color-text-warning: var(--text-warning);
+	--color-text-warning-inverse: var(--text-warning-inverse);
+	--color-text-information: var(--text-information);
+	--color-text-discovery: var(--text-discovery);
+	--color-text-selected: var(--text-selected);
+
+	/* Accent Text Colors - Blue */
+	--color-text-accent-blue: var(--text-accent-blue);
+	--color-text-accent-blue-bolder: var(--text-accent-blue-bolder);
+
+	/* Accent Text Colors - Gray */
+	--color-text-accent-gray: var(--text-accent-gray);
+	--color-text-accent-gray-bolder: var(--text-accent-gray-bolder);
+
+	/* Accent Text Colors - Green */
+	--color-text-accent-green: var(--text-accent-green);
+	--color-text-accent-green-bolder: var(--text-accent-green-bolder);
+
+	/* Accent Text Colors - Lime */
+	--color-text-accent-lime: var(--text-accent-lime);
+	--color-text-accent-lime-bolder: var(--text-accent-lime-bolder);
+
+	/* Accent Text Colors - Magenta */
+	--color-text-accent-magenta: var(--text-accent-magenta);
+	--color-text-accent-magenta-bolder: var(--text-accent-magenta-bolder);
+
+	/* Accent Text Colors - Orange */
+	--color-text-accent-orange: var(--text-accent-orange);
+	--color-text-accent-orange-bolder: var(--text-accent-orange-bolder);
+
+	/* Accent Text Colors - Purple */
+	--color-text-accent-purple: var(--text-accent-purple);
+	--color-text-accent-purple-bolder: var(--text-accent-purple-bolder);
+
+	/* Accent Text Colors - Red */
+	--color-text-accent-red: var(--text-accent-red);
+	--color-text-accent-red-bolder: var(--text-accent-red-bolder);
+
+	/* Accent Text Colors - Teal */
+	--color-text-accent-teal: var(--text-accent-teal);
+	--color-text-accent-teal-bolder: var(--text-accent-teal-bolder);
+
+	/* Accent Text Colors - Yellow */
+	--color-text-accent-yellow: var(--text-accent-yellow);
+	--color-text-accent-yellow-bolder: var(--text-accent-yellow-bolder);
+
+	/* Border Tokens */
+	/* Basic Borders */
+	--color-border: var(--border);
+	--color-border-bold: var(--border-bold);
+	--color-border-inverse: var(--border-inverse);
+	--color-border-disabled: var(--border-disabled);
+	--color-border-input: var(--border-input);
+	--color-border-focused: var(--border-focused);
+
+	/* Semantic Borders */
+	--color-border-brand: var(--border-brand);
+	--color-border-danger: var(--border-danger);
+	--color-border-success: var(--border-success);
+	--color-border-warning: var(--border-warning);
+	--color-border-information: var(--border-information);
+	--color-border-discovery: var(--border-discovery);
+	--color-border-selected: var(--border-selected);
+
+	/* Accent Borders */
+	--color-border-accent-blue: var(--border-accent-blue);
+	--color-border-accent-gray: var(--border-accent-gray);
+	--color-border-accent-green: var(--border-accent-green);
+	--color-border-accent-lime: var(--border-accent-lime);
+	--color-border-accent-magenta: var(--border-accent-magenta);
+	--color-border-accent-orange: var(--border-accent-orange);
+	--color-border-accent-purple: var(--border-accent-purple);
+	--color-border-accent-red: var(--border-accent-red);
+	--color-border-accent-teal: var(--border-accent-teal);
+	--color-border-accent-yellow: var(--border-accent-yellow);
+
+	/* Icon Tokens */
+	/* Basic Icon Colors */
+	--color-icon: var(--icon);
+	--color-icon-subtle: var(--icon-subtle);
+	--color-icon-subtlest: var(--icon-subtlest);
+	--color-icon-inverse: var(--icon-inverse);
+	--color-icon-disabled: var(--icon-disabled);
+
+	/* Semantic Icon Colors */
+	--color-icon-brand: var(--icon-brand);
+	--color-icon-danger: var(--icon-danger);
+	--color-icon-success: var(--icon-success);
+	--color-icon-warning: var(--icon-warning);
+	--color-icon-warning-inverse: var(--icon-warning-inverse);
+	--color-icon-information: var(--icon-information);
+	--color-icon-discovery: var(--icon-discovery);
+	--color-icon-selected: var(--icon-selected);
+
+	/* Accent Icon Colors */
+	--color-icon-accent-blue: var(--icon-accent-blue);
+	--color-icon-accent-gray: var(--icon-accent-gray);
+	--color-icon-accent-green: var(--icon-accent-green);
+	--color-icon-accent-lime: var(--icon-accent-lime);
+	--color-icon-accent-magenta: var(--icon-accent-magenta);
+	--color-icon-accent-orange: var(--icon-accent-orange);
+	--color-icon-accent-purple: var(--icon-accent-purple);
+	--color-icon-accent-red: var(--icon-accent-red);
+	--color-icon-accent-teal: var(--icon-accent-teal);
+	--color-icon-accent-yellow: var(--icon-accent-yellow);
+
+	/* Interaction Tokens */
+	--color-interaction-hovered: var(--interaction-hovered);
+	--color-interaction-pressed: var(--interaction-pressed);
+
+	/* Elevation & Surface Tokens */
+	--color-elevation-surface: var(--elevation-surface);
+	--color-elevation-surface-pressed: var(--elevation-surface-pressed);
+	--color-elevation-surface-overlay: var(--elevation-surface-overlay);
+	--color-elevation-surface-overlay-hovered: var(--elevation-surface-overlay-hovered);
+	--color-elevation-surface-overlay-pressed: var(--elevation-surface-overlay-pressed);
+	--color-elevation-surface-raised: var(--elevation-surface-raised);
+	--color-elevation-surface-raised-hovered: var(--elevation-surface-raised-hovered);
+	--color-elevation-surface-sunken: var(--elevation-surface-sunken);
+	--color-utility-elevation-surface-current: var(--utility-elevation-surface-current);
+
+	/* Chart Color Tokens */
+	/* Chart Brand & Primary */
+	--color-chart-brand: var(--chart-brand);
+	--color-chart-brand-hovered: var(--chart-brand-hovered);
+
+	/* Chart Categorical Colors (for sequential data visualization) */
+	--color-chart-categorical-1: var(--chart-categorical-1);
+	--color-chart-categorical-1-hovered: var(--chart-categorical-1-hovered);
+	--color-chart-categorical-2: var(--chart-categorical-2);
+	--color-chart-categorical-2-hovered: var(--chart-categorical-2-hovered);
+	--color-chart-categorical-3: var(--chart-categorical-3);
+	--color-chart-categorical-3-hovered: var(--chart-categorical-3-hovered);
+	--color-chart-categorical-4: var(--chart-categorical-4);
+	--color-chart-categorical-4-hovered: var(--chart-categorical-4-hovered);
+	--color-chart-categorical-5: var(--chart-categorical-5);
+	--color-chart-categorical-5-hovered: var(--chart-categorical-5-hovered);
+	--color-chart-categorical-6: var(--chart-categorical-6);
+	--color-chart-categorical-6-hovered: var(--chart-categorical-6-hovered);
+	--color-chart-categorical-7: var(--chart-categorical-7);
+	--color-chart-categorical-7-hovered: var(--chart-categorical-7-hovered);
+	--color-chart-categorical-8: var(--chart-categorical-8);
+	--color-chart-categorical-8-hovered: var(--chart-categorical-8-hovered);
+
+	/* Chart Semantic Colors */
+	--color-chart-danger: var(--chart-danger);
+	--color-chart-danger-bold: var(--chart-danger-bold);
+	--color-chart-danger-bold-hovered: var(--chart-danger-bold-hovered);
+	--color-chart-danger-hovered: var(--chart-danger-hovered);
+
+	--color-chart-success: var(--chart-success);
+	--color-chart-success-bold: var(--chart-success-bold);
+	--color-chart-success-bold-hovered: var(--chart-success-bold-hovered);
+	--color-chart-success-hovered: var(--chart-success-hovered);
+
+	--color-chart-warning: var(--chart-warning);
+	--color-chart-warning-bold: var(--chart-warning-bold);
+	--color-chart-warning-bold-hovered: var(--chart-warning-bold-hovered);
+	--color-chart-warning-hovered: var(--chart-warning-hovered);
+
+	--color-chart-information: var(--chart-information);
+	--color-chart-information-bold: var(--chart-information-bold);
+	--color-chart-information-bold-hovered: var(--chart-information-bold-hovered);
+	--color-chart-information-hovered: var(--chart-information-hovered);
+
+	--color-chart-discovery: var(--chart-discovery);
+	--color-chart-discovery-bold: var(--chart-discovery-bold);
+	--color-chart-discovery-bold-hovered: var(--chart-discovery-bold-hovered);
+	--color-chart-discovery-hovered: var(--chart-discovery-hovered);
+
+	--color-chart-neutral: var(--chart-neutral);
+	--color-chart-neutral-hovered: var(--chart-neutral-hovered);
+
+	/* Chart Color Variants by Color */
+	/* Blue Chart Colors */
+	--color-chart-blue-bold: var(--chart-blue-bold);
+	--color-chart-blue-bold-hovered: var(--chart-blue-bold-hovered);
+	--color-chart-blue-bolder: var(--chart-blue-bolder);
+	--color-chart-blue-bolder-hovered: var(--chart-blue-bolder-hovered);
+	--color-chart-blue-boldest: var(--chart-blue-boldest);
+	--color-chart-blue-boldest-hovered: var(--chart-blue-boldest-hovered);
+
+	/* Gray Chart Colors */
+	--color-chart-gray-bold: var(--chart-gray-bold);
+	--color-chart-gray-bold-hovered: var(--chart-gray-bold-hovered);
+	--color-chart-gray-bolder: var(--chart-gray-bolder);
+	--color-chart-gray-bolder-hovered: var(--chart-gray-bolder-hovered);
+	--color-chart-gray-boldest: var(--chart-gray-boldest);
+	--color-chart-gray-boldest-hovered: var(--chart-gray-boldest-hovered);
+
+	/* Green Chart Colors */
+	--color-chart-green-bold: var(--chart-green-bold);
+	--color-chart-green-bold-hovered: var(--chart-green-bold-hovered);
+	--color-chart-green-bolder: var(--chart-green-bolder);
+	--color-chart-green-bolder-hovered: var(--chart-green-bolder-hovered);
+	--color-chart-green-boldest: var(--chart-green-boldest);
+	--color-chart-green-boldest-hovered: var(--chart-green-boldest-hovered);
+
+	/* Lime Chart Colors */
+	--color-chart-lime-bold: var(--chart-lime-bold);
+	--color-chart-lime-bold-hovered: var(--chart-lime-bold-hovered);
+	--color-chart-lime-bolder: var(--chart-lime-bolder);
+	--color-chart-lime-bolder-hovered: var(--chart-lime-bolder-hovered);
+	--color-chart-lime-boldest: var(--chart-lime-boldest);
+	--color-chart-lime-boldest-hovered: var(--chart-lime-boldest-hovered);
+
+	/* Magenta Chart Colors */
+	--color-chart-magenta-bold: var(--chart-magenta-bold);
+	--color-chart-magenta-bold-hovered: var(--chart-magenta-bold-hovered);
+	--color-chart-magenta-bolder: var(--chart-magenta-bolder);
+	--color-chart-magenta-bolder-hovered: var(--chart-magenta-bolder-hovered);
+	--color-chart-magenta-boldest: var(--chart-magenta-boldest);
+	--color-chart-magenta-boldest-hovered: var(--chart-magenta-boldest-hovered);
+
+	/* Orange Chart Colors */
+	--color-chart-orange-bold: var(--chart-orange-bold);
+	--color-chart-orange-bold-hovered: var(--chart-orange-bold-hovered);
+	--color-chart-orange-bolder: var(--chart-orange-bolder);
+	--color-chart-orange-bolder-hovered: var(--chart-orange-bolder-hovered);
+	--color-chart-orange-boldest: var(--chart-orange-boldest);
+	--color-chart-orange-boldest-hovered: var(--chart-orange-boldest-hovered);
+
+	/* Purple Chart Colors */
+	--color-chart-purple-bold: var(--chart-purple-bold);
+	--color-chart-purple-bold-hovered: var(--chart-purple-bold-hovered);
+	--color-chart-purple-bolder: var(--chart-purple-bolder);
+	--color-chart-purple-bolder-hovered: var(--chart-purple-bolder-hovered);
+	--color-chart-purple-boldest: var(--chart-purple-boldest);
+	--color-chart-purple-boldest-hovered: var(--chart-purple-boldest-hovered);
+
+	/* Red Chart Colors */
+	--color-chart-red-bold: var(--chart-red-bold);
+	--color-chart-red-bold-hovered: var(--chart-red-bold-hovered);
+	--color-chart-red-bolder: var(--chart-red-bolder);
+	--color-chart-red-bolder-hovered: var(--chart-red-bolder-hovered);
+	--color-chart-red-boldest: var(--chart-red-boldest);
+	--color-chart-red-boldest-hovered: var(--chart-red-boldest-hovered);
+
+	/* Teal Chart Colors */
+	--color-chart-teal-bold: var(--chart-teal-bold);
+	--color-chart-teal-bold-hovered: var(--chart-teal-bold-hovered);
+	--color-chart-teal-bolder: var(--chart-teal-bolder);
+	--color-chart-teal-bolder-hovered: var(--chart-teal-bolder-hovered);
+	--color-chart-teal-boldest: var(--chart-teal-boldest);
+	--color-chart-teal-boldest-hovered: var(--chart-teal-boldest-hovered);
+
+	/* Yellow Chart Colors */
+	--color-chart-yellow-bold: var(--chart-yellow-bold);
+	--color-chart-yellow-bold-hovered: var(--chart-yellow-bold-hovered);
+	--color-chart-yellow-bolder: var(--chart-yellow-bolder);
+	--color-chart-yellow-bolder-hovered: var(--chart-yellow-bolder-hovered);
+	--color-chart-yellow-boldest: var(--chart-yellow-boldest);
+	--color-chart-yellow-boldest-hovered: var(--chart-yellow-boldest-hovered);
+
+	/* Link Tokens */
+	--color-link: var(--link);
+	--color-link-pressed: var(--link-pressed);
+	--color-link-visited: var(--link-visited);
+	--color-link-visited-pressed: var(--link-visited-pressed);
+
+	/* Skeleton Tokens */
+	--color-skeleton: var(--skeleton);
+	--color-skeleton-subtle: var(--skeleton-subtle);
+
+	/* Blanket Tokens */
+	--color-blanket: var(--blanket);
+	--color-blanket-danger: var(--blanket-danger);
+	--color-blanket-selected: var(--blanket-selected);
+	--color-sidebar-ring: var(--sidebar-ring);
+	--color-sidebar-border: var(--sidebar-border);
+	--color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+	--color-sidebar-accent: var(--sidebar-accent);
+	--color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+	--color-sidebar-primary: var(--sidebar-primary);
+	--color-sidebar-foreground: var(--sidebar-foreground);
+	--color-sidebar: var(--sidebar);
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@layer base {
+	/* Atlassian Design System Reset */
+	body {
+		background-color: var(--elevation-surface);
+		color: var(--text);
+		font: var(--ds-font-body);
+		-ms-overflow-style: -ms-autohiding-scrollbar;
+		text-decoration-skip-ink: auto;
+	}
+	/* Links */
+	a {
+		color: var(--link);
+		text-decoration: none;
+	}
+	a:hover {
+		color: var(--link);
+		text-decoration: underline;
+	}
+	a:active {
+		color: var(--link-pressed);
+	}
+	a:focus-visible {
+		outline: var(--ds-size100) solid var(--border-focused);
+		outline-offset: var(--ds-space025, 2px);
+	}
+	@supports not selector(*:focus-visible) {
+		a:focus {
+			outline: var(--ds-size100) solid var(--border-focused);
+			outline-offset: var(--ds-space025, 2px);
+		}
+	}
+
+	/* Headings */
+	/* ds-font-size28, ds-font-weight-bold, ds-line-height32 */
+	h1 {
+		font: var(--ds-font-heading-xlarge);
+		color: var(--text);
+	}
+	/* ds-font-size24, ds-font-weight-bold, ds-line-height28 */
+	h2 {
+		font: var(--ds-font-heading-large);
+		color: var(--text);
+	}
+	/* ds-font-size20, ds-font-weight-bold, ds-line-height24 */
+	h3 {
+		font: var(--ds-font-heading-medium);
+		color: var(--text);
+	}
+	/* ds-font-size16, ds-font-weight-bold, ds-line-height20 */
+	h4 {
+		font: var(--ds-font-heading-small);
+		color: var(--text);
+	}
+	/* ds-font-size14, ds-font-weight-bold, ds-line-height20 */
+	h5 {
+		font: var(--ds-font-heading-xsmall);
+		color: var(--text);
+	}
+	/* ds-font-size12, ds-font-weight-bold, ds-line-height16 */
+	h6 {
+		font: var(--ds-font-heading-xxsmall);
+		color: var(--text);
+	}
+
+	/* Logo Text Color Theming */
+	[data-slot="logo"] {
+		svg {
+			--text-color: var(--neutral1100);
+			path[fill="white"],
+			path[fill="#FFFFFF"] {
+				fill: var(--neutral1100);
+			}
+		}
+
+		&[data-appearance="inverse"] {
+			svg {
+				--text-color: var(--darkneutral1100);
+				path[fill="white"],
+				path[fill="#FFFFFF"] {
+					fill: var(--darkneutral1100);
+				}
+			}
+		}
+	}
+}
+/* Typography Styles */
+@layer components {
+	.font-heading-xxlarge {
+		font-style: normal;
+		font-weight: var(--ds-font-weight-bold);
+		font-size: var(--ds-font-size32);
+		line-height: var(--ds-line-height36);
+		font-family: var(--ds-font-family-heading);
+	}
+	.font-heading-xlarge {
+		font-style: normal;
+		font-weight: var(--ds-font-weight-bold);
+		font-size: var(--ds-font-size28);
+		line-height: var(--ds-line-height32);
+		font-family: var(--ds-font-family-heading);
+	}
+	.font-heading-large {
+		font-style: normal;
+		font-weight: var(--ds-font-weight-bold);
+		font-size: var(--ds-font-size24);
+		line-height: var(--ds-line-height28);
+		font-family: var(--ds-font-family-heading);
+	}
+	.font-heading-medium {
+		font-style: normal;
+		font-weight: var(--ds-font-weight-bold);
+		font-size: var(--ds-font-size20);
+		line-height: var(--ds-line-height24);
+		font-family: var(--ds-font-family-heading);
+	}
+	.font-heading-small {
+		font-style: normal;
+		font-weight: var(--ds-font-weight-bold);
+		font-size: var(--ds-font-size16);
+		line-height: var(--ds-line-height20);
+		font-family: var(--ds-font-family-heading);
+	}
+	.font-heading-xsmall {
+		font-style: normal;
+		font-weight: var(--ds-font-weight-bold);
+		font-size: var(--ds-font-size14);
+		line-height: var(--ds-line-height20);
+		font-family: var(--ds-font-family-heading);
+	}
+	.font-heading-xxsmall {
+		font-style: normal;
+		font-weight: var(--ds-font-weight-bold);
+		font-size: var(--ds-font-size12);
+		line-height: var(--ds-line-height16);
+		font-family: var(--ds-font-family-heading);
+	}
+	.font-body-large {
+		font-style: normal;
+		font-weight: var(--ds-font-weight-regular);
+		font-size: var(--ds-font-size16);
+		line-height: var(--ds-line-height24);
+		font-family: var(--ds-font-family-body);
+	}
+	.font-body {
+		font-style: normal;
+		font-weight: var(--ds-font-weight-regular);
+		font-size: var(--ds-font-size14);
+		line-height: var(--ds-line-height20);
+		font-family: var(--ds-font-family-body);
+	}
+	.font-body-small {
+		font-style: normal;
+		font-weight: var(--ds-font-weight-regular);
+		font-size: var(--ds-font-size12);
+		line-height: var(--ds-line-height16);
+		font-family: var(--ds-font-family-body);
+	}
+
+	.font-metric-large {
+		font-style: normal;
+		font-weight: var(--ds-font-weight-bold);
+		font-size: var(--ds-font-size28);
+		line-height: var(--ds-line-height32);
+		font-family: var(--ds-font-family-heading);
+	}
+	.font-metric-medium {
+		font-style: normal;
+		font-weight: var(--ds-font-weight-bold);
+		font-size: var(--ds-font-size24);
+		line-height: var(--ds-line-height28);
+		font-family: var(--ds-font-family-heading);
+	}
+	.font-metric-small {
+		font-style: normal;
+		font-weight: var(--ds-font-weight-bold);
+		font-size: var(--ds-font-size16);
+		line-height: var(--ds-line-height20);
+		font-family: var(--ds-font-family-heading);
+	}
+	.font-code {
+		font-style: normal;
+		font-weight: var(--ds-font-weight-regular);
+		font-size: var(--ds-font-size-code);
+		line-height: var(--ds-line-height1);
+		font-family: var(--ds-font-family-code);
+	}
 }
 
-/* Ensure proper styling for Atlassian components */
-#__next {
-  min-height: 100vh;
-}
-
-/* Atlassian Design System Light Theme Tokens */
 :root {
-  /* Surface colors */
-  --ds-surface: #FFFFFF;
-  --ds-surface-overlay: #FFFFFF;
-  --ds-background-neutral-subtle: #F7F8F9;
-  --ds-background-accent-blue-subtlest: #E9F2FF;
-  
-  /* Border colors */
-  --ds-border: #DFE1E6;
-  --ds-border-accent-blue: #0052CC;
-  --ds-border-radius-100: 3px;
-  --ds-border-radius-200: 6px;
-  --ds-border-width: 1px;
-  
-  /* Text colors */
-  --ds-text: #172B4D;
-  --ds-text-subtle: #6B778C;
-  --ds-text-inverse: #FFFFFF;
-  
-  /* Background colors */
-  --ds-background-brand-bold: #0052CC;
-  
-  /* Spacing tokens */
-  --ds-space-0: 0px;
-  --ds-space-025: 2px;
-  --ds-space-050: 4px;
-  --ds-space-075: 6px;
-  --ds-space-100: 8px;
-  --ds-space-150: 12px;
-  --ds-space-200: 16px;
-  --ds-space-250: 20px;
-  --ds-space-300: 24px;
-  --ds-space-400: 32px;
-  --ds-space-500: 40px;
-  --ds-space-600: 48px;
-  --ds-space-800: 64px;
-  --ds-space-1000: 80px;
-  
-  /* Elevation/Shadow */
-  --ds-shadow-raised: 0px 1px 1px rgba(9, 30, 66, 0.25), 0px 0px 1px rgba(9, 30, 66, 0.31);
-  
-  /* Elevation surface */
-  --ds-elevation-surface: #FFFFFF;
+	--sidebar: hsl(0 0% 98%);
+	--sidebar-foreground: hsl(240 5.3% 26.1%);
+	--sidebar-primary: hsl(240 5.9% 10%);
+	--sidebar-primary-foreground: hsl(0 0% 98%);
+	--sidebar-accent: hsl(240 4.8% 95.9%);
+	--sidebar-accent-foreground: hsl(240 5.9% 10%);
+	--sidebar-border: hsl(220 13% 91%);
+	--sidebar-ring: hsl(217.2 91.2% 59.8%);
+}
+
+.dark {
+	--sidebar: hsl(240 5.9% 10%);
+	--sidebar-foreground: hsl(240 4.8% 95.9%);
+	--sidebar-primary: hsl(224.3 76.3% 48%);
+	--sidebar-primary-foreground: hsl(0 0% 100%);
+	--sidebar-accent: hsl(240 3.7% 15.9%);
+	--sidebar-accent-foreground: hsl(240 4.8% 95.9%);
+	--sidebar-border: hsl(240 3.7% 15.9%);
+	--sidebar-ring: hsl(217.2 91.2% 59.8%);
+}
+
+@layer base {
+	* {
+		@apply border-border outline-ring/50;
+	}
+	body {
+		@apply bg-background text-foreground;
+	}
 }
