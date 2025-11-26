@@ -70,7 +70,7 @@ export default function SkillSuggestions({ onSkillSelect, searchQuery = "" }: Sk
 					style={{
 						margin: 0,
 						fontSize: "16px",
-						fontWeight: 653,
+						fontWeight: 600,
 						color: token("color.text"),
 						textAlign: "center",
 						whiteSpace: "nowrap",
@@ -85,7 +85,7 @@ export default function SkillSuggestions({ onSkillSelect, searchQuery = "" }: Sk
 			style={{
 				display: "flex",
 				flexDirection: "column",
-				gap: "4px",
+				gap: token("space.050"),
 				width: "100%",
 				maxWidth: "360px",
 			}}

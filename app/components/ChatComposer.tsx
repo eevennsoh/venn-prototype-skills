@@ -17,12 +17,7 @@ interface ChatComposerProps {
 	isDisabled?: boolean;
 }
 
-export default function ChatComposer({
-	prompt,
-	onPromptChange,
-	onSubmit,
-	isDisabled = false,
-}: ChatComposerProps) {
+export default function ChatComposer({ prompt, onPromptChange, onSubmit, isDisabled = false }: ChatComposerProps) {
 	const textareaRef = useRef<HTMLTextAreaElement>(null);
 
 	const adjustTextareaHeight = () => {
@@ -44,13 +39,13 @@ export default function ChatComposer({
 	};
 
 	return (
-		<div style={{ padding: "0 12px" }}>
+		<div style={{ padding: `0 ${token("space.100")}` }}>
 			<div
 				style={{
 					backgroundColor: token("elevation.surface"),
 					border: `1px solid ${token("color.border")}`,
 					borderRadius: "12px",
-					padding: "16px 16px 12px",
+					padding: `${token("space.150")} ${token("space.150")} ${token("space.100")}`,
 					boxShadow: "0px -2px 50px 8px rgba(30, 31, 33, 0.08)",
 				}}
 			>
@@ -101,15 +96,7 @@ export default function ChatComposer({
 					{/* Right side: Send */}
 					<div style={{ display: "flex", alignItems: "center", gap: token("space.050") }}>
 						<IconButton icon={MicrophoneIcon} label="Voice Submit" appearance="subtle" spacing="default" shape="circle" />
-						<IconButton
-							icon={ArrowUpIcon}
-							label="Submit"
-							appearance="primary"
-							spacing="default"
-							isDisabled={!prompt.trim() || isDisabled}
-							onClick={onSubmit}
-							shape="circle"
-						/>
+						<IconButton icon={ArrowUpIcon} label="Submit" appearance="primary" spacing="default" isDisabled={!prompt.trim() || isDisabled} onClick={onSubmit} shape="circle" />
 					</div>
 				</div>
 			</div>
@@ -119,7 +106,7 @@ export default function ChatComposer({
 					display: "flex",
 					justifyContent: "center",
 					alignItems: "center",
-					padding: "8px 0",
+					padding: `${token("space.075")} 0`,
 				}}
 			>
 				<span style={{ fontSize: "12px", color: token("color.text.subtlest") }}>Uses AI. Verify results.</span>
@@ -127,4 +114,3 @@ export default function ChatComposer({
 		</div>
 	);
 }
-

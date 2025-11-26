@@ -151,7 +151,7 @@ Need UI Element?
 ## Key Reminders
 
 3. **Always start with ADS** - Don't assume something isn't available
-4. **Use the guidelines** - In the guides/ads-documentation folder, they contain working examples and best practices
+4. **Use the guidelines** - In the guides folder (Files prefixed with "ADS"), they contain working examples and best practices
 5. **Tokens over hardcoded values** - Always prefer design tokens
 6. **Compose before creating** - Try combining ADS components before building custom
 7. **Document exceptions** - If you can't use ADS, explain why

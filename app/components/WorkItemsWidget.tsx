@@ -45,11 +45,11 @@ export default function WorkItemsWidget({ data, onInsert, showInsertMenu, moreMe
   const getPriorityColor = (priority?: string) => {
     switch (priority) {
       case 'High':
-        return '#AE2A19';
+        return token('color.text.danger');
       case 'Medium':
-        return '#974F0C';
+        return token('color.text.warning');
       case 'Low':
-        return '#626F86';
+        return token('color.text.subtle');
       default:
         return token('color.text.subtle');
     }
@@ -66,14 +66,14 @@ export default function WorkItemsWidget({ data, onInsert, showInsertMenu, moreMe
     >
       <div
         style={{
-          padding: '12px',
+          padding: token('space.100'),
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
           borderBottom: `1px solid ${token('color.border')}`,
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: token('space.075') }}>
           <img
             src="/Jira.svg"
             alt="Jira"
@@ -90,7 +90,7 @@ export default function WorkItemsWidget({ data, onInsert, showInsertMenu, moreMe
         <div
           key={index}
           style={{
-            padding: '8px 12px',
+            padding: `${token('space.075')} ${token('space.100')}`,
             display: 'flex',
             flexDirection: 'column',
             gap: token('space.075'),
@@ -107,7 +107,7 @@ export default function WorkItemsWidget({ data, onInsert, showInsertMenu, moreMe
         >
           <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: token('space.100') }}>
             <div style={{ flex: 1 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: token('space.100'), marginBottom: '4px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: token('space.100'), marginBottom: token('space.050') }}>
                 <span
                   style={{
                     fontSize: '12px',
@@ -166,8 +166,8 @@ export default function WorkItemsWidget({ data, onInsert, showInsertMenu, moreMe
 
       {onInsert && (
         <>
-          <div style={{ height: '16px', borderBottom: `1px solid ${token('color.border')}` }} />
-          <div style={{ padding: '8px 12px 12px', display: 'flex', gap: token('space.100') }}>
+          <div style={{ height: token('space.075'), borderBottom: `1px solid ${token('color.border')}` }} />
+          <div style={{ padding: `${token('space.075')} ${token('space.100')} ${token('space.100')}`, display: 'flex', gap: token('space.100') }}>
             <Button appearance="default" onClick={onInsert}>
               Insert in page
             </Button>
