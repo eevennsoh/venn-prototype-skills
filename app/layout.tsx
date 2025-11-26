@@ -1,7 +1,6 @@
 import "./globals.css";
 import "@atlaskit/css-reset";
-import TokenProvider from "./components/TokenProvider";
-import { SystemPromptProvider } from "./contexts/SystemPromptContext";
+import { ClientLayout } from "./components/ClientLayout";
 
 export const metadata = {
 	title: "R—A—D: Skills",
@@ -22,9 +21,7 @@ export default function RootLayout({
 				<link rel="preload stylesheet" href="https://ds-cdn.prod-east.frontend.public.atl-paas.net/assets/font-rules/v5/atlassian-fonts.css" as="style" crossOrigin="anonymous" />
 			</head>
 			<body className="font-sans antialiased">
-				<TokenProvider>
-					<SystemPromptProvider>{children}</SystemPromptProvider>
-				</TokenProvider>
+				<ClientLayout>{children}</ClientLayout>
 			</body>
 		</html>
 	);
