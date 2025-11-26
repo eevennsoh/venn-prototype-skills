@@ -30,11 +30,11 @@ export default function ChatHeader({ onClose }: ChatHeaderProps) {
 				<IconButton icon={MenuIcon} label="New chat" appearance="subtle" spacing="default" />
 				<Inline space="space.100" alignBlock="center">
 					<img src="/Rovo.svg" alt="Rovo" style={{ width: 20, height: 20, objectFit: "contain" }} />
-					<div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
+					<div style={{ display: "flex", alignItems: "center", gap: token("space.050") }}>
 						<span
 							style={{
 								fontSize: "14px",
-								fontWeight: 653,
+								fontWeight: 600,
 								color: token("color.text"),
 								whiteSpace: "nowrap",
 							}}

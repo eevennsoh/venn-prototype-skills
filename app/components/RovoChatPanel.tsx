@@ -70,8 +70,8 @@ function LoadingWidget({ widgetType }: { widgetType?: string }) {
 				justifyContent: "flex-start",
 				color: token("color.text.subtlest"),
 				fontSize: "14px",
-				marginLeft: "12px",
-				marginRight: "12px",
+				marginLeft: token("space.100"),
+				marginRight: token("space.100"),
 			}}
 		>
 			{getMessage()}
@@ -263,6 +263,7 @@ export default function RovoChatPanel({ onClose, apiUrl }: RovoChatPanelProps) {
 				backgroundColor: token("elevation.surface"),
 				display: "flex",
 				flexDirection: "column",
+				color: token("color.text"),
 			}}
 		>
 			<ChatHeader onClose={onClose} />
@@ -298,22 +299,22 @@ export default function RovoChatPanel({ onClose, apiUrl }: RovoChatPanelProps) {
 					/>
 				) : (
 					<>
-						<div style={{ padding: "12px", display: "flex", flexDirection: "column", gap: "24px", paddingBottom: "calc(32px + 80px)" }}>
+						<div style={{ padding: token("space.100"), display: "flex", flexDirection: "column", gap: token("space.200"), paddingBottom: "calc(32px + 80px)" }}>
 							{messages.map((message) => (
 								<div
 									key={message.id}
-									style={{
-										display: "flex",
-										justifyContent: message.type === "user" ? "flex-end" : "flex-start",
-										paddingLeft: message.type === "user" ? "24px" : "0",
-									}}
+								style={{
+									display: "flex",
+									justifyContent: message.type === "user" ? "flex-end" : "flex-start",
+									paddingLeft: message.type === "user" ? token("space.200") : "0",
+								}}
 								>
 									{message.type === "user" ? (
 										<div
 											style={{
-												backgroundColor: "#1868DB",
+												backgroundColor: token("color.text.brand"),
 												borderRadius: "12px 12px 4px 12px",
-												padding: "12px 16px",
+												padding: `${token("space.100")} ${token("space.150")}`,
 												color: token("elevation.surface"),
 												fontSize: "14px",
 												lineHeight: "1.43",
@@ -328,19 +329,19 @@ export default function RovoChatPanel({ onClose, apiUrl }: RovoChatPanelProps) {
 												width: "100%",
 											}}
 										>
-											<div
-												style={{
-													fontSize: "14px",
-													lineHeight: "1.43",
-													color: token("color.text"),
-													marginBottom: message.widget || message.widgetLoading ? token("space.100") : "0",
-													paddingLeft: "12px",
-													paddingRight: "12px",
-												}}
-												dangerouslySetInnerHTML={{ __html: renderMarkdownToHtml(message.content) }}
-											/>
-											{message.widgetLoading && <LoadingWidget widgetType={message.widget?.type} />}
-											{message.widget && !message.widgetLoading && <>{message.widget.type === "work-items" && <WorkItemsWidget data={message.widget.data} />}</>}
+										<div
+											style={{
+												fontSize: "14px",
+												lineHeight: "1.43",
+												color: token("color.text"),
+												marginBottom: message.widget || message.widgetLoading ? token("space.100") : "0",
+												paddingLeft: token("space.100"),
+												paddingRight: token("space.100"),
+											}}
+											dangerouslySetInnerHTML={{ __html: renderMarkdownToHtml(message.content) }}
+										/>
+										{message.widgetLoading && <LoadingWidget widgetType={message.widget?.type} />}
+										{message.widget && !message.widgetLoading && <>{message.widget.type === "work-items" && <WorkItemsWidget data={message.widget.data} />}</>}
 										</div>
 									)}
 								</div>
