@@ -1,0 +1,305 @@
+@theme inline {
+	/* Tailwind Tokens */
+	/* Blue Base Tailwind Tokens */
+	--color-blue-50: var(--blue100); /* Light mode: blue100, Dark mode: blue1000 */
+	--color-blue-100: var(--blue200); /* Light mode: blue200, Dark mode: blue900 */
+	--color-blue-200: var(--blue300); /* Light mode: blue300, Dark mode: blue800 */
+	--color-blue-300: var(--blue400); /* Light mode: blue400, Dark mode: blue700 */
+	--color-blue-400: var(--blue500); /* Light mode: blue500, Dark mode: blue600 */
+	--color-blue-500: var(--blue600); /* Light mode: blue600, Dark mode: blue500 */
+	--color-blue-600: var(--blue700); /* Light mode: blue700, Dark mode: blue400 */
+	--color-blue-700: var(--blue800); /* Light mode: blue800, Dark mode: blue300 */
+	--color-blue-800: var(--blue900); /* Light mode: blue900, Dark mode: blue200 */
+	--color-blue-900: var(--blue1000); /* Light mode: blue1000, Dark mode: blue100 */
+	--color-blue-950: var(--blue1000); /* Light mode: blue1000, Dark mode: blue100 */
+
+	/* Red Base Tailwind Tokens */
+	--color-red-50: var(--red100); /* Light mode: red100, Dark mode: red1000 */
+	--color-red-100: var(--red200); /* Light mode: red200, Dark mode: red900 */
+	--color-red-200: var(--red300); /* Light mode: red300, Dark mode: red800 */
+	--color-red-300: var(--red400); /* Light mode: red400, Dark mode: red700 */
+	--color-red-400: var(--red500); /* Light mode: red500, Dark mode: red600 */
+	--color-red-500: var(--red600); /* Light mode: red600, Dark mode: red500 */
+	--color-red-600: var(--red700); /* Light mode: red700, Dark mode: red400 */
+	--color-red-700: var(--red800); /* Light mode: red800, Dark mode: red300 */
+	--color-red-800: var(--red900); /* Light mode: red900, Dark mode: red200 */
+	--color-red-900: var(--red1000); /* Light mode: red1000, Dark mode: red100 */
+	--color-red-950: var(--red1000); /* Light mode: red1000, Dark mode: red100 */
+
+	/* Green Base Tailwind Tokens */
+	--color-green-50: var(--green100); /* Light mode: green100, Dark mode: green1000 */
+	--color-green-100: var(--green200); /* Light mode: green200, Dark mode: green900 */
+	--color-green-200: var(--green300); /* Light mode: green300, Dark mode: green800 */
+	--color-green-300: var(--green400); /* Light mode: green400, Dark mode: green700 */
+	--color-green-400: var(--green500); /* Light mode: green500, Dark mode: green600 */
+	--color-green-500: var(--green600); /* Light mode: green600, Dark mode: green500 */
+	--color-green-600: var(--green700); /* Light mode: green700, Dark mode: green400 */
+	--color-green-700: var(--green800); /* Light mode: green800, Dark mode: green300 */
+	--color-green-800: var(--green900); /* Light mode: green900, Dark mode: green200 */
+	--color-green-900: var(--green1000); /* Light mode: green1000, Dark mode: green100 */
+	--color-green-950: var(--green1000); /* Light mode: green1000, Dark mode: green100 */
+
+	/* Yellow Base Tailwind Tokens */
+	--color-yellow-50: var(--yellow100); /* Light mode: yellow100, Dark mode: yellow1000 */
+	--color-yellow-100: var(--yellow200); /* Light mode: yellow200, Dark mode: yellow900 */
+	--color-yellow-200: var(--yellow300); /* Light mode: yellow300, Dark mode: yellow800 */
+	--color-yellow-300: var(--yellow400); /* Light mode: yellow400, Dark mode: yellow700 */
+	--color-yellow-400: var(--yellow500); /* Light mode: yellow500, Dark mode: yellow600 */
+	--color-yellow-500: var(--yellow600); /* Light mode: yellow600, Dark mode: yellow500 */
+	--color-yellow-600: var(--yellow700); /* Light mode: yellow700, Dark mode: yellow400 */
+	--color-yellow-700: var(--yellow800); /* Light mode: yellow800, Dark mode: yellow300 */
+	--color-yellow-800: var(--yellow900); /* Light mode: yellow900, Dark mode: yellow200 */
+	--color-yellow-900: var(--yellow1000); /* Light mode: yellow1000, Dark mode: yellow100 */
+	--color-yellow-950: var(--yellow1000); /* Light mode: yellow1000, Dark mode: yellow100 */
+
+	/* Purple Base Tailwind Tokens */
+	--color-purple-50: var(--purple100); /* Light mode: purple100, Dark mode: purple1000 */
+	--color-purple-100: var(--purple200); /* Light mode: purple200, Dark mode: purple900 */
+	--color-purple-200: var(--purple300); /* Light mode: purple300, Dark mode: purple800 */
+	--color-purple-300: var(--purple400); /* Light mode: purple400, Dark mode: purple700 */
+	--color-purple-400: var(--purple500); /* Light mode: purple500, Dark mode: purple600 */
+	--color-purple-500: var(--purple600); /* Light mode: purple600, Dark mode: purple500 */
+	--color-purple-600: var(--purple700); /* Light mode: purple700, Dark mode: purple400 */
+	--color-purple-700: var(--purple800); /* Light mode: purple800, Dark mode: purple300 */
+	--color-purple-800: var(--purple900); /* Light mode: purple900, Dark mode: purple200 */
+	--color-purple-900: var(--purple1000); /* Light mode: purple1000, Dark mode: purple100 */
+	--color-purple-950: var(--purple1000); /* Light mode: purple1000, Dark mode: purple100 */
+
+	/* Teal Base Tailwind Tokens */
+	--color-teal-50: var(--teal100); /* Light mode: teal100, Dark mode: teal1000 */
+	--color-teal-100: var(--teal200); /* Light mode: teal200, Dark mode: teal900 */
+	--color-teal-200: var(--teal300); /* Light mode: teal300, Dark mode: teal800 */
+	--color-teal-300: var(--teal400); /* Light mode: teal400, Dark mode: teal700 */
+	--color-teal-400: var(--teal500); /* Light mode: teal500, Dark mode: teal600 */
+	--color-teal-500: var(--teal600); /* Light mode: teal600, Dark mode: teal500 */
+	--color-teal-600: var(--teal700); /* Light mode: teal700, Dark mode: teal400 */
+	--color-teal-700: var(--teal800); /* Light mode: teal800, Dark mode: teal300 */
+	--color-teal-800: var(--teal900); /* Light mode: teal900, Dark mode: teal200 */
+	--color-teal-900: var(--teal1000); /* Light mode: teal1000, Dark mode: teal100 */
+	--color-teal-950: var(--teal1000); /* Light mode: teal1000, Dark mode: teal100 */
+
+	/* Orange Base Tailwind Tokens */
+	--color-orange-50: var(--orange100); /* Light mode: orange100, Dark mode: orange1000 */
+	--color-orange-100: var(--orange200); /* Light mode: orange200, Dark mode: orange900 */
+	--color-orange-200: var(--orange300); /* Light mode: orange300, Dark mode: orange800 */
+	--color-orange-300: var(--orange400); /* Light mode: orange400, Dark mode: orange700 */
+	--color-orange-400: var(--orange500); /* Light mode: orange500, Dark mode: orange600 */
+	--color-orange-500: var(--orange600); /* Light mode: orange600, Dark mode: orange500 */
+	--color-orange-600: var(--orange700); /* Light mode: orange700, Dark mode: orange400 */
+	--color-orange-700: var(--orange800); /* Light mode: orange800, Dark mode: orange300 */
+	--color-orange-800: var(--orange900); /* Light mode: orange900, Dark mode: orange200 */
+	--color-orange-900: var(--orange1000); /* Light mode: orange1000, Dark mode: orange100 */
+	--color-orange-950: var(--orange1000); /* Light mode: orange1000, Dark mode: orange100 */
+
+	/* Pink Base Tailwind Tokens (ADS's Magenta) */
+	--color-pink-50: var(--magenta100); /* Light mode: magenta100, Dark mode: magenta1000 */
+	--color-pink-100: var(--magenta200); /* Light mode: magenta200, Dark mode: magenta900 */
+	--color-pink-200: var(--magenta300); /* Light mode: magenta300, Dark mode: magenta800 */
+	--color-pink-300: var(--magenta400); /* Light mode: magenta400, Dark mode: magenta700 */
+	--color-pink-400: var(--magenta500); /* Light mode: magenta500, Dark mode: magenta600 */
+	--color-pink-500: var(--magenta600); /* Light mode: magenta600, Dark mode: magenta500 */
+	--color-pink-600: var(--magenta700); /* Light mode: magenta700, Dark mode: magenta400 */
+	--color-pink-700: var(--magenta800); /* Light mode: magenta800, Dark mode: magenta300 */
+	--color-pink-800: var(--magenta900); /* Light mode: magenta900, Dark mode: magenta200 */
+	--color-pink-900: var(--magenta1000); /* Light mode: magenta1000, Dark mode: magenta100 */
+	--color-pink-950: var(--magenta1000); /* Light mode: magenta1000, Dark mode: magenta100 */
+
+	/* Lime Base Tailwind Tokens */
+	--color-lime-50: var(--lime100); /* Light mode: lime100, Dark mode: lime1000 */
+	--color-lime-100: var(--lime200); /* Light mode: lime200, Dark mode: lime900 */
+	--color-lime-200: var(--lime300); /* Light mode: lime300, Dark mode: lime800 */
+	--color-lime-300: var(--lime400); /* Light mode: lime400, Dark mode: lime700 */
+	--color-lime-400: var(--lime500); /* Light mode: lime500, Dark mode: lime600 */
+	--color-lime-500: var(--lime600); /* Light mode: lime600, Dark mode: lime500 */
+	--color-lime-600: var(--lime700); /* Light mode: lime700, Dark mode: lime400 */
+	--color-lime-700: var(--lime800); /* Light mode: lime800, Dark mode: lime300 */
+	--color-lime-800: var(--lime900); /* Light mode: lime900, Dark mode: lime200 */
+	--color-lime-900: var(--lime1000); /* Light mode: lime1000, Dark mode: lime100 */
+	--color-lime-950: var(--lime1000); /* Light mode: lime1000, Dark mode: lime100 */
+
+	/* Slate Base Tailwind Tokens (Light mode) */
+	--color-neutral-minus-50: var(--neutralminus100); /* Custom = Light mode: neutralminus100, Dark mode: darkneutralminus100 */
+	--color-neutral-0: var(--neutral0); /* Light mode: neutral0, Dark mode: darkneutral0 */
+	--color-neutral-50: var(--neutral100); /* Light mode: neutral100, Dark mode: darkneutral100 */
+	--color-neutral-100: var(--neutral200); /* Light mode: neutral200, Dark mode: darkneutral200 */
+	--color-neutral-150: var(--neutral250); /* Custom = Light mode: neutral250, Dark mode: darkneutral250 */
+	--color-neutral-200: var(--neutral300); /* Light mode: neutral300, Dark mode: darkneutral300 */
+	--color-neutral-250: var(--neutral350); /* Custom = Light mode: neutral350, Dark mode: darkneutral350 */
+	--color-neutral-300: var(--neutral400); /* Light mode: neutral400, Dark mode: darkneutral400 */
+	--color-neutral-400: var(--neutral500); /* Light mode: neutral500, Dark mode: darkneutral500 */
+	--color-neutral-500: var(--neutral600); /* Light mode: neutral600, Dark mode: darkneutral600 */
+	--color-neutral-600: var(--neutral700); /* Light mode: neutral700, Dark mode: darkneutral700 */
+	--color-neutral-700: var(--neutral800); /* Light mode: neutral800, Dark mode: darkneutral800 */
+	--color-neutral-800: var(--neutral900); /* Light mode: neutral900, Dark mode: darkneutral900 */
+	--color-neutral-900: var(--neutral1000); /* Light mode: neutral1000, Dark mode: darkneutral1000 */
+	--color-neutral-950: var(--neutral1100); /* Light mode: neutral1100, Dark mode: darkneutral1100 */
+
+	/* Slate Base Tailwind Tokens (Dark Mode) */
+	--color-dark-neutral-minus-50: var(--darkneutralminus100); /* Custom = Dark mode: darkneutralminus100, Light mode: neutralminus100 */
+	--color-dark-neutral-0: var(--darkneutral0); /* Dark mode: darkneutral0, Light mode: neutral0 */
+	--color-dark-neutral-50: var(--darkneutral100); /* Dark mode: darkneutral100, Light mode: neutral100 */
+	--color-dark-neutral-100: var(--darkneutral200); /* Dark mode: darkneutral200, Light mode: neutral200 */
+	--color-dark-neutral-150: var(--darkneutral250); /* Custom = Dark mode: darkneutral250, Light mode: neutral250 */
+	--color-dark-neutral-200: var(--darkneutral300); /* Dark mode: darkneutral300, Light mode: neutral300 */
+	--color-dark-neutral-250: var(--darkneutral350); /* Custom = Dark mode: darkneutral350, Light mode: neutral350 */
+	--color-dark-neutral-300: var(--darkneutral400); /* Dark mode: darkneutral400, Light mode: neutral400 */
+	--color-dark-neutral-400: var(--darkneutral500); /* Dark mode: darkneutral500, Light mode: neutral500 */
+	--color-dark-neutral-500: var(--darkneutral600); /* Dark mode: darkneutral600, Light mode: neutral600 */
+	--color-dark-neutral-600: var(--darkneutral700); /* Dark mode: darkneutral700, Light mode: neutral700 */
+	--color-dark-neutral-700: var(--darkneutral800); /* Dark mode: darkneutral800, Light mode: neutral800 */
+	--color-dark-neutral-800: var(--darkneutral900); /* Dark mode: darkneutral900, Light mode: neutral900 */
+	--color-dark-neutral-900: var(--darkneutral1000); /* Dark mode: darkneutral1000, Light mode: neutral1000 */
+	--color-dark-neutral-950: var(--darkneutral1100); /* Dark mode: darkneutral1100, Light mode: neutral1100 */
+
+	/* Custom Slate Base Alpha Tailwind Tokens (Light Mode) */
+	--color-neutral-minus-50a: var(--neutralminus100a); /* Light mode: neutralminus100a, Dark mode: darkneutralminus100a */
+	--color-neutral-50a: var(--neutral100a); /* Light mode: neutral100a, Dark mode: darkneutral100a */
+	--color-neutral-100a: var(--neutral200a); /* Light mode: neutral200a, Dark mode: darkneutral200a */
+	--color-neutral-150a: var(--neutral200a); /* Light mode: neutral200a, Dark mode: darkneutral250a */
+	--color-neutral-200a: var(--neutral300a); /* Light mode: neutral300a, Dark mode: darkneutral300a */
+	--color-neutral-250a: var(--neutral300a); /* Light mode: neutral300a, Dark mode: darkneutral350a */
+	--color-neutral-300a: var(--neutral400a); /* Light mode: neutral400a, Dark mode: darkneutral400a */
+	--color-neutral-400a: var(--neutral500a); /* Light mode: neutral500a, Dark mode: darkneutral500a */
+
+	/* Custom Slate Base Alpha Tailwind Tokens (Dark Mode) */
+	--color-dark-neutral-minus-50a: var(--darkneutralminus100a); /* Dark mode: darkneutralminus100a, Light mode: neutralminus100a  */
+	--color-dark-neutral-50a: var(--darkneutral100a); /* Dark mode: darkneutral100a, Light mode: neutral100a */
+	--color-dark-neutral-100a: var(--darkneutral200a); /* Dark mode: darkneutral200a, Light mode: neutral200a */
+	--color-dark-neutral-150a: var(--darkneutral250a); /* Dark mode: darkneutral250a, Light mode: neutral250a */
+	--color-dark-neutral-200a: var(--darkneutral300a); /* Dark mode: darkneutral300a, Light mode: neutral300a */
+	--color-dark-neutral-250a: var(--darkneutral350a); /* Dark mode: darkneutral350a, Light mode: neutral350a */
+	--color-dark-neutral-300a: var(--darkneutral400a); /* Dark mode: darkneutral400a, Light mode: neutral400a */
+	--color-dark-neutral-400a: var(--darkneutral500a); /* Dark mode: darkneutral500a, Light mode: neutral500a */
+
+	/* Border Radius Tailwind Tokens */
+	--radius-xs: var(--ds-radius050); /* 2px */
+	--radius-sm: var(--ds-radius100); /* 4px */
+	--radius-md: var(--ds-radius150); /* 6px */
+	--radius-lg: var(--ds-radius200); /* 8px */
+	--radius-xl: var(--ds-radius300); /* 12px */
+	--radius-2xl: var(--ds-radius400); /* 16px */
+
+	/* Typography Tailwind Tokens */
+	--font-sans: var(--ds-font-family-body);
+	--font-mono: var(--ds-font-family-code);
+	--font-brand-heading: var(--ds-font-family-brand-heading);
+	--font-brand-body: var(--ds-font-family-brand-body);
+
+	/* Font Size Tailwind Tokens */
+	/* ds-font-body-small */
+	--text-xs: var(--ds-font-size12); /* 0.75rem */
+	--text-xs--line-height: var(--ds-line-height16); /* 1rem */
+
+	/* ds-font-body */
+	--text-sm: var(--ds-font-size14); /* 0.875rem */
+	--text-sm--line-height: var(--ds-line-height20); /* 1.25rem */
+
+	/* ds-font-body-large */
+	--text-base: var(--ds-font-size16); /* 1rem */
+	--text-base--line-height: var(--ds-line-height24); /* 1.5rem */
+
+	/* ds-font-heading-medium with font-weight-bold */
+	--text-lg: var(--ds-font-size20); /* 1.25rem */
+	--text-lg--line-height: var(--ds-line-height24); /* 1.5rem */
+
+	/* ds-font-heading-large with font-weight-bold */
+	--text-xl: var(--ds-font-size24); /* 1.5rem */
+	--text-xl--line-height: var(--ds-line-height28); /* 1.75rem */
+
+	/* ds-font-heading-xlarge with font-weight-bold */
+	--text-2xl: var(--ds-font-size28); /* 1.75rem */
+	--text-2xl--line-height: var(--ds-line-height32); /* 2rem */
+
+	/* ds-font-heading-xxlarge with font-weight-bold */
+	--text-3xl: var(--ds-font-size32); /* 2rem */
+	--text-3xl--line-height: var(--ds-line-height36); /* 2.25rem */
+
+	/* Font Weight Tailwind Tokens */
+	--font-weight-normal: var(--ds-font-weight-regular); /* 400 */
+	--font-weight-medium: var(--ds-font-weight-medium); /* 500 */
+	--font-weight-semibold: var(--ds-font-weight-semibold); /* 600 */
+	--font-weight-bold: var(--ds-font-weight-bold); /* 653 */
+
+	/* Letter Spacing Tailwind Tokens */
+	--tracking-tighter: var(--ds-letter-spacing400);
+	--tracking-tight: var(--ds-letter-spacing300);
+	--tracking-normal: var(--ds-letter-spacing0);
+	--tracking-wide: var(--ds-letter-spacing100);
+	--tracking-wider: var(--ds-letter-spacing200);
+
+	/* Spacing Multiplier Tailwind Tokens */
+	/* This is used to calculate the line-height, padding, and margin utilities */
+	/* e.g., --leading-<number> = line-height: calc(var(--spacing) * <number>) */
+	--spacing: var(--ds-space050); /* 4px */
+
+	/* Shadow Tailwind Tokens */
+	--shadow-md: var(--elevation-shadow-raised);
+	--shadow-lg: var(--elevation-shadow-overflow);
+	--shadow-xl: var(--elevation-shadow-overlay);
+
+	/* Line Height Tailwind Tokens */
+	--leading-none: var(--ds-line-height1);
+	--leading-tight: var(--ds-line-height16);
+	--leading-snug: var(--ds-line-height20);
+	--leading-normal: var(--ds-line-height24);
+	--leading-relaxed: var(--ds-line-height28);
+	--leading-loose: var(--ds-line-height32);
+	--leading-extra-loose: var(--ds-line-height36); /* Custom */
+
+	/* Letter Spacing Tailwind Tokens */
+	--tracking-normal: var(--ds-letter-spacing0);
+	--tracking-tight: var(--ds-letter-spacing100);
+	--tracking-tighter: var(--ds-letter-spacing200);
+	--tracking-extra-tight: var(--ds-letter-spacing300); /* Custom */
+	--tracking-extra-tighter: var(--ds-letter-spacing400); /* Custom */
+
+	/* Font Family Tailwind Tokens */
+	--font-weight-regular: var(--ds-font-weight-regular);
+	--font-weight-medium: var(--ds-font-weight-medium);
+	--font-weight-semibold: var(--ds-font-weight-semibold);
+	--font-weight-bold: var(--ds-font-weight-bold);
+
+	/* Motion Easing Tailwind Tokens */
+	--ease-in-out: var(--ds-ease-in-out); /* cubic-bezier(0.15, 1, 0.3, 1) */
+	--ease-out: var(--ds-ease-out); /* cubic-bezier(0.2, 0, 0, 1) */
+	--ease-in: var(--ds-ease-in); /* cubic-bezier(0.8, 0, 0, 0.8) */
+	--ease-in-40-out: var(--ds-ease-in-40-out); /* Custom: cubic-bezier(0.4, 0, 0, 1) */
+	--ease-in-60-out: var(--ds-ease-in-60-out); /* Custom:cubic-bezier(0.6, 0, 0, 1) */
+	--ease-in-80-out: var(--ds-ease-in-80-out); /* Custom: cubic-bezier(0.8, 0, 0, 1) */
+	--ease-linear: var(--ds-ease-linear); /* cubic-bezier(0, 0, 1, 1) */
+
+	/* Animate Tailwind Tokens */
+	--animate-spin: spin 1s var(--ease-linear) infinite;
+	--animate-ping: ping 1s var(--ease-in-out) infinite;
+	--animate-pulse: pulse 2s var(--ease-in-out) infinite;
+	--animate-bounce: bounce 1s infinite;
+
+	@keyframes spin {
+		to {
+			transform: rotate(360deg);
+		}
+	}
+	@keyframes ping {
+		75%,
+		100% {
+			transform: scale(2);
+			opacity: 0;
+		}
+	}
+	@keyframes pulse {
+		50% {
+			opacity: 0.5;
+		}
+	}
+	@keyframes bounce {
+		0%,
+		100% {
+			transform: tranneutralY(-25%);
+			animation-timing-function: var(--ease-out);
+		}
+		50% {
+			transform: none;
+			animation-timing-function: var(--ease-in);
+		}
+	}
+}

@@ -1,0 +1,44 @@
+@theme inline {
+	/* Shadcn Tokens */
+	--color-background: var(--elevation-surface);
+	--color-foreground: var(--text);
+
+	--color-card: var(--elevation-surface-raised);
+	--color-card-foreground: var(--text);
+
+	--color-popover: var(--elevation-surface-overlay);
+	--color-popover-foreground: var(--text);
+
+	--color-primary: var(--background-brand-bold);
+	--color-primary-foreground: var(--text-inverse);
+
+	--color-secondary: var(--elevation-surface);
+	--color-secondary-foreground: var(--text-subtle);
+
+	--color-muted: var(--background-accent-gray-subtlest);
+	--color-muted-foreground: var(--text-subtlest);
+
+	--color-accent: var(--background-neutral); /* Hover state color */
+	--color-accent-foreground: var(--text-subtle);
+
+	--color-destructive: var(--background-danger-bold);
+
+	--color-border: var(--border);
+	--color-input: var(--border-input); /* Shadcn input border color */
+	--color-ring: var(--border-focused);
+
+	--color-chart-1: var(--chart-categorical-1);
+	--color-chart-2: var(--chart-categorical-2);
+	--color-chart-3: var(--chart-categorical-3);
+	--color-chart-4: var(--chart-categorical-4);
+	--color-chart-5: var(--chart-categorical-5);
+
+	--color-sidebar: var(--elevation-surface); /* Background color */
+	--color-sidebar-foreground: var(--text); /* Text color */
+	--color-sidebar-primary: var(--background-brand-bold); /* Background color - Buttons in sidebar */
+	--color-sidebar-primary-foreground: var(--text-inverse); /* Text color - Buttons in sidebar */
+	--color-sidebar-accent: var(--background-neutral-subtle-hovered); /* Hover state color */
+	--color-sidebar-accent-foreground: var(--tex); /* Hover state text color */
+	--color-sidebar-border: var(--border); /* Border color */
+	--color-sidebar-ring: var(--border-focused); /* Focus state color */
+}
