@@ -1,0 +1,36 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Start Dev Environment",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/start-dev.sh",
+      "runtimeExecutable": "bash",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "skipFiles": ["<node_internals>/**"],
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "preLaunchTask": "stop-dev-servers"
+    },
+    {
+      "name": "Stop Dev Environment",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/scripts/stop-dev.sh",
+      "runtimeExecutable": "bash",
+      "console": "integratedTerminal",
+      "skipFiles": ["<node_internals>/**"],
+      "cwd": "${workspaceFolder}"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Full Stack (Frontend + Backend)",
+      "configurations": ["Start Dev Environment"]
+    }
+  ]
+}

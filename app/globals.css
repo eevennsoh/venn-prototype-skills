@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+/* Reset some default styles to work better with Atlassian Design System */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Ensure proper styling for Atlassian components */
+#__next {
+  min-height: 100vh;
+}
+
+/* Atlassian Design System Light Theme Tokens */
+:root {
+  /* Surface colors */
+  --ds-surface: #FFFFFF;
+  --ds-surface-overlay: #FFFFFF;
+  --ds-background-neutral-subtle: #F7F8F9;
+  --ds-background-accent-blue-subtlest: #E9F2FF;
+  
+  /* Border colors */
+  --ds-border: #DFE1E6;
+  --ds-border-accent-blue: #0052CC;
+  --ds-border-radius-100: 3px;
+  --ds-border-radius-200: 6px;
+  --ds-border-width: 1px;
+  
+  /* Text colors */
+  --ds-text: #172B4D;
+  --ds-text-subtle: #6B778C;
+  --ds-text-inverse: #FFFFFF;
+  
+  /* Background colors */
+  --ds-background-brand-bold: #0052CC;
+  
+  /* Spacing tokens */
+  --ds-space-0: 0px;
+  --ds-space-025: 2px;
+  --ds-space-050: 4px;
+  --ds-space-075: 6px;
+  --ds-space-100: 8px;
+  --ds-space-150: 12px;
+  --ds-space-200: 16px;
+  --ds-space-250: 20px;
+  --ds-space-300: 24px;
+  --ds-space-400: 32px;
+  --ds-space-500: 40px;
+  --ds-space-600: 48px;
+  --ds-space-800: 64px;
+  --ds-space-1000: 80px;
+  
+  /* Elevation/Shadow */
+  --ds-shadow-raised: 0px 1px 1px rgba(9, 30, 66, 0.25), 0px 0px 1px rgba(9, 30, 66, 0.31);
+  
+  /* Elevation surface */
+  --ds-elevation-surface: #FFFFFF;
+}
