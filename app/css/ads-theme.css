@@ -1,0 +1,1047 @@
+:root {
+	/* Atlassian Design System Design Tokens (Light Mode) */
+
+	/* Background Tokens */
+	/* Neutral Backgrounds */
+	--background-neutral: var(--ds-neutral200a);
+	--background-neutral-hovered: var(--ds-neutral300a);
+	--background-neutral-pressed: var(--ds-neutral400a);
+	--background-neutral-bold: var(--ds-neutral1000);
+	--background-neutral-bold-hovered: var(--ds-neutral900);
+	--background-neutral-bold-pressed: var(--ds-neutral800);
+	--background-neutral-subtle: transparent;
+	--background-neutral-subtle-hovered: var(--ds-neutral200a);
+	--background-neutral-subtle-pressed: var(--ds-neutral300a);
+
+	/* Brand Backgrounds */
+	--background-brand-bold: var(--ds-blue700);
+	--background-brand-bold-hovered: var(--ds-blue800);
+	--background-brand-bold-pressed: var(--ds-blue900);
+	--background-brand-boldest: var(--ds-blue1000);
+	--background-brand-boldest-hovered: var(--ds-blue900);
+	--background-brand-boldest-pressed: var(--ds-blue800);
+	--background-brand-subtlest: var(--ds-blue100);
+	--background-brand-subtlest-hovered: var(--ds-blue200);
+	--background-brand-subtlest-pressed: var(--ds-blue300);
+
+	/* Semantic Backgrounds */
+	--background-danger: var(--ds-red100);
+	--background-danger-bold: var(--ds-red700);
+	--background-danger-bold-hovered: var(--ds-red800);
+	--background-danger-bold-pressed: var(--ds-red900);
+	--background-danger-hovered: var(--ds-red200);
+	--background-danger-pressed: var(--ds-red300);
+
+	--background-success: var(--ds-green100);
+	--background-success-bold: var(--ds-green700);
+	--background-success-bold-hovered: var(--ds-green800);
+	--background-success-bold-pressed: var(--ds-green900);
+	--background-success-hovered: var(--ds-green200);
+	--background-success-pressed: var(--ds-green300);
+
+	--background-warning: var(--ds-yellow100);
+	--background-warning-bold: var(--ds-yellow300);
+	--background-warning-bold-hovered: var(--ds-yellow400);
+	--background-warning-bold-pressed: var(--ds-yellow500);
+	--background-warning-hovered: var(--ds-yellow200);
+	--background-warning-pressed: var(--ds-yellow300);
+
+	--background-information: var(--ds-blue100);
+	--background-information-bold: var(--ds-blue700);
+	--background-information-bold-hovered: var(--ds-blue800);
+	--background-information-bold-pressed: var(--ds-blue900);
+	--background-information-hovered: var(--ds-blue200);
+	--background-information-pressed: var(--ds-blue300);
+
+	--background-discovery: var(--ds-purple100);
+	--background-discovery-bold: var(--ds-purple700);
+	--background-discovery-bold-hovered: var(--ds-purple800);
+	--background-discovery-bold-pressed: var(--ds-purple900);
+	--background-discovery-hovered: var(--ds-purple200);
+	--background-discovery-pressed: var(--ds-purple300);
+
+	--background-selected: var(--ds-blue100);
+	--background-selected-bold: var(--ds-blue700);
+	--background-selected-bold-hovered: var(--ds-blue800);
+	--background-selected-bold-pressed: var(--ds-blue900);
+	--background-selected-hovered: var(--ds-blue200);
+	--background-selected-pressed: var(--ds-blue300);
+
+	/* Input & Special Backgrounds */
+	--background-input: var(--ds-neutral0);
+	--background-input-hovered: var(--ds-neutral100);
+	--background-input-pressed: var(--ds-neutral0);
+	--background-disabled: var(--ds-neutral100a);
+
+	/* Accent Color Backgrounds - Blue */
+	--background-accent-blue-bolder: var(--ds-blue700);
+	--background-accent-blue-bolder-hovered: var(--ds-blue800);
+	--background-accent-blue-bolder-pressed: var(--ds-blue900);
+	--background-accent-blue-subtle: var(--ds-blue400);
+	--background-accent-blue-subtle-hovered: var(--ds-blue300);
+	--background-accent-blue-subtle-pressed: var(--ds-blue200);
+	--background-accent-blue-subtler: var(--ds-blue200);
+	--background-accent-blue-subtler-hovered: var(--ds-blue300);
+	--background-accent-blue-subtler-pressed: var(--ds-blue400);
+	--background-accent-blue-subtlest: var(--ds-blue100);
+	--background-accent-blue-subtlest-hovered: var(--ds-blue200);
+	--background-accent-blue-subtlest-pressed: var(--ds-blue300);
+
+	/* Accent Color Backgrounds - Gray */
+	--background-accent-gray-bolder: var(--ds-neutral700);
+	--background-accent-gray-bolder-hovered: var(--ds-neutral800);
+	--background-accent-gray-bolder-pressed: var(--ds-neutral900);
+	--background-accent-gray-subtle: var(--ds-neutral500);
+	--background-accent-gray-subtle-hovered: var(--ds-neutral400);
+	--background-accent-gray-subtle-pressed: var(--ds-neutral300);
+	--background-accent-gray-subtler: var(--ds-neutral300);
+	--background-accent-gray-subtler-hovered: var(--ds-neutral400);
+	--background-accent-gray-subtler-pressed: var(--ds-neutral500);
+	--background-accent-gray-subtlest: var(--ds-neutral200);
+	--background-accent-gray-subtlest-hovered: var(--ds-neutral300);
+
+	/* Accent Color Backgrounds - Green */
+	--background-accent-green-bolder: var(--ds-green700);
+	--background-accent-green-bolder-hovered: var(--ds-green800);
+	--background-accent-green-bolder-pressed: var(--ds-green900);
+	--background-accent-green-subtle: var(--ds-green400);
+	--background-accent-green-subtle-hovered: var(--ds-green300);
+	--background-accent-green-subtle-pressed: var(--ds-green200);
+	--background-accent-green-subtler: var(--ds-green200);
+	--background-accent-green-subtler-hovered: var(--ds-green300);
+	--background-accent-green-subtler-pressed: var(--ds-green400);
+	--background-accent-green-subtlest: var(--ds-green100);
+	--background-accent-green-subtlest-hovered: var(--ds-green200);
+	--background-accent-green-subtlest-pressed: var(--ds-green300);
+
+	/* Accent Color Backgrounds - Lime */
+	--background-accent-lime-bolder: var(--ds-lime700);
+	--background-accent-lime-bolder-hovered: var(--ds-lime800);
+	--background-accent-lime-bolder-pressed: var(--ds-lime900);
+	--background-accent-lime-subtle: var(--ds-lime400);
+	--background-accent-lime-subtle-hovered: var(--ds-lime300);
+	--background-accent-lime-subtle-pressed: var(--ds-lime200);
+	--background-accent-lime-subtler: var(--ds-lime200);
+	--background-accent-lime-subtler-hovered: var(--ds-lime300);
+	--background-accent-lime-subtler-pressed: var(--ds-lime400);
+	--background-accent-lime-subtlest: var(--ds-lime100);
+	--background-accent-lime-subtlest-hovered: var(--ds-lime200);
+	--background-accent-lime-subtlest-pressed: var(--ds-lime300);
+
+	/* Accent Color Backgrounds - Magenta */
+	--background-accent-magenta-bolder: var(--ds-magenta700);
+	--background-accent-magenta-bolder-hovered: var(--ds-magenta800);
+	--background-accent-magenta-bolder-pressed: var(--ds-magenta900);
+	--background-accent-magenta-subtle: var(--ds-magenta400);
+	--background-accent-magenta-subtle-hovered: var(--ds-magenta300);
+	--background-accent-magenta-subtle-pressed: var(--ds-magenta200);
+	--background-accent-magenta-subtler: var(--ds-magenta200);
+	--background-accent-magenta-subtler-hovered: var(--ds-magenta300);
+	--background-accent-magenta-subtler-pressed: var(--ds-magenta400);
+	--background-accent-magenta-subtlest: var(--ds-magenta100);
+	--background-accent-magenta-subtlest-hovered: var(--ds-magenta200);
+	--background-accent-magenta-subtlest-pressed: var(--ds-magenta300);
+
+	/* Accent Color Backgrounds - Orange */
+	--background-accent-orange-bolder: var(--ds-orange700);
+	--background-accent-orange-bolder-hovered: var(--ds-orange800);
+	--background-accent-orange-bolder-pressed: var(--ds-orange900);
+	--background-accent-orange-subtle: var(--ds-orange400);
+	--background-accent-orange-subtle-hovered: var(--ds-orange300);
+	--background-accent-orange-subtle-pressed: var(--ds-orange200);
+	--background-accent-orange-subtler: var(--ds-orange200);
+	--background-accent-orange-subtler-hovered: var(--ds-orange300);
+	--background-accent-orange-subtler-pressed: var(--ds-orange400);
+	--background-accent-orange-subtlest: var(--ds-orange100);
+	--background-accent-orange-subtlest-hovered: var(--ds-orange200);
+	--background-accent-orange-subtlest-pressed: var(--ds-orange300);
+
+	/* Accent Color Backgrounds - Purple */
+	--background-accent-purple-bolder: var(--ds-purple700);
+	--background-accent-purple-bolder-hovered: var(--ds-purple800);
+	--background-accent-purple-bolder-pressed: var(--ds-purple900);
+	--background-accent-purple-subtle: var(--ds-purple400);
+	--background-accent-purple-subtle-hovered: var(--ds-purple300);
+	--background-accent-purple-subtle-pressed: var(--ds-purple200);
+	--background-accent-purple-subtler: var(--ds-purple200);
+	--background-accent-purple-subtler-hovered: var(--ds-purple300);
+	--background-accent-purple-subtler-pressed: var(--ds-purple400);
+	--background-accent-purple-subtlest: var(--ds-purple100);
+	--background-accent-purple-subtlest-hovered: var(--ds-purple200);
+	--background-accent-purple-subtlest-pressed: var(--ds-purple300);
+
+	/* Accent Color Backgrounds - Red */
+	--background-accent-red-bolder: var(--ds-red700);
+	--background-accent-red-bolder-hovered: var(--ds-red800);
+	--background-accent-red-bolder-pressed: var(--ds-red900);
+	--background-accent-red-subtle: var(--ds-red400);
+	--background-accent-red-subtle-hovered: var(--ds-red300);
+	--background-accent-red-subtle-pressed: var(--ds-red200);
+	--background-accent-red-subtler: var(--ds-red200);
+	--background-accent-red-subtler-hovered: var(--ds-red300);
+	--background-accent-red-subtler-pressed: var(--ds-red400);
+	--background-accent-red-subtlest: var(--ds-red100);
+	--background-accent-red-subtlest-hovered: var(--ds-red200);
+	--background-accent-red-subtlest-pressed: var(--ds-red300);
+
+	/* Accent Color Backgrounds - Teal */
+	--background-accent-teal-bolder: var(--ds-teal700);
+	--background-accent-teal-bolder-hovered: var(--ds-teal800);
+	--background-accent-teal-bolder-pressed: var(--ds-teal900);
+	--background-accent-teal-subtle: var(--ds-teal400);
+	--background-accent-teal-subtle-hovered: var(--ds-teal300);
+	--background-accent-teal-subtle-pressed: var(--ds-teal200);
+	--background-accent-teal-subtler: var(--ds-teal200);
+	--background-accent-teal-subtler-hovered: var(--ds-teal300);
+	--background-accent-teal-subtler-pressed: var(--ds-teal400);
+	--background-accent-teal-subtlest: var(--ds-teal100);
+	--background-accent-teal-subtlest-hovered: var(--ds-teal200);
+	--background-accent-teal-subtlest-pressed: var(--ds-teal300);
+
+	/* Accent Color Backgrounds - Yellow */
+	--background-accent-yellow-bolder: var(--ds-yellow700);
+	--background-accent-yellow-bolder-hovered: var(--ds-yellow800);
+	--background-accent-yellow-bolder-pressed: var(--ds-yellow900);
+	--background-accent-yellow-subtle: var(--ds-yellow300);
+	--background-accent-yellow-subtle-hovered: var(--ds-yellow400);
+	--background-accent-yellow-subtle-pressed: var(--ds-yellow500);
+	--background-accent-yellow-subtler: var(--ds-yellow200);
+	--background-accent-yellow-subtler-hovered: var(--ds-yellow300);
+	--background-accent-yellow-subtler-pressed: var(--ds-yellow400);
+	--background-accent-yellow-subtlest: var(--ds-yellow100);
+	--background-accent-yellow-subtlest-hovered: var(--ds-yellow200);
+	--background-accent-yellow-subtlest-pressed: var(--ds-yellow300);
+
+	/* Inverse & Special Backgrounds */
+	--background-inverse-subtle: #00000029;
+	--background-inverse-subtle-hovered: #0000003d;
+	--background-inverse-subtle-pressed: #00000052;
+
+	/* Text Tokens */
+	/* Basic Text */
+	--text: var(--ds-neutral1000);
+	--text-subtle: var(--ds-neutral800);
+	--text-subtlest: var(--ds-neutral700);
+	--text-inverse: var(--ds-neutral0);
+	--text-disabled: var(--ds-neutral400a);
+
+	/* Semantic Text */
+	--text-brand: var(--ds-blue700);
+	--text-danger: var(--ds-red800);
+	--text-success: var(--ds-green800);
+	--text-warning: var(--ds-orange800);
+	--text-warning-inverse: var(--ds-neutral1000);
+	--text-information: var(--ds-blue800);
+	--text-discovery: var(--ds-purple800);
+	--text-selected: var(--ds-blue700);
+
+	/* Accent Text Colors - Blue */
+	--text-accent-blue: var(--ds-blue800);
+	--text-accent-blue-bolder: var(--ds-blue900);
+
+	/* Accent Text Colors - Gray */
+	--text-accent-gray: var(--ds-neutral800);
+	--text-accent-gray-bolder: var(--ds-neutral1100);
+
+	/* Accent Text Colors - Green */
+	--text-accent-green: var(--ds-green800);
+	--text-accent-green-bolder: var(--ds-green900);
+
+	/* Accent Text Colors - Lime */
+	--text-accent-lime: var(--ds-lime800);
+	--text-accent-lime-bolder: var(--ds-lime900);
+
+	/* Accent Text Colors - Magenta */
+	--text-accent-magenta: var(--ds-magenta800);
+	--text-accent-magenta-bolder: var(--ds-magenta900);
+
+	/* Accent Text Colors - Orange */
+	--text-accent-orange: var(--ds-orange800);
+	--text-accent-orange-bolder: var(--ds-orange900);
+
+	/* Accent Text Colors - Purple */
+	--text-accent-purple: var(--ds-purple800);
+	--text-accent-purple-bolder: var(--ds-purple900);
+
+	/* Accent Text Colors - Red */
+	--text-accent-red: var(--ds-red800);
+	--text-accent-red-bolder: var(--ds-red900);
+
+	/* Accent Text Colors - Teal */
+	--text-accent-teal: var(--ds-teal800);
+	--text-accent-teal-bolder: var(--ds-teal900);
+
+	/* Accent Text Colors - Yellow */
+	--text-accent-yellow: var(--ds-yellow800);
+	--text-accent-yellow-bolder: var(--ds-yellow900);
+
+	/* Border Tokens */
+	/* Basic Borders */
+	--border: var(--ds-neutral300a);
+	--border-bold: var(--ds-neutral600);
+	--border-inverse: var(--ds-neutral0);
+	--border-disabled: var(--ds-neutral200a);
+	--border-input: var(--ds-neutral500);
+	--border-focused: var(--ds-blue500);
+
+	/* Semantic Borders */
+	--border-brand: var(--ds-blue700);
+	--border-danger: var(--ds-red600);
+	--border-success: var(--ds-green600);
+	--border-warning: var(--ds-orange600);
+	--border-information: var(--ds-blue600);
+	--border-discovery: var(--ds-purple600);
+	--border-selected: var(--ds-blue700);
+
+	/* Accent Borders */
+	--border-accent-blue: var(--ds-blue600);
+	--border-accent-gray: var(--ds-neutral600);
+	--border-accent-green: var(--ds-green600);
+	--border-accent-lime: var(--ds-lime600);
+	--border-accent-magenta: var(--ds-magenta600);
+	--border-accent-orange: var(--ds-orange600);
+	--border-accent-purple: var(--ds-purple600);
+	--border-accent-red: var(--ds-red600);
+	--border-accent-teal: var(--ds-teal600);
+	--border-accent-yellow: var(--ds-yellow600);
+
+	/* Icon Tokens */
+	/* Basic Icon Colors */
+	--icon: var(--ds-neutral1000);
+	--icon-subtle: var(--ds-neutral800);
+	--icon-subtlest: var(--ds-neutral700);
+	--icon-inverse: var(--ds-neutral0);
+	--icon-disabled: var(--ds-neutral400a);
+
+	/* Semantic Icon Colors */
+	--icon-brand: var(--ds-blue700);
+	--icon-danger: var(--ds-red700);
+	--icon-success: var(--ds-green600);
+	--icon-warning: var(--ds-orange600);
+	--icon-warning-inverse: var(--ds-neutral1000);
+	--icon-information: var(--ds-blue600);
+	--icon-discovery: var(--ds-purple600);
+	--icon-selected: var(--ds-blue700);
+
+	/* Accent Icon Colors - Blue */
+	--icon-accent-blue: var(--ds-blue600);
+
+	/* Accent Icon Colors - Gray */
+	--icon-accent-gray: var(--ds-neutral600);
+
+	/* Accent Icon Colors - Green */
+	--icon-accent-green: var(--ds-green600);
+
+	/* Accent Icon Colors - Lime */
+	--icon-accent-lime: var(--ds-lime600);
+
+	/* Accent Icon Colors - Magenta */
+	--icon-accent-magenta: var(--ds-magenta600);
+
+	/* Accent Icon Colors - Orange */
+	--icon-accent-orange: var(--ds-orange600);
+
+	/* Accent Icon Colors - Purple */
+	--icon-accent-purple: var(--ds-purple600);
+
+	/* Accent Icon Colors - Red */
+	--icon-accent-red: var(--ds-red700);
+
+	/* Accent Icon Colors - Teal */
+	--icon-accent-teal: var(--ds-teal600);
+
+	/* Accent Icon Colors - Yellow */
+	--icon-accent-yellow: var(--ds-yellow600);
+
+	/* Interaction Tokens */
+	--interaction-hovered: #00000029;
+	--interaction-pressed: #00000052;
+
+	/* Elevation & Surface Tokens */
+	--elevation-surface: var(--ds-neutral0);
+	--elevation-surface-pressed: var(--ds-neutral300);
+	--elevation-surface-overlay: var(--ds-neutral0);
+	--elevation-surface-overlay-hovered: var(--ds-neutral200);
+	--elevation-surface-overlay-pressed: var(--ds-neutral300);
+	--elevation-surface-raised: var(--ds-neutral0);
+	--elevation-surface-raised-hovered: var(--ds-neutral200);
+	--elevation-surface-sunken: var(--ds-neutral100);
+	--utility-elevation-surface-current: var(--ds-neutral0);
+
+	/* Chart Color Tokens */
+	/* Chart Brand & Primary */
+	--chart-brand: var(--ds-blue600);
+	--chart-brand-hovered: var(--ds-blue700);
+
+	/* Chart Categorical Colors (for sequential data visualization) */
+	--chart-categorical-1: var(--ds-teal600);
+	--chart-categorical-1-hovered: var(--ds-teal700);
+	--chart-categorical-2: var(--ds-purple800);
+	--chart-categorical-2-hovered: var(--ds-purple900);
+	--chart-categorical-3: var(--ds-orange600);
+	--chart-categorical-3-hovered: var(--ds-orange700);
+	--chart-categorical-4: var(--ds-magenta800);
+	--chart-categorical-4-hovered: var(--ds-magenta900);
+	--chart-categorical-5: var(--ds-blue900);
+	--chart-categorical-5-hovered: var(--ds-blue1000);
+	--chart-categorical-6: var(--ds-purple500);
+	--chart-categorical-6-hovered: var(--ds-purple600);
+	--chart-categorical-7: var(--ds-magenta900);
+	--chart-categorical-7-hovered: var(--ds-magenta1000);
+	--chart-categorical-8: var(--ds-orange800);
+	--chart-categorical-8-hovered: var(--ds-orange900);
+
+	/* Chart Semantic Colors */
+	--chart-danger: var(--ds-red500);
+	--chart-danger-bold: var(--ds-red800);
+	--chart-danger-bold-hovered: var(--ds-red900);
+	--chart-danger-hovered: var(--ds-red600);
+
+	--chart-success: var(--ds-green600);
+	--chart-success-bold: var(--ds-green800);
+	--chart-success-bold-hovered: var(--ds-green900);
+	--chart-success-hovered: var(--ds-green700);
+
+	--chart-warning: var(--ds-yellow600);
+	--chart-warning-bold: var(--ds-yellow800);
+	--chart-warning-bold-hovered: var(--ds-yellow900);
+	--chart-warning-hovered: var(--ds-yellow700);
+
+	--chart-information: var(--ds-blue500);
+	--chart-information-bold: var(--ds-blue800);
+	--chart-information-bold-hovered: var(--ds-blue900);
+	--chart-information-hovered: var(--ds-blue600);
+
+	--chart-discovery: var(--ds-purple500);
+	--chart-discovery-bold: var(--ds-purple800);
+	--chart-discovery-bold-hovered: var(--ds-purple900);
+	--chart-discovery-hovered: var(--ds-purple600);
+
+	--chart-neutral: var(--ds-neutral500);
+	--chart-neutral-hovered: var(--ds-neutral600);
+
+	/* Chart Color Variants by Color */
+	/* Blue Chart Colors */
+	--chart-blue-bold: var(--ds-blue500);
+	--chart-blue-bold-hovered: var(--ds-blue600);
+	--chart-blue-bolder: var(--ds-blue600);
+	--chart-blue-bolder-hovered: var(--ds-blue700);
+	--chart-blue-boldest: var(--ds-blue800);
+	--chart-blue-boldest-hovered: var(--ds-blue900);
+
+	/* Gray Chart Colors */
+	--chart-gray-bold: var(--ds-neutral500);
+	--chart-gray-bold-hovered: var(--ds-neutral600);
+	--chart-gray-bolder: var(--ds-neutral600);
+	--chart-gray-bolder-hovered: var(--ds-neutral700);
+	--chart-gray-boldest: var(--ds-neutral800);
+	--chart-gray-boldest-hovered: var(--ds-neutral900);
+
+	/* Green Chart Colors */
+	--chart-green-bold: var(--ds-green600);
+	--chart-green-bold-hovered: var(--ds-green700);
+	--chart-green-bolder: var(--ds-green700);
+	--chart-green-bolder-hovered: var(--ds-green800);
+	--chart-green-boldest: var(--ds-green800);
+	--chart-green-boldest-hovered: var(--ds-green900);
+
+	/* Lime Chart Colors */
+	--chart-lime-bold: var(--ds-lime600);
+	--chart-lime-bold-hovered: var(--ds-lime700);
+	--chart-lime-bolder: var(--ds-lime700);
+	--chart-lime-bolder-hovered: var(--ds-lime800);
+	--chart-lime-boldest: var(--ds-lime800);
+	--chart-lime-boldest-hovered: var(--ds-lime900);
+
+	/* Magenta Chart Colors */
+	--chart-magenta-bold: var(--ds-magenta500);
+	--chart-magenta-bold-hovered: var(--ds-magenta600);
+	--chart-magenta-bolder: var(--ds-magenta600);
+	--chart-magenta-bolder-hovered: var(--ds-magenta700);
+	--chart-magenta-boldest: var(--ds-magenta800);
+	--chart-magenta-boldest-hovered: var(--ds-magenta900);
+
+	/* Orange Chart Colors */
+	--chart-orange-bold: var(--ds-orange600);
+	--chart-orange-bold-hovered: var(--ds-orange700);
+	--chart-orange-bolder: var(--ds-orange700);
+	--chart-orange-bolder-hovered: var(--ds-orange800);
+	--chart-orange-boldest: var(--ds-orange800);
+	--chart-orange-boldest-hovered: var(--ds-orange900);
+
+	/* Purple Chart Colors */
+	--chart-purple-bold: var(--ds-purple500);
+	--chart-purple-bold-hovered: var(--ds-purple600);
+	--chart-purple-bolder: var(--ds-purple600);
+	--chart-purple-bolder-hovered: var(--ds-purple700);
+	--chart-purple-boldest: var(--ds-purple800);
+	--chart-purple-boldest-hovered: var(--ds-purple900);
+
+	/* Red Chart Colors */
+	--chart-red-bold: var(--ds-red500);
+	--chart-red-bold-hovered: var(--ds-red600);
+	--chart-red-bolder: var(--ds-red600);
+	--chart-red-bolder-hovered: var(--ds-red700);
+	--chart-red-boldest: var(--ds-red800);
+	--chart-red-boldest-hovered: var(--ds-red900);
+
+	/* Teal Chart Colors */
+	--chart-teal-bold: var(--ds-teal600);
+	--chart-teal-bold-hovered: var(--ds-teal700);
+	--chart-teal-bolder: var(--ds-teal700);
+	--chart-teal-bolder-hovered: var(--ds-teal800);
+	--chart-teal-boldest: var(--ds-teal800);
+	--chart-teal-boldest-hovered: var(--ds-teal900);
+
+	/* Yellow Chart Colors */
+	--chart-yellow-bold: var(--ds-yellow600);
+	--chart-yellow-bold-hovered: var(--ds-yellow700);
+	--chart-yellow-bolder: var(--ds-yellow700);
+	--chart-yellow-bolder-hovered: var(--ds-yellow800);
+	--chart-yellow-boldest: var(--ds-yellow800);
+	--chart-yellow-boldest-hovered: var(--ds-yellow900);
+
+	/* Link Tokens */
+	--link: var(--ds-blue700);
+	--link-pressed: var(--ds-blue800);
+	--link-visited: var(--ds-purple800);
+	--link-visited-pressed: var(--ds-purple900);
+
+	/* Skeleton Tokens */
+	--skeleton: var(--ds-neutral200a);
+	--skeleton-subtle: var(--ds-neutral100a);
+
+	/* Blanket Tokens */
+	--blanket: var(--ds-neutral500a);
+	--blanket-danger: #ef5c4814;
+	--blanket-selected: #4688ec14;
+}
+
+.dark {
+	/* Atlassian Design System Design Tokens (Dark Mode) */
+
+	/* Background Tokens */
+	/* Neutral Backgrounds */
+	--background-neutral: var(--ds-darkneutral200a);
+	--background-neutral-hovered: var(--ds-darkneutral300a);
+	--background-neutral-pressed: var(--ds-darkneutral400a);
+	--background-neutral-bold: var(--ds-darkneutral1000);
+	--background-neutral-bold-hovered: var(--ds-darkneutral900);
+	--background-neutral-bold-pressed: var(--ds-darkneutral800);
+	--background-neutral-subtle: transparent;
+	--background-neutral-subtle-hovered: var(--ds-darkneutral200a);
+	--background-neutral-subtle-pressed: var(--ds-darkneutral300a);
+
+	/* Brand Backgrounds */
+	--background-brand-bold: var(--ds-blue400);
+	--background-brand-bold-hovered: var(--ds-blue300);
+	--background-brand-bold-pressed: var(--ds-blue200);
+	--background-brand-boldest: var(--ds-blue100);
+	--background-brand-boldest-hovered: var(--ds-blue200);
+	--background-brand-boldest-pressed: var(--ds-blue300);
+	--background-brand-subtlest: var(--ds-blue1000);
+	--background-brand-subtlest-hovered: var(--ds-blue900);
+	--background-brand-subtlest-pressed: var(--ds-blue800);
+
+	/* Semantic Backgrounds */
+	--background-danger: var(--ds-red1000);
+	--background-danger-bold: var(--ds-red400);
+	--background-danger-bold-hovered: var(--ds-red300);
+	--background-danger-bold-pressed: var(--ds-red200);
+	--background-danger-hovered: var(--ds-red900);
+	--background-danger-pressed: var(--ds-red800);
+
+	--background-success: var(--ds-green1000);
+	--background-success-bold: var(--ds-green400);
+	--background-success-bold-hovered: var(--ds-green300);
+	--background-success-bold-pressed: var(--ds-green200);
+	--background-success-hovered: var(--ds-green900);
+	--background-success-pressed: var(--ds-green800);
+
+	--background-warning: var(--ds-yellow1000);
+	--background-warning-bold: var(--ds-yellow300);
+	--background-warning-bold-hovered: var(--ds-yellow400);
+	--background-warning-bold-pressed: var(--ds-yellow500);
+	--background-warning-hovered: var(--ds-yellow900);
+	--background-warning-pressed: var(--ds-yellow800);
+
+	--background-information: var(--ds-blue1000);
+	--background-information-bold: var(--ds-blue400);
+	--background-information-bold-hovered: var(--ds-blue300);
+	--background-information-bold-pressed: var(--ds-blue200);
+	--background-information-hovered: var(--ds-blue900);
+	--background-information-pressed: var(--ds-blue800);
+
+	--background-discovery: var(--ds-purple1000);
+	--background-discovery-bold: var(--ds-purple400);
+	--background-discovery-bold-hovered: var(--ds-purple300);
+	--background-discovery-bold-pressed: var(--ds-purple200);
+	--background-discovery-hovered: var(--ds-purple900);
+	--background-discovery-pressed: var(--ds-purple800);
+
+	--background-selected: var(--ds-blue1000);
+	--background-selected-bold: var(--ds-blue400);
+	--background-selected-bold-hovered: var(--ds-blue300);
+	--background-selected-bold-pressed: var(--ds-blue200);
+	--background-selected-hovered: var(--ds-blue900);
+	--background-selected-pressed: var(--ds-blue800);
+
+	/* Input & Special Backgrounds */
+	--background-input: var(--ds-darkneutral200);
+	--background-input-hovered: var(--ds-darkneutral250);
+	--background-input-pressed: var(--ds-darkneutral200);
+	--background-disabled: var(--ds-darkneutral100a);
+
+	/* Accent Color Backgrounds - Blue */
+	--background-accent-blue-bolder: var(--ds-blue400);
+	--background-accent-blue-bolder-hovered: var(--ds-blue300);
+	--background-accent-blue-bolder-pressed: var(--ds-blue200);
+	--background-accent-blue-subtle: var(--ds-blue800);
+	--background-accent-blue-subtle-hovered: var(--ds-blue900);
+	--background-accent-blue-subtle-pressed: var(--ds-blue1000);
+	--background-accent-blue-subtler: var(--ds-blue900);
+	--background-accent-blue-subtler-hovered: var(--ds-blue800);
+	--background-accent-blue-subtler-pressed: var(--ds-blue700);
+	--background-accent-blue-subtlest: var(--ds-blue1000);
+	--background-accent-blue-subtlest-hovered: var(--ds-blue900);
+	--background-accent-blue-subtlest-pressed: var(--ds-blue800);
+
+	/* Accent Color Backgrounds - Gray */
+	--background-accent-gray-bolder: var(--ds-darkneutral700);
+	--background-accent-gray-bolder-hovered: var(--ds-darkneutral800);
+	--background-accent-gray-bolder-pressed: var(--ds-darkneutral900);
+	--background-accent-gray-subtle: var(--ds-darkneutral500);
+	--background-accent-gray-subtle-hovered: var(--ds-darkneutral400);
+	--background-accent-gray-subtle-pressed: var(--ds-darkneutral350);
+	--background-accent-gray-subtler: var(--ds-darkneutral400);
+	--background-accent-gray-subtler-hovered: var(--ds-darkneutral500);
+	--background-accent-gray-subtler-pressed: var(--ds-darkneutral600);
+	--background-accent-gray-subtlest: var(--ds-darkneutral300);
+	--background-accent-gray-subtlest-hovered: var(--ds-darkneutral350);
+
+	/* Accent Color Backgrounds - Green */
+	--background-accent-green-bolder: var(--ds-green400);
+	--background-accent-green-bolder-hovered: var(--ds-green300);
+	--background-accent-green-bolder-pressed: var(--ds-green200);
+	--background-accent-green-subtle: var(--ds-green800);
+	--background-accent-green-subtle-hovered: var(--ds-green900);
+	--background-accent-green-subtle-pressed: var(--ds-green1000);
+	--background-accent-green-subtler: var(--ds-green900);
+	--background-accent-green-subtler-hovered: var(--ds-green800);
+	--background-accent-green-subtler-pressed: var(--ds-green700);
+	--background-accent-green-subtlest: var(--ds-green1000);
+	--background-accent-green-subtlest-hovered: var(--ds-green900);
+	--background-accent-green-subtlest-pressed: var(--ds-green800);
+
+	/* Accent Color Backgrounds - Lime */
+	--background-accent-lime-bolder: var(--ds-lime400);
+	--background-accent-lime-bolder-hovered: var(--ds-lime300);
+	--background-accent-lime-bolder-pressed: var(--ds-lime200);
+	--background-accent-lime-subtle: var(--ds-lime800);
+	--background-accent-lime-subtle-hovered: var(--ds-lime900);
+	--background-accent-lime-subtle-pressed: var(--ds-lime1000);
+	--background-accent-lime-subtler: var(--ds-lime900);
+	--background-accent-lime-subtler-hovered: var(--ds-lime800);
+	--background-accent-lime-subtler-pressed: var(--ds-lime700);
+	--background-accent-lime-subtlest: var(--ds-lime1000);
+	--background-accent-lime-subtlest-hovered: var(--ds-lime900);
+	--background-accent-lime-subtlest-pressed: var(--ds-lime800);
+
+	/* Accent Color Backgrounds - Magenta */
+	--background-accent-magenta-bolder: var(--ds-magenta400);
+	--background-accent-magenta-bolder-hovered: var(--ds-magenta300);
+	--background-accent-magenta-bolder-pressed: var(--ds-magenta200);
+	--background-accent-magenta-subtle: var(--ds-magenta800);
+	--background-accent-magenta-subtle-hovered: var(--ds-magenta900);
+	--background-accent-magenta-subtle-pressed: var(--ds-magenta1000);
+	--background-accent-magenta-subtler: var(--ds-magenta900);
+	--background-accent-magenta-subtler-hovered: var(--ds-magenta800);
+	--background-accent-magenta-subtler-pressed: var(--ds-magenta700);
+	--background-accent-magenta-subtlest: var(--ds-magenta1000);
+	--background-accent-magenta-subtlest-hovered: var(--ds-magenta900);
+	--background-accent-magenta-subtlest-pressed: var(--ds-magenta800);
+
+	/* Accent Color Backgrounds - Orange */
+	--background-accent-orange-bolder: var(--ds-orange400);
+	--background-accent-orange-bolder-hovered: var(--ds-orange300);
+	--background-accent-orange-bolder-pressed: var(--ds-orange200);
+	--background-accent-orange-subtle: var(--ds-orange800);
+	--background-accent-orange-subtle-hovered: var(--ds-orange900);
+	--background-accent-orange-subtle-pressed: var(--ds-orange1000);
+	--background-accent-orange-subtler: var(--ds-orange900);
+	--background-accent-orange-subtler-hovered: var(--ds-orange800);
+	--background-accent-orange-subtler-pressed: var(--ds-orange700);
+	--background-accent-orange-subtlest: var(--ds-orange1000);
+	--background-accent-orange-subtlest-hovered: var(--ds-orange900);
+	--background-accent-orange-subtlest-pressed: var(--ds-orange800);
+
+	/* Accent Color Backgrounds - Purple */
+	--background-accent-purple-bolder: var(--ds-purple400);
+	--background-accent-purple-bolder-hovered: var(--ds-purple300);
+	--background-accent-purple-bolder-pressed: var(--ds-purple200);
+	--background-accent-purple-subtle: var(--ds-purple800);
+	--background-accent-purple-subtle-hovered: var(--ds-purple900);
+	--background-accent-purple-subtle-pressed: var(--ds-purple1000);
+	--background-accent-purple-subtler: var(--ds-purple900);
+	--background-accent-purple-subtler-hovered: var(--ds-purple800);
+	--background-accent-purple-subtler-pressed: var(--ds-purple700);
+	--background-accent-purple-subtlest: var(--ds-purple1000);
+	--background-accent-purple-subtlest-hovered: var(--ds-purple900);
+	--background-accent-purple-subtlest-pressed: var(--ds-purple800);
+
+	/* Accent Color Backgrounds - Red */
+	--background-accent-red-bolder: var(--ds-red400);
+	--background-accent-red-bolder-hovered: var(--ds-red300);
+	--background-accent-red-bolder-pressed: var(--ds-red200);
+	--background-accent-red-subtle: var(--ds-red800);
+	--background-accent-red-subtle-hovered: var(--ds-red900);
+	--background-accent-red-subtle-pressed: var(--ds-red1000);
+	--background-accent-red-subtler: var(--ds-red900);
+	--background-accent-red-subtler-hovered: var(--ds-red800);
+	--background-accent-red-subtler-pressed: var(--ds-red700);
+	--background-accent-red-subtlest: var(--ds-red1000);
+	--background-accent-red-subtlest-hovered: var(--ds-red900);
+	--background-accent-red-subtlest-pressed: var(--ds-red800);
+
+	/* Accent Color Backgrounds - Teal */
+	--background-accent-teal-bolder: var(--ds-teal400);
+	--background-accent-teal-bolder-hovered: var(--ds-teal300);
+	--background-accent-teal-bolder-pressed: var(--ds-teal200);
+	--background-accent-teal-subtle: var(--ds-teal800);
+	--background-accent-teal-subtle-hovered: var(--ds-teal900);
+	--background-accent-teal-subtle-pressed: var(--ds-teal1000);
+	--background-accent-teal-subtler: var(--ds-teal900);
+	--background-accent-teal-subtler-hovered: var(--ds-teal800);
+	--background-accent-teal-subtler-pressed: var(--ds-teal700);
+	--background-accent-teal-subtlest: var(--ds-teal1000);
+	--background-accent-teal-subtlest-hovered: var(--ds-teal900);
+	--background-accent-teal-subtlest-pressed: var(--ds-teal800);
+
+	/* Accent Color Backgrounds - Yellow */
+	--background-accent-yellow-bolder: var(--ds-yellow400);
+	--background-accent-yellow-bolder-hovered: var(--ds-yellow300);
+	--background-accent-yellow-bolder-pressed: var(--ds-yellow200);
+	--background-accent-yellow-subtle: var(--ds-yellow800);
+	--background-accent-yellow-subtle-hovered: var(--ds-yellow900);
+	--background-accent-yellow-subtle-pressed: var(--ds-yellow1000);
+	--background-accent-yellow-subtler: var(--ds-yellow900);
+	--background-accent-yellow-subtler-hovered: var(--ds-yellow800);
+	--background-accent-yellow-subtler-pressed: var(--ds-yellow700);
+	--background-accent-yellow-subtlest: var(--ds-yellow1000);
+	--background-accent-yellow-subtlest-hovered: var(--ds-yellow900);
+	--background-accent-yellow-subtlest-pressed: var(--ds-yellow800);
+
+	/* Inverse & Special Backgrounds */
+	--background-inverse-subtle: #ffffff29;
+	--background-inverse-subtle-hovered: #ffffff3d;
+	--background-inverse-subtle-pressed: #ffffff52;
+
+	/* Text Tokens */
+	/* Basic Text */
+	--text: var(--ds-darkneutral900);
+	--text-subtle: var(--ds-darkneutral800);
+	--text-subtlest: var(--ds-darkneutral700);
+	--text-inverse: var(--ds-darkneutral100);
+	--text-disabled: var(--ds-darkneutral400a);
+
+	/* Semantic Text */
+	--text-brand: var(--ds-blue400);
+	--text-danger: var(--ds-red300);
+	--text-success: var(--ds-green300);
+	--text-warning: var(--ds-yellow300);
+	--text-warning-inverse: var(--ds-darkneutral100);
+	--text-information: var(--ds-blue300);
+	--text-discovery: var(--ds-purple300);
+	--text-selected: var(--ds-blue400);
+
+	/* Accent Text Colors - Blue */
+	--text-accent-blue: var(--ds-blue300);
+	--text-accent-blue-bolder: var(--ds-blue200);
+
+	/* Accent Text Colors - Gray */
+	--text-accent-gray: var(--ds-darkneutral800);
+	--text-accent-gray-bolder: var(--ds-darkneutral1100);
+
+	/* Accent Text Colors - Green */
+	--text-accent-green: var(--ds-green300);
+	--text-accent-green-bolder: var(--ds-green200);
+
+	/* Accent Text Colors - Lime */
+	--text-accent-lime: var(--ds-lime300);
+	--text-accent-lime-bolder: var(--ds-lime200);
+
+	/* Accent Text Colors - Magenta */
+	--text-accent-magenta: var(--ds-magenta300);
+	--text-accent-magenta-bolder: var(--ds-magenta200);
+
+	/* Accent Text Colors - Orange */
+	--text-accent-orange: var(--ds-orange300);
+	--text-accent-orange-bolder: var(--ds-orange200);
+
+	/* Accent Text Colors - Purple */
+	--text-accent-purple: var(--ds-purple300);
+	--text-accent-purple-bolder: var(--ds-purple200);
+
+	/* Accent Text Colors - Red */
+	--text-accent-red: var(--ds-red300);
+	--text-accent-red-bolder: var(--ds-red200);
+
+	/* Accent Text Colors - Teal */
+	--text-accent-teal: var(--ds-teal300);
+	--text-accent-teal-bolder: var(--ds-teal200);
+
+	/* Accent Text Colors - Yellow */
+	--text-accent-yellow: var(--ds-yellow300);
+	--text-accent-yellow-bolder: var(--ds-yellow200);
+
+	/* Border Tokens */
+	/* Basic Borders */
+	--border: var(--ds-darkneutral300a);
+	--border-bold: var(--ds-darkneutral600);
+	--border-inverse: var(--ds-darkneutral0);
+	--border-disabled: var(--ds-darkneutral200a);
+	--border-input: var(--ds-darkneutral600);
+	--border-focused: var(--ds-blue300);
+
+	/* Semantic Borders */
+	--border-brand: var(--ds-blue400);
+	--border-danger: var(--ds-red500);
+	--border-success: var(--ds-green500);
+	--border-warning: var(--ds-yellow500);
+	--border-information: var(--ds-blue500);
+	--border-discovery: var(--ds-purple500);
+	--border-selected: var(--ds-blue400);
+
+	/* Accent Borders */
+	--border-accent-blue: var(--ds-blue500);
+	--border-accent-gray: var(--ds-darkneutral600);
+	--border-accent-green: var(--ds-green500);
+	--border-accent-lime: var(--ds-lime500);
+	--border-accent-magenta: var(--ds-magenta500);
+	--border-accent-orange: var(--ds-orange500);
+	--border-accent-purple: var(--ds-purple500);
+	--border-accent-red: var(--ds-red500);
+	--border-accent-teal: var(--ds-teal500);
+	--border-accent-yellow: var(--ds-yellow500);
+
+	/* Icon Tokens */
+	/* Basic Icon Colors */
+	--icon: var(--ds-darkneutral1000);
+	--icon-subtle: var(--ds-darkneutral800);
+	--icon-subtlest: var(--ds-darkneutral700);
+	--icon-inverse: var(--ds-darkneutral100);
+	--icon-disabled: var(--ds-darkneutral400a);
+
+	/* Semantic Icon Colors */
+	--icon-brand: var(--ds-blue400);
+	--icon-danger: var(--ds-red500);
+	--icon-success: var(--ds-green500);
+	--icon-warning: var(--ds-yellow300);
+	--icon-warning-inverse: var(--ds-darkneutral100);
+	--icon-information: var(--ds-blue500);
+	--icon-discovery: var(--ds-purple500);
+	--icon-selected: var(--ds-blue400);
+
+	/* Accent Icon Colors - Blue */
+	--icon-accent-blue: var(--ds-blue500);
+
+	/* Accent Icon Colors - Gray */
+	--icon-accent-gray: var(--ds-darkneutral600);
+
+	/* Accent Icon Colors - Green */
+	--icon-accent-green: var(--ds-green500);
+
+	/* Accent Icon Colors - Lime */
+	--icon-accent-lime: var(--ds-lime500);
+
+	/* Accent Icon Colors - Magenta */
+	--icon-accent-magenta: var(--ds-magenta500);
+
+	/* Accent Icon Colors - Orange */
+	--icon-accent-orange: var(--ds-orange500);
+
+	/* Accent Icon Colors - Purple */
+	--icon-accent-purple: var(--ds-purple500);
+
+	/* Accent Icon Colors - Red */
+	--icon-accent-red: var(--ds-red600);
+
+	/* Accent Icon Colors - Teal */
+	--icon-accent-teal: var(--ds-teal500);
+
+	/* Accent Icon Colors - Yellow */
+	--icon-accent-yellow: var(--ds-yellow300);
+
+	/* Interaction Tokens */
+	--interaction-hovered: #ffffff33;
+	--interaction-pressed: #ffffff5c;
+
+	/* Elevation & Surface Tokens */
+	--elevation-surface: var(--ds-darkneutral100);
+	--elevation-surface-pressed: var(--ds-darkneutral250);
+	--elevation-surface-overlay: var(--ds-darkneutral250);
+	--elevation-surface-overlay-hovered: var(--ds-darkneutral300);
+	--elevation-surface-overlay-pressed: var(--ds-darkneutral350);
+	--elevation-surface-raised: var(--ds-darkneutral200);
+	--elevation-surface-raised-hovered: var(--ds-darkneutral250);
+	--elevation-surface-sunken: var(--ds-darkneutral0);
+	--utility-elevation-surface-current: var(--ds-darkneutral100);
+
+	/* Opacity Tokens */
+	--opacity-disabled: var(--ds-opacity20);
+	--opacity-loading: var(--ds-opacity40);
+
+	/* Chart Color Tokens */
+	/* Chart Brand & Primary */
+	--chart-brand: var(--ds-blue500);
+	--chart-brand-hovered: var(--ds-blue400);
+
+	/* Chart Categorical Colors (for sequential data visualization) */
+	--chart-categorical-1: var(--ds-teal600);
+	--chart-categorical-1-hovered: var(--ds-teal500);
+	--chart-categorical-2: var(--ds-purple300);
+	--chart-categorical-2-hovered: var(--ds-purple200);
+	--chart-categorical-3: var(--ds-orange600);
+	--chart-categorical-3-hovered: var(--ds-orange500);
+	--chart-categorical-4: var(--ds-magenta300);
+	--chart-categorical-4-hovered: var(--ds-magenta200);
+	--chart-categorical-5: var(--ds-blue200);
+	--chart-categorical-5-hovered: var(--ds-blue100);
+	--chart-categorical-6: var(--ds-purple600);
+	--chart-categorical-6-hovered: var(--ds-purple500);
+	--chart-categorical-7: var(--ds-magenta200);
+	--chart-categorical-7-hovered: var(--ds-magenta100);
+	--chart-categorical-8: var(--ds-orange300);
+	--chart-categorical-8-hovered: var(--ds-orange200);
+
+	/* Chart Semantic Colors */
+	--chart-danger: var(--ds-red600);
+	--chart-danger-bold: var(--ds-red300);
+	--chart-danger-bold-hovered: var(--ds-red200);
+	--chart-danger-hovered: var(--ds-red500);
+
+	--chart-success: var(--ds-green500);
+	--chart-success-bold: var(--ds-green300);
+	--chart-success-bold-hovered: var(--ds-green200);
+	--chart-success-hovered: var(--ds-green400);
+
+	--chart-warning: var(--ds-yellow500);
+	--chart-warning-bold: var(--ds-yellow300);
+	--chart-warning-bold-hovered: var(--ds-yellow200);
+	--chart-warning-hovered: var(--ds-yellow400);
+
+	--chart-information: var(--ds-blue600);
+	--chart-information-bold: var(--ds-blue300);
+	--chart-information-bold-hovered: var(--ds-blue200);
+	--chart-information-hovered: var(--ds-blue500);
+
+	--chart-discovery: var(--ds-purple600);
+	--chart-discovery-bold: var(--ds-purple300);
+	--chart-discovery-bold-hovered: var(--ds-purple200);
+	--chart-discovery-hovered: var(--ds-purple500);
+
+	--chart-neutral: var(--ds-darkneutral600);
+	--chart-neutral-hovered: var(--ds-darkneutral700);
+
+	/* Chart Color Variants by Color */
+	/* Blue Chart Colors */
+	--chart-blue-bold: var(--ds-blue600);
+	--chart-blue-bold-hovered: var(--ds-blue500);
+	--chart-blue-bolder: var(--ds-blue500);
+	--chart-blue-bolder-hovered: var(--ds-blue400);
+	--chart-blue-boldest: var(--ds-blue300);
+	--chart-blue-boldest-hovered: var(--ds-blue200);
+
+	/* Gray Chart Colors */
+	--chart-gray-bold: var(--ds-darkneutral600);
+	--chart-gray-bold-hovered: var(--ds-darkneutral700);
+	--chart-gray-bolder: var(--ds-darkneutral700);
+	--chart-gray-bolder-hovered: var(--ds-darkneutral800);
+	--chart-gray-boldest: var(--ds-darkneutral800);
+	--chart-gray-boldest-hovered: var(--ds-darkneutral900);
+
+	/* Green Chart Colors */
+	--chart-green-bold: var(--ds-green500);
+	--chart-green-bold-hovered: var(--ds-green400);
+	--chart-green-bolder: var(--ds-green400);
+	--chart-green-bolder-hovered: var(--ds-green300);
+	--chart-green-boldest: var(--ds-green300);
+	--chart-green-boldest-hovered: var(--ds-green200);
+
+	/* Lime Chart Colors */
+	--chart-lime-bold: var(--ds-lime500);
+	--chart-lime-bold-hovered: var(--ds-lime400);
+	--chart-lime-bolder: var(--ds-lime400);
+	--chart-lime-bolder-hovered: var(--ds-lime300);
+	--chart-lime-boldest: var(--ds-lime300);
+	--chart-lime-boldest-hovered: var(--ds-lime200);
+
+	/* Magenta Chart Colors */
+	--chart-magenta-bold: var(--ds-magenta600);
+	--chart-magenta-bold-hovered: var(--ds-magenta500);
+	--chart-magenta-bolder: var(--ds-magenta500);
+	--chart-magenta-bolder-hovered: var(--ds-magenta400);
+	--chart-magenta-boldest: var(--ds-magenta300);
+	--chart-magenta-boldest-hovered: var(--ds-magenta200);
+
+	/* Orange Chart Colors */
+	--chart-orange-bold: var(--ds-orange500);
+	--chart-orange-bold-hovered: var(--ds-orange400);
+	--chart-orange-bolder: var(--ds-orange400);
+	--chart-orange-bolder-hovered: var(--ds-orange300);
+	--chart-orange-boldest: var(--ds-orange300);
+	--chart-orange-boldest-hovered: var(--ds-orange200);
+
+	/* Purple Chart Colors */
+	--chart-purple-bold: var(--ds-purple600);
+	--chart-purple-bold-hovered: var(--ds-purple500);
+	--chart-purple-bolder: var(--ds-purple500);
+	--chart-purple-bolder-hovered: var(--ds-purple400);
+	--chart-purple-boldest: var(--ds-purple300);
+	--chart-purple-boldest-hovered: var(--ds-purple200);
+
+	/* Red Chart Colors */
+	--chart-red-bold: var(--ds-red600);
+	--chart-red-bold-hovered: var(--ds-red500);
+	--chart-red-bolder: var(--ds-red500);
+	--chart-red-bolder-hovered: var(--ds-red400);
+	--chart-red-boldest: var(--ds-red300);
+	--chart-red-boldest-hovered: var(--ds-red200);
+
+	/* Teal Chart Colors */
+	--chart-teal-bold: var(--ds-teal500);
+	--chart-teal-bold-hovered: var(--ds-teal400);
+	--chart-teal-bolder: var(--ds-teal400);
+	--chart-teal-bolder-hovered: var(--ds-teal300);
+	--chart-teal-boldest: var(--ds-teal300);
+	--chart-teal-boldest-hovered: var(--ds-teal200);
+
+	/* Yellow Chart Colors */
+	--chart-yellow-bold: var(--ds-yellow500);
+	--chart-yellow-bold-hovered: var(--ds-yellow400);
+	--chart-yellow-bolder: var(--ds-yellow400);
+	--chart-yellow-bolder-hovered: var(--ds-yellow300);
+	--chart-yellow-boldest: var(--ds-yellow300);
+	--chart-yellow-boldest-hovered: var(--ds-yellow200);
+
+	/* Link Tokens */
+	--link: var(--ds-blue400);
+	--link-pressed: var(--ds-blue300);
+	--link-visited: var(--ds-purple300);
+	--link-visited-pressed: var(--ds-purple200);
+
+	/* Skeleton Tokens */
+	--skeleton: var(--ds-darkneutral200a);
+	--skeleton-subtle: var(--ds-darkneutral100a);
+
+	/* Z-Index Tokens */
+	--z-card: var(--ds-z100);
+	--z-navigation: var(--ds-z200);
+	--z-dialog: var(--ds-z300);
+	--z-layer: var(--ds-z400);
+	--z-blanket: var(--ds-z500);
+	--z-modal: var(--ds-z510);
+	--z-flag: var(--ds-z600);
+	--z-spotlight: var(--ds-z700);
+	--z-tooltip: var(--ds-z800);
+}

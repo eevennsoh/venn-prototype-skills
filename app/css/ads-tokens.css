@@ -1,0 +1,638 @@
+:root {
+	/* Atlassian Design System (ADS) Base Tokens */
+
+	/* Color Tokens */
+	/* Blue Base Tokens */
+	--ds-blue100: #e9f2fe;
+	--ds-blue200: #cfe1fd;
+	--ds-blue300: #8fb8f6;
+	--ds-blue400: #669df1;
+	--ds-blue500: #4688ec;
+	--ds-blue600: #357de8;
+	--ds-blue700: #1868db;
+	--ds-blue800: #1558bc;
+	--ds-blue900: #123263;
+	--ds-blue1000: #1c2b42;
+
+	/* Red Base Tokens */
+	--ds-red100: #ffeceb;
+	--ds-red200: #ffd5d2;
+	--ds-red300: #fd9891;
+	--ds-red400: #f87168;
+	--ds-red500: #f15b50;
+	--ds-red600: #e2483d;
+	--ds-red700: #c9372c;
+	--ds-red800: #ae2e24;
+	--ds-red900: #5d1f1a;
+	--ds-red1000: #42221f;
+
+	/* Green Base Tokens */
+	--ds-green100: #dcfff1;
+	--ds-green200: #baf3db;
+	--ds-green300: #7ee2b8;
+	--ds-green400: #4bce97;
+	--ds-green500: #2abb7f;
+	--ds-green600: #22a06b;
+	--ds-green700: #1f845a;
+	--ds-green800: #216e4e;
+	--ds-green900: #164b35;
+	--ds-green1000: #1c3329;
+
+	/* Yellow Base Tokens */
+	--ds-yellow100: #fef7c8;
+	--ds-yellow200: #f5e989;
+	--ds-yellow300: #eed12b;
+	--ds-yellow400: #ddb30e;
+	--ds-yellow500: #cf9f02;
+	--ds-yellow600: #b38600;
+	--ds-yellow700: #946f00;
+	--ds-yellow800: #7f5f01;
+	--ds-yellow900: #533f04;
+	--ds-yellow1000: #332e1b;
+
+	/* Purple Base Tokens */
+	--ds-purple100: #f8eefe;
+	--ds-purple200: #eed7fc;
+	--ds-purple300: #d8a0f7;
+	--ds-purple400: #c97cf4;
+	--ds-purple500: #bf63f3;
+	--ds-purple600: #af59e1;
+	--ds-purple700: #964ac0;
+	--ds-purple800: #803fa5;
+	--ds-purple900: #48245d;
+	--ds-purple1000: #35243f;
+
+	/* Teal Base Tokens */
+	--ds-teal100: #e7f9ff;
+	--ds-teal200: #c6edfb;
+	--ds-teal300: #9dd9ee;
+	--ds-teal400: #6cc3e0;
+	--ds-teal500: #42b2d7;
+	--ds-teal600: #2898bd;
+	--ds-teal700: #227d9b;
+	--ds-teal800: #206a83;
+	--ds-teal900: #164555;
+	--ds-teal1000: #1e3137;
+
+	/* Orange Base Tokens */
+	--ds-orange100: #fff5db;
+	--ds-orange200: #fce4a6;
+	--ds-orange300: #fbc828;
+	--ds-orange400: #fca700;
+	--ds-orange500: #f68909;
+	--ds-orange600: #e06c00;
+	--ds-orange700: #bd5b00;
+	--ds-orange800: #9e4c00;
+	--ds-orange900: #693200;
+	--ds-orange1000: #3a2c1f;
+
+	/* Magenta Base Tokens */
+	--ds-magenta100: #ffecf8;
+	--ds-magenta200: #fdd0ec;
+	--ds-magenta300: #f797d2;
+	--ds-magenta400: #e774bb;
+	--ds-magenta500: #da62ac;
+	--ds-magenta600: #cd519d;
+	--ds-magenta700: #ae4787;
+	--ds-magenta800: #943d73;
+	--ds-magenta900: #50253f;
+	--ds-magenta1000: #3d2232;
+
+	/* Lime Base Tokens */
+	--ds-lime100: #efffd6;
+	--ds-lime200: #d3f1a7;
+	--ds-lime300: #b3df72;
+	--ds-lime400: #94c748;
+	--ds-lime500: #82b536;
+	--ds-lime600: #6a9a23;
+	--ds-lime700: #5b7f24;
+	--ds-lime800: #4c6b1f;
+	--ds-lime900: #37471f;
+	--ds-lime1000: #28311b;
+
+	/* Neutral Base Tokens */
+	--ds-neutralminus100: #ffffff; /* Custom */
+	--ds-neutralminus100a: #ffffff08; /* Custom = 3% opacity */
+	--ds-neutral0: #ffffff;
+	--ds-neutral100: #f8f8f8;
+	--ds-neutral100a: #17171708; /* 3% opacity */
+	--ds-neutral200: #f0f1f2;
+	--ds-neutral200a: #0515240f; /* 6% opacity */
+	--ds-neutral250: #f0f1f2; /* Custom */
+	--ds-neutral250a: #0515240f; /* Custom = 6% opacity */
+	--ds-neutral300: #dddee1;
+	--ds-neutral300a: #0b120e24; /* 14% opacity */
+	--ds-neutral350: #dddee1; /* Custom */
+	--ds-neutral350a: #0b120e24; /* Custom = 14% opacity */
+	--ds-neutral400: #b7b9be;
+	--ds-neutral400a: #080f214a; /* 29% opacity */
+	--ds-neutral500: #8c8f97;
+	--ds-neutral500a: #050c1f75; /* 46% opacity */
+	--ds-neutral600: #7d818a;
+	--ds-neutral700: #6b6e76;
+	--ds-neutral800: #505258;
+	--ds-neutral900: #3b3d42;
+	--ds-neutral1000: #292a2e;
+	--ds-neutral1100: #1e1f21;
+
+	/* Dark Neutral Base Tokens */
+	--ds-darkneutralminus100: #111213;
+	--ds-darkneutralminus100a: #01040475; /* 46% opacity */
+	--ds-darkneutral0: #18191a;
+	--ds-darkneutral100: #1f1f21;
+	--ds-darkneutral100a: #bdbdbd0a; /* 4% opacity */
+	--ds-darkneutral200: #242528;
+	--ds-darkneutral200a: #ceced912; /* 7% opacity */
+	--ds-darkneutral250: #2b2c2f;
+	--ds-darkneutral250a: #d9dae71a; /* 10% opacity */
+	--ds-darkneutral300: #303134;
+	--ds-darkneutral300a: #e3e4f21f; /* 12% opacity */
+	--ds-darkneutral350: #3d3f43;
+	--ds-darkneutral350a: #e8edfd2e; /* 18% opacity */
+	--ds-darkneutral400: #4b4d51;
+	--ds-darkneutral400a: #e5e9f640; /* 25% opacity */
+	--ds-darkneutral500: #63666b;
+	--ds-darkneutral500a: #e9f0fb5c; /* 36% opacity */
+	--ds-darkneutral600: #7e8188;
+	--ds-darkneutral700: #96999e;
+	--ds-darkneutral800: #a9abaf;
+	--ds-darkneutral900: #bfc1c4;
+	--ds-darkneutral1000: #cecfd2;
+	--ds-darkneutral1100: #e2e3e4;
+
+	/* Opacity Tokens */
+	--ds-opacity20: 0.2;
+	--ds-opacity40: 0.4;
+
+	/* Shape Tokens */
+	/* Size Tokens */
+	--ds-size0: 0;
+	--ds-size050: 1px;
+	--ds-size100: 2px;
+	--ds-size200: 3px;
+
+	/* Border Radius Tokens */
+	--ds-radius050: 2px;
+	--ds-radius075: 3px;
+	--ds-radius100: 4px;
+	--ds-radius150: 6px;
+	--ds-radius200: 8px;
+	--ds-radius300: 12px;
+	--ds-radius400: 16px;
+
+	/* Spacing Tokens */
+	/* Positive Spacing */
+	--ds-space0: 0;
+	--ds-space025: 2px;
+	--ds-space050: 4px;
+	--ds-space075: 6px;
+	--ds-space100: 8px;
+	--ds-space150: 12px;
+	--ds-space200: 16px;
+	--ds-space250: 20px;
+	--ds-space300: 24px;
+	--ds-space400: 32px;
+	--ds-space500: 40px;
+	--ds-space600: 48px;
+	--ds-space800: 64px;
+	--ds-space1000: 80px;
+
+	/* Negative Spacing */
+	--ds-spacenegative025: -2px;
+	--ds-spacenegative050: -4px;
+	--ds-spacenegative075: -6px;
+	--ds-spacenegative100: -8px;
+	--ds-spacenegative150: -12px;
+	--ds-spacenegative200: -16px;
+	--ds-spacenegative250: -20px;
+	--ds-spacenegative300: -24px;
+	--ds-spacenegative400: -32px;
+
+	/* Typography Tokens */
+	/* Font Shorthand Tokens */
+	--ds-font-heading-xxlarge: normal 653 2rem/2.25rem "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif;
+	--ds-font-heading-xlarge: normal 653 1.75rem/2rem "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif;
+	--ds-font-heading-large: normal 653 1.5rem/1.75rem "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif;
+	--ds-font-heading-medium: normal 653 1.25rem/1.5rem "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif;
+	--ds-font-heading-small: normal 653 1rem/1.25rem "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif;
+	--ds-font-heading-xsmall: normal 653 0.875rem/1.25rem "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif;
+	--ds-font-heading-xxsmall: normal 653 0.75rem/1rem "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif;
+
+	--ds-font-body-large: normal 400 1rem/1.5rem "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif;
+	--ds-font-body: normal 400 0.875rem/1.25rem "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif;
+	--ds-font-body-small: normal 400 0.75rem/1rem "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif;
+
+	--ds-font-metric-large: normal 653 1.75rem/2rem "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif;
+	--ds-font-metric-medium: normal 653 1.5rem/1.75rem "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif;
+	--ds-font-metric-small: normal 653 1rem/1.25rem "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif;
+
+	--ds-font-code: normal 400 0.875em/1 "Atlassian Mono", ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace;
+
+	/* Font Family Tokens */
+	--ds-font-family-heading: "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif;
+	--ds-font-family-body: "Atlassian Sans", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif;
+	--ds-font-family-code: "Atlassian Mono", ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace;
+	--ds-font-family-brand-heading: "Charlie Display", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif;
+	--ds-font-family-brand-body: "Charlie Text", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, "Helvetica Neue", sans-serif;
+
+	/* Font Size Tokens */
+	--ds-font-size-code: 0.875em; /* 14px */
+	--ds-font-size12: 0.75rem; /* 12px */
+	--ds-font-size14: 0.875rem; /* 14px */
+	--ds-font-size16: 1rem; /* 16px */
+	--ds-font-size20: 1.25rem; /* 20px */
+	--ds-font-size24: 1.5rem; /* 24px */
+	--ds-font-size28: 1.75rem; /* 28px */
+	--ds-font-size32: 2rem; /* 32px */
+
+	/* Font Weight Tokens */
+	--ds-font-weight-regular: 400;
+	--ds-font-weight-medium: 500;
+	--ds-font-weight-semibold: 600;
+	--ds-font-weight-bold: 653;
+
+	/* Line Height Tokens */
+	--ds-line-height1: 1; /* height of a line box will be exactly equal to the font-size */
+	--ds-line-height16: 1rem; /* 16px */
+	--ds-line-height20: 1.25rem; /* 20px */
+	--ds-line-height24: 1.5rem; /* 24px */
+	--ds-line-height28: 1.75rem; /* 28px */
+	--ds-line-height32: 2rem; /* 32px */
+	--ds-line-height36: 2.25rem; /* 36px */
+
+	/* Letter Spacing Tokens */
+	--ds-letter-spacing0: 0;
+	--ds-letter-spacing100: -0.003em;
+	--ds-letter-spacing200: -0.006em;
+	--ds-letter-spacing300: -0.008em;
+	--ds-letter-spacing400: -0.01em;
+
+	/* Blanket Tokens */
+	--ds-blanket: #10121499;
+	--ds-blanket-danger: #e3493514;
+	--ds-blanket-selected: #357de814;
+
+	/* Elevation Tokens (Light Mode) */
+	--ds-elevation-shadow-raised: 0 1px 1px rgba(9, 30, 66, 0.25), 0 0 1px rgba(9, 30, 66, 0.31);
+	--ds-elevation-shadow-overflow: 0 0 8px rgba(9, 30, 66, 0.16), 0 0 1px rgba(9, 30, 66, 0.12);
+	--ds-elevation-shadow-overlay: 0 8px 12px rgba(9, 30, 66, 0.15), 0 0 1px rgba(9, 30, 66, 0.31);
+
+	/* Elevation Tokens (Dark Mode) */
+	--ds-darkelevation-shadow-raised: 0 0 0 rgba(0, 0, 0, 0), 0 1px 1px rgba(3, 4, 4, 0.5), 0 0 1px rgba(3, 4, 4, 0.5);
+	--ds-darkelevation-shadow-overflow: 0 0 12px rgba(3, 4, 4, 0.56), 0 0 1px rgba(3, 4, 4, 0.5);
+	--ds-darkelevation-shadow-overlay: 0 0 0 rgba(57, 66, 74, 1), 0 8px 12px rgba(3, 4, 4, 0.36), 0 0 1px rgba(3, 4, 4, 0.5);
+
+	/* Z-Index Base Tokens */
+	--ds-z100: 100; /* Card */
+	--ds-z200: 200; /* Navigation */
+	--ds-z300: 300; /* Dialog */
+	--ds-z400: 400; /* Layer */
+	--ds-z500: 500; /* Blanket */
+	--ds-z510: 510; /* Modal */
+	--ds-z600: 600; /* Flag */
+	--ds-z700: 700; /* Spotlight */
+	--ds-z800: 800; /* Tooltip */
+
+	/* Motion Duration Tokens */
+	--ds-duration-none: 0ms;
+	--ds-duration-small: 100ms;
+	--ds-duration-medium: 350ms;
+	--ds-duration-large: 700ms;
+	--ds-duration-exit-small: 50ms;
+	--ds-duration-exit-medium: 175ms;
+	--ds-duration-exit-large: 350ms;
+
+	/* Motion Easing Tokens */
+	--ds-ease-in-out: cubic-bezier(0.15, 1, 0.3, 1);
+	--ds-ease-out: cubic-bezier(0.2, 0, 0, 1);
+	--ds-ease-in: cubic-bezier(0.8, 0, 0, 0.8);
+	--ds-ease-in-40-out: cubic-bezier(0.4, 0, 0, 1);
+	--ds-ease-in-60-out: cubic-bezier(0.6, 0, 0, 1);
+	--ds-ease-in-80-out: cubic-bezier(0.8, 0, 0, 1);
+	--ds-ease-linear: cubic-bezier(0, 0, 1, 1);
+
+	/* Theming Mapping */
+	/* Blue Base Tokens */
+	--blue100: var(--ds-blue100);
+	--blue200: var(--ds-blue200);
+	--blue300: var(--ds-blue300);
+	--blue400: var(--ds-blue400);
+	--blue500: var(--ds-blue500);
+	--blue600: var(--ds-blue600);
+	--blue700: var(--ds-blue700);
+	--blue800: var(--ds-blue800);
+	--blue900: var(--ds-blue900);
+	--blue1000: var(--ds-blue1000);
+
+	/* Red Base Tokens */
+	--red100: var(--ds-red100);
+	--red200: var(--ds-red200);
+	--red300: var(--ds-red300);
+	--red400: var(--ds-red400);
+	--red500: var(--ds-red500);
+	--red600: var(--ds-red600);
+	--red700: var(--ds-red700);
+	--red800: var(--ds-red800);
+	--red900: var(--ds-red900);
+	--red1000: var(--ds-red1000);
+
+	/* Green Base Tokens */
+	--green100: var(--ds-green100);
+	--green200: var(--ds-green200);
+	--green300: var(--ds-green300);
+	--green400: var(--ds-green400);
+	--green500: var(--ds-green500);
+	--green600: var(--ds-green600);
+	--green700: var(--ds-green700);
+	--green800: var(--ds-green800);
+	--green900: var(--ds-green900);
+	--green1000: var(--ds-green1000);
+
+	/* Yellow Base Tokens */
+	--yellow100: var(--ds-yellow100);
+	--yellow200: var(--ds-yellow200);
+	--yellow300: var(--ds-yellow300);
+	--yellow400: var(--ds-yellow400);
+	--yellow500: var(--ds-yellow500);
+	--yellow600: var(--ds-yellow600);
+	--yellow700: var(--ds-yellow700);
+	--yellow800: var(--ds-yellow800);
+	--yellow900: var(--ds-yellow900);
+	--yellow1000: var(--ds-yellow1000);
+
+	/* Purple Base Tokens */
+	--purple100: var(--ds-purple100);
+	--purple200: var(--ds-purple200);
+	--purple300: var(--ds-purple300);
+	--purple400: var(--ds-purple400);
+	--purple500: var(--ds-purple500);
+	--purple600: var(--ds-purple600);
+	--purple700: var(--ds-purple700);
+	--purple800: var(--ds-purple800);
+	--purple900: var(--ds-purple900);
+	--purple1000: var(--ds-purple1000);
+
+	/* Teal Base Tokens */
+	--teal100: var(--ds-teal100);
+	--teal200: var(--ds-teal200);
+	--teal300: var(--ds-teal300);
+	--teal400: var(--ds-teal400);
+	--teal500: var(--ds-teal500);
+	--teal600: var(--ds-teal600);
+	--teal700: var(--ds-teal700);
+	--teal800: var(--ds-teal800);
+	--teal900: var(--ds-teal900);
+	--teal1000: var(--ds-teal1000);
+
+	/* Orange Base Tokens */
+	--orange100: var(--ds-orange100);
+	--orange200: var(--ds-orange200);
+	--orange300: var(--ds-orange300);
+	--orange400: var(--ds-orange400);
+	--orange500: var(--ds-orange500);
+	--orange600: var(--ds-orange600);
+	--orange700: var(--ds-orange700);
+	--orange800: var(--ds-orange800);
+	--orange900: var(--ds-orange900);
+	--orange1000: var(--ds-orange1000);
+
+	/* Magenta Base Tokens */
+	--magenta100: var(--ds-magenta100);
+	--magenta200: var(--ds-magenta200);
+	--magenta300: var(--ds-magenta300);
+	--magenta400: var(--ds-magenta400);
+	--magenta500: var(--ds-magenta500);
+	--magenta600: var(--ds-magenta600);
+	--magenta700: var(--ds-magenta700);
+	--magenta800: var(--ds-magenta800);
+	--magenta900: var(--ds-magenta900);
+	--magenta1000: var(--ds-magenta1000);
+
+	/* Lime Base Tokens */
+	--lime100: var(--ds-lime100);
+	--lime200: var(--ds-lime200);
+	--lime300: var(--ds-lime300);
+	--lime400: var(--ds-lime400);
+	--lime500: var(--ds-lime500);
+	--lime600: var(--ds-lime600);
+	--lime700: var(--ds-lime700);
+	--lime800: var(--ds-lime800);
+	--lime900: var(--ds-lime900);
+	--lime1000: var(--ds-lime1000);
+
+	/* Neutral Base Tokens (Light Mode) */
+	--neutralminus100: var(--ds-neutralminus100); /* Custom */
+	--neutralminus100a: var(--ds-neutralminus100a); /* Custom = 3% opacity */
+	--neutral0: var(--ds-neutral0);
+	--neutral100: var(--ds-neutral100);
+	--neutral100a: var(--ds-neutral100a); /* 3% opacity */
+	--neutral200: var(--ds-neutral200);
+	--neutral200a: var(--ds-neutral200a); /* 6% opacity */
+	--neutral250: var(--ds-neutral250); /* Custom */
+	--neutral250a: var(--ds-neutral250a); /* Custom = 6% opacity */
+	--neutral300: var(--ds-neutral300);
+	--neutral300a: var(--ds-neutral300a); /* 14% opacity */
+	--neutral350: var(--ds-neutral350); /* Custom */
+	--neutral350a: var(--ds-neutral350a); /* Custom = 14% opacity */
+	--neutral400: var(--ds-neutral400);
+	--neutral400a: var(--ds-neutral400a); /* 29% opacity */
+	--neutral500: var(--ds-neutral500);
+	--neutral500a: var(--ds-neutral500a); /* 46% opacity */
+	--neutral600: var(--ds-neutral600);
+	--neutral700: var(--ds-neutral700);
+	--neutral800: var(--ds-neutral800);
+	--neutral900: var(--ds-neutral900);
+	--neutral1000: var(--ds-neutral1000);
+	--neutral1100: var(--ds-neutral1100);
+
+	/* Neutral Base Tokens (Dark Mode) */
+	--darkneutralminus100: var(--ds-darkneutralminus100); /* Custom */
+	--darkneutralminus100a: var(--ds-darkneutralminus100a); /* Custom = 3% opacity */
+	--darkneutral0: var(--ds-darkneutral0);
+	--darkneutral100: var(--ds-darkneutral100);
+	--darkneutral100a: var(--ds-darkneutral100a); /* 4% opacity */
+	--darkneutral200: var(--ds-darkneutral200);
+	--darkneutral200a: var(--ds-darkneutral200a); /* 7% opacity */
+	--darkneutral250: var(--ds-darkneutral250);
+	--darkneutral250a: var(--ds-darkneutral250a); /* 10% opacity */
+	--darkneutral300: var(--ds-darkneutral300);
+	--darkneutral300a: var(--ds-darkneutral300a); /* 12% opacity */
+	--darkneutral350: var(--ds-darkneutral350);
+	--darkneutral350a: var(--ds-darkneutral350a); /* 18% opacity */
+	--darkneutral400: var(--ds-darkneutral400);
+	--darkneutral400a: var(--ds-darkneutral400a); /* 25% opacity */
+	--darkneutral500: var(--ds-darkneutral500);
+	--darkneutral500a: var(--ds-darkneutral500a); /* 36% opacity */
+	--darkneutral600: var(--ds-darkneutral600);
+	--darkneutral700: var(--ds-darkneutral700);
+	--darkneutral800: var(--ds-darkneutral800);
+	--darkneutral900: var(--ds-darkneutral900);
+	--darkneutral1000: var(--ds-darkneutral1000);
+	--darkneutral1100: var(--ds-darkneutral1100);
+}
+
+.dark {
+	/* Theming Mapping */
+	/* Blue Base Tokens */
+	--blue100: var(--ds-blue1000);
+	--blue200: var(--ds-blue900);
+	--blue300: var(--ds-blue800);
+	--blue400: var(--ds-blue700);
+	--blue500: var(--ds-blue600);
+	--blue600: var(--ds-blue500);
+	--blue700: var(--ds-blue400);
+	--blue800: var(--ds-blue300);
+	--blue900: var(--ds-blue200);
+	--blue1000: var(--ds-blue100);
+
+	/* Red Base Tokens */
+	--red100: var(--ds-red1000);
+	--red200: var(--ds-red900);
+	--red300: var(--ds-red800);
+	--red400: var(--ds-red700);
+	--red500: var(--ds-red600);
+	--red600: var(--ds-red500);
+	--red700: var(--ds-red400);
+	--red800: var(--ds-red300);
+	--red900: var(--ds-red200);
+	--red1000: var(--ds-red100);
+
+	/* Green Base Tokens */
+	--green100: var(--ds-green1000);
+	--green200: var(--ds-green900);
+	--green300: var(--ds-green800);
+	--green400: var(--ds-green700);
+	--green500: var(--ds-green600);
+	--green600: var(--ds-green500);
+	--green700: var(--ds-green400);
+	--green800: var(--ds-green300);
+	--green900: var(--ds-green200);
+	--green1000: var(--ds-green100);
+
+	/* Yellow Base Tokens */
+	--yellow100: var(--ds-yellow1000);
+	--yellow200: var(--ds-yellow900);
+	--yellow300: var(--ds-yellow800);
+	--yellow400: var(--ds-yellow700);
+	--yellow500: var(--ds-yellow600);
+	--yellow600: var(--ds-yellow500);
+	--yellow700: var(--ds-yellow400);
+	--yellow800: var(--ds-yellow300);
+	--yellow900: var(--ds-yellow200);
+	--yellow1000: var(--ds-yellow100);
+
+	/* Purple Base Tokens */
+	--purple100: var(--ds-purple1000);
+	--purple200: var(--ds-purple900);
+	--purple300: var(--ds-purple800);
+	--purple400: var(--ds-purple700);
+	--purple500: var(--ds-purple600);
+	--purple600: var(--ds-purple500);
+	--purple700: var(--ds-purple400);
+	--purple800: var(--ds-purple300);
+	--purple900: var(--ds-purple200);
+	--purple1000: var(--ds-purple100);
+
+	/* Teal Base Tokens */
+	--teal100: var(--ds-teal1000);
+	--teal200: var(--ds-teal900);
+	--teal300: var(--ds-teal800);
+	--teal400: var(--ds-teal700);
+	--teal500: var(--ds-teal600);
+	--teal600: var(--ds-teal500);
+	--teal700: var(--ds-teal400);
+	--teal800: var(--ds-teal300);
+	--teal900: var(--ds-teal200);
+	--teal1000: var(--ds-teal100);
+
+	/* Orange Base Tokens */
+	--orange100: var(--ds-orange1000);
+	--orange200: var(--ds-orange900);
+	--orange300: var(--ds-orange800);
+	--orange400: var(--ds-orange700);
+	--orange500: var(--ds-orange600);
+	--orange600: var(--ds-orange500);
+	--orange700: var(--ds-orange400);
+	--orange800: var(--ds-orange300);
+	--orange900: var(--ds-orange200);
+	--orange1000: var(--ds-orange100);
+
+	/* Magenta Base Tokens */
+	--magenta100: var(--ds-magenta1000);
+	--magenta200: var(--ds-magenta900);
+	--magenta300: var(--ds-magenta800);
+	--magenta400: var(--ds-magenta700);
+	--magenta500: var(--ds-magenta600);
+	--magenta600: var(--ds-magenta500);
+	--magenta700: var(--ds-magenta400);
+	--magenta800: var(--ds-magenta300);
+	--magenta900: var(--ds-magenta200);
+	--magenta1000: var(--ds-magenta100);
+
+	/* Lime Base Tokens */
+	--lime100: var(--ds-lime1000);
+	--lime200: var(--ds-lime900);
+	--lime300: var(--ds-lime800);
+	--lime400: var(--ds-lime700);
+	--lime500: var(--ds-lime600);
+	--lime600: var(--ds-lime500);
+	--lime700: var(--ds-lime400);
+	--lime800: var(--ds-lime300);
+	--lime900: var(--ds-lime200);
+	--lime1000: var(--ds-lime100);
+
+	/* Neutral Base Tokens (Light Mode inverse) */
+	--neutralminus100: var(--ds-darkneutralminus100);
+	--neutralminus100a: var(--ds-darkneutralminus100a);
+	--neutral0: var(--ds-darkneutral0);
+	--neutral100: var(--ds-darkneutral100);
+	--neutral100a: var(--ds-darkneutral100a);
+	--neutral200: var(--ds-darkneutral200);
+	--neutral200a: var(--ds-darkneutral200a);
+	--neutral250: var(--ds-darkneutral250);
+	--neutral250a: var(--ds-darkneutral250a);
+	--neutral300: var(--ds-darkneutral300);
+	--neutral300a: var(--ds-darkneutral300a);
+	--neutral350: var(--ds-darkneutral350);
+	--neutral350a: var(--ds-darkneutral350a);
+	--neutral400: var(--ds-darkneutral400);
+	--neutral400a: var(--ds-darkneutral400a);
+	--neutral500: var(--ds-darkneutral500);
+	--neutral500a: var(--ds-darkneutral500a);
+	--neutral600: var(--ds-darkneutral600);
+	--neutral700: var(--ds-darkneutral700);
+	--neutral800: var(--ds-darkneutral800);
+	--neutral900: var(--ds-darkneutral900);
+	--neutral1000: var(--ds-darkneutral1000);
+	--neutral1100: var(--ds-darkneutral1100);
+
+	/* Neutral Base Tokens (Dark Mode inverse) */
+	--darkneutralminus100: var(--ds-neutralminus100);
+	--darkneutralminus100a: var(--ds-neutralminus100a);
+	--darkneutral0: var(--ds-neutral0);
+	--darkneutral100: var(--ds-neutral100);
+	--darkneutral100a: var(--ds-neutral100a);
+	--darkneutral200: var(--ds-neutral200);
+	--darkneutral200a: var(--ds-neutral200a);
+	--darkneutral250: var(--ds-neutral250);
+	--darkneutral250a: var(--ds-neutral250a);
+	--darkneutral300: var(--ds-neutral300);
+	--darkneutral300a: var(--ds-neutral300a);
+	--darkneutral350: var(--ds-neutral350);
+	--darkneutral350a: var(--ds-neutral350a);
+	--darkneutral400: var(--ds-neutral400);
+	--darkneutral400a: var(--ds-neutral400a);
+	--darkneutral500: var(--ds-neutral500);
+	--darkneutral500a: var(--ds-neutral500a);
+	--darkneutral600: var(--ds-neutral600);
+	--darkneutral700: var(--ds-neutral700);
+	--darkneutral800: var(--ds-neutral800);
+	--darkneutral900: var(--ds-neutral900);
+	--darkneutral1000: var(--ds-neutral1000);
+	--darkneutral1100: var(--ds-neutral1100);
+
+	/* Elevation Tokens */
+	--elevation-shadow-raised: var(--ds-darkelevation-shadow-raised);
+	--elevation-shadow-overflow: var(--ds-darkelevation-shadow-overflow);
+	--elevation-shadow-overlay: var(--ds-darkelevation-shadow-overlay);
+}
