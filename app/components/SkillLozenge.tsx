@@ -34,16 +34,17 @@ export default function SkillLozenge({ icon, label, color = "blue", onClick, isS
 				position: "relative",
 				display: "inline-flex",
 				alignItems: "center",
-				gap: "4px",
+				gap: token("space.050"),
 				padding: `${token("space.050")} ${token("space.075")} ${token("space.050")} ${token("space.100")}`,
 				backgroundColor: token("color.background.neutral"),
-				borderRadius: "4px",
+				borderRadius: token("radius.small"),
 				cursor: onClick ? "pointer" : "default",
 				transition: "all 0.15s ease",
 				transform: "skewX(-12deg)",
 				overflow: "hidden",
 				height: "20px",
 				boxSizing: "border-box",
+				marginRight: token("space.025"),
 			}}
 		>
 			{/* Colored left border slash */}
@@ -53,7 +54,7 @@ export default function SkillLozenge({ icon, label, color = "blue", onClick, isS
 					left: 0,
 					top: 0,
 					bottom: 0,
-					width: "2px",
+				width: token("border.width.selected"),
 					backgroundColor: borderColor,
 				}}
 			/>
@@ -78,7 +79,7 @@ export default function SkillLozenge({ icon, label, color = "blue", onClick, isS
 			<span
 				style={{
 					fontSize: "14px",
-					fontWeight: 600,
+					fontWeight: 400,
 					color: token("color.text"),
 					whiteSpace: "nowrap",
 					transform: "skewX(12deg)",
