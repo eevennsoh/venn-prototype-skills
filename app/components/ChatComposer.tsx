@@ -155,6 +155,21 @@ export default function ChatComposer({
 		return () => cancelAnimationFrame(rAF);
 	}, [segments, currentTextSegment]);
 
+	// Maintain focus after segment updates (e.g., after adding a skill)
+	useEffect(() => {
+		// Only auto-focus if input exists and is not focused
+		if (inputRef.current && document.activeElement !== inputRef.current) {
+			inputRef.current.focus();
+			// Place cursor at the end
+			const range = document.createRange();
+			const sel = window.getSelection();
+			range.selectNodeContents(inputRef.current);
+			range.collapse(false);
+			sel?.removeAllRanges();
+			sel?.addRange(range);
+		}
+	}, [segments]);
+
 	const handleAddSkill = (skill: Skill) => {
 		if (!selectedSkills.some((s) => s.id === skill.id)) {
 			startTransition(() => {
@@ -193,22 +208,7 @@ export default function ChatComposer({
 				onSelectedSkillsChange?.(updatedSkills);
 			});
 		}
-		// Use double requestAnimationFrame to ensure focus happens after React finishes re-rendering
-		// and the DOM has been fully updated
-		requestAnimationFrame(() => {
-			requestAnimationFrame(() => {
-				if (inputRef.current) {
-					inputRef.current.focus();
-					// Explicitly place cursor at the end
-					const range = document.createRange();
-					const sel = window.getSelection();
-					range.selectNodeContents(inputRef.current);
-					range.collapse(false);
-					sel?.removeAllRanges();
-					sel?.addRange(range);
-				}
-			});
-		});
+		// Focus is now managed by the useEffect watching segments
 	};
 
 	// Handle pending skill from suggestion selection
@@ -254,22 +254,7 @@ export default function ChatComposer({
 		setCurrentCommand("");
 		onSelectedSkillsChange?.(updatedSkills);
 
-		// Use double requestAnimationFrame to ensure focus happens after React finishes re-rendering
-		// and the DOM has been fully updated
-		requestAnimationFrame(() => {
-			requestAnimationFrame(() => {
-				if (inputRef.current) {
-					inputRef.current.focus();
-					// Explicitly place cursor at the end
-					const range = document.createRange();
-					const sel = window.getSelection();
-					range.selectNodeContents(inputRef.current);
-					range.collapse(false);
-					sel?.removeAllRanges();
-					sel?.addRange(range);
-				}
-			});
-		});
+		// Focus is now managed by the useEffect watching segments
 	};
 
 	const handleClearAndFocus = () => {

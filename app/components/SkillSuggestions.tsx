@@ -139,6 +139,12 @@ export default function SkillSuggestions({ onSkillSelect, onSkillHighlight, onSk
 		}
 	};
 
+	const handleContainerMouseLeave = () => {
+		// Reset highlight when mouse leaves the suggestions container
+		setHighlightedIndex(-1);
+		onSkillHighlight?.(null);
+	};
+
 	return (
 		<div
 			style={{
@@ -174,6 +180,7 @@ export default function SkillSuggestions({ onSkillSelect, onSkillHighlight, onSk
 			{/* Skills list */}
 			<div
 				ref={containerRef}
+				onMouseLeave={handleContainerMouseLeave}
 				style={{
 					display: "flex",
 					flexDirection: "column",
