@@ -10,6 +10,8 @@ export interface SkillLozengeProps {
 	color?: "blue" | "green" | "red" | "yellow" | "purple" | "teal";
 	onClick?: () => void;
 	isSelected?: boolean;
+	fillColor?: string; // Optional color token for the icon and slash stroke
+	isInsideBlueBackground?: boolean; // Whether the skill is rendered inside a blue background
 }
 
 const colorMap: Record<string, string> = {
@@ -21,23 +23,36 @@ const colorMap: Record<string, string> = {
 	teal: token("color.border.information"),
 };
 
-export default function SkillLozenge({ icon, label, color = "blue", onClick, isSelected = false }: SkillLozengeProps) {
-	const [isHovered, setIsHovered] = React.useState(false);
+export default function SkillLozenge({ icon, label, color = "blue", onClick, isSelected = false, fillColor, isInsideBlueBackground = false }: SkillLozengeProps) {
+	// When inside blue background, use inverse tokens for better contrast
+	// For blue icons, use the subtle blue token instead
+	const borderColor = React.useMemo(() => {
+		if (isInsideBlueBackground && fillColor === "color.icon.accent.blue") {
+			return token("color.background.accent.blue.subtle");
+		}
+		return fillColor ? token(fillColor as any) : colorMap[color] || colorMap.blue;
+	}, [isInsideBlueBackground, fillColor, color]);
 
-	const borderColor = colorMap[color] || colorMap.blue;
+	const backgroundColor = React.useMemo(() => 
+		isInsideBlueBackground ? token("color.background.inverse.subtle") : token("color.background.neutral"),
+		[isInsideBlueBackground]
+	);
+
+	const textColorToken = React.useMemo(() =>
+		isInsideBlueBackground ? "color.text.inverse" : "color.text",
+		[isInsideBlueBackground]
+	);
 
 	return (
-		<div
+		<span
 			onClick={onClick}
-			onMouseEnter={() => setIsHovered(true)}
-			onMouseLeave={() => setIsHovered(false)}
 			style={{
 				position: "relative",
 				display: "inline-flex",
 				alignItems: "center",
 				gap: token("space.050"),
 				padding: `${token("space.050")} ${token("space.075")} ${token("space.050")} ${token("space.100")}`,
-				backgroundColor: token("color.background.neutral"),
+				backgroundColor: backgroundColor,
 				borderRadius: token("radius.small"),
 				cursor: onClick ? "pointer" : "default",
 				transition: "all 0.15s ease",
@@ -46,6 +61,7 @@ export default function SkillLozenge({ icon, label, color = "blue", onClick, isS
 				height: "20px",
 				boxSizing: "border-box",
 				marginRight: token("space.025"),
+				verticalAlign: "middle",
 			}}
 		>
 			{/* Colored slash stroke */}
@@ -71,7 +87,7 @@ export default function SkillLozenge({ icon, label, color = "blue", onClick, isS
 					width: "16px",
 					height: "16px",
 					flexShrink: 0,
-					color: token("color.text"),
+					color: token(textColorToken),
 					transform: "skewX(12deg)",
 				}}
 			>
@@ -85,10 +101,10 @@ export default function SkillLozenge({ icon, label, color = "blue", onClick, isS
 					whiteSpace: "nowrap",
 				}}
 			>
-				<Text size="medium" color="color.text">
+				<Text size="medium" color={textColorToken}>
 					{label}
 				</Text>
 			</div>
-		</div>
+		</span>
 	);
 }

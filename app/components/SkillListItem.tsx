@@ -23,8 +23,8 @@ export default function SkillListItem({ icon, label, byline, onClick, isActive =
 				display: "flex",
 				gap: token("space.150"),
 				alignItems: "center",
-				padding: token("space.050"),
-				borderRadius: token("space.050"),
+				padding: token("space.075"),
+				borderRadius: token("space.100"),
 				cursor: onClick ? "pointer" : "default",
 				transition: "background-color 0.15s ease",
 				backgroundColor: isHighlighted && onClick ? token("elevation.surface.hovered") : "transparent",
@@ -51,6 +51,7 @@ export default function SkillListItem({ icon, label, byline, onClick, isActive =
 					borderRadius: token("space.075"),
 					flexShrink: 0,
 					boxSizing: "border-box",
+					backgroundColor: token("elevation.surface"),
 				}}
 			>
 				{icon}
@@ -66,7 +67,7 @@ export default function SkillListItem({ icon, label, byline, onClick, isActive =
 					minWidth: 0,
 				}}
 			>
-				<p
+				<div
 					style={{
 						margin: 0,
 						fontSize: "14px",
@@ -78,9 +79,9 @@ export default function SkillListItem({ icon, label, byline, onClick, isActive =
 					}}
 				>
 					{label}
-				</p>
+				</div>
 				{isHighlighted && byline && (
-					<p
+					<div
 						style={{
 							margin: 0,
 							fontSize: "12px",
@@ -92,10 +93,9 @@ export default function SkillListItem({ icon, label, byline, onClick, isActive =
 						}}
 					>
 						{byline}
-					</p>
+					</div>
 				)}
 			</div>
 		</div>
 	);
 }
-

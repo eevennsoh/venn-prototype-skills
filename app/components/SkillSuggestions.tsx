@@ -6,7 +6,7 @@ import SkillListItem from "./SkillListItem";
 import ChatGreeting from "./ChatGreeting";
 import { getDefaultSuggestions, searchSkills } from "@/lib/skills-data";
 import { getIcon } from "@/lib/icon-mapper";
-import type { Skill } from "@/lib/types/skills";
+import type { Skill } from "@/lib/skills";
 
 export interface SkillSuggestionsProps {
 	onSkillSelect?: (skill: string) => void;
@@ -44,7 +44,7 @@ export default function SkillSuggestions({ onSkillSelect, onSkillHighlight, onSk
 			id: skill.id,
 			label: skill.name,
 			byline: skill.description,
-			icon: getIcon(skill.icon || "add"),
+			icon: getIcon(skill.icon || "add", "small", skill.fill),
 			skill: skill,
 		}));
 	}, [searchQuery]);
@@ -130,7 +130,6 @@ export default function SkillSuggestions({ onSkillSelect, onSkillHighlight, onSk
 		}
 	}, [shouldShowGreeting, hasAnimated]);
 
-
 	const handleItemMouseEnter = (index: number) => {
 		// Allow mouse hover highlighting if user has started typing OR we're showing the greeting (initial state)
 		if (searchQuery.trim() || shouldShowGreeting) {
@@ -158,18 +157,19 @@ export default function SkillSuggestions({ onSkillSelect, onSkillHighlight, onSk
 				margin: "0 auto",
 			}}
 		>
-			<div
-				style={{
-					opacity: greetingOpacity,
-					transform: greetingTransform,
-					transition: shouldShowGreeting ? "opacity 0.3s ease-in-out, transform 0.3s ease-in-out" : "opacity 0.15s ease-out, transform 0.15s ease-out",
-					width: "100%",
-					pointerEvents: greetingOpacity === 0 ? "none" : "auto",
-					visibility: greetingOpacity === 0 ? "hidden" : "visible",
-				}}
-			>
-				<ChatGreeting />
-			</div>
+			{shouldShowGreeting && (
+				<div
+					style={{
+						opacity: greetingOpacity,
+						transform: greetingTransform,
+						transition: shouldShowGreeting ? "opacity 0.3s ease-in-out, transform 0.3s ease-in-out" : "opacity 0.15s ease-out, transform 0.15s ease-out",
+						width: "100%",
+						pointerEvents: greetingOpacity === 0 ? "none" : "auto",
+					}}
+				>
+					<ChatGreeting />
+				</div>
+			)}
 
 			{/* Skills list */}
 			<div
@@ -191,7 +191,7 @@ export default function SkillSuggestions({ onSkillSelect, onSkillHighlight, onSk
 						icon={skill.icon}
 						label={skill.label}
 						byline={skill.byline}
-						isActive={highlightedIndex === index && (searchQuery.trim() || shouldShowGreeting)}
+						isActive={highlightedIndex === index && (!!searchQuery.trim() || shouldShowGreeting)}
 						onClick={() => {
 							if (onSkillConfirm) {
 								// New flow: convert to lozenge

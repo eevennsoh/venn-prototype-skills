@@ -1,12 +1,7 @@
-import type { Skill, SkillCategory } from "./types/skills";
-import skillsData from "./data/skills.json";
+import type { Skill, SkillCategory } from "./skills";
+import { skillsData } from "./skills";
 
-interface SkillsData {
-	categories: SkillCategory[];
-	skills: Skill[];
-}
-
-const data: SkillsData = skillsData as SkillsData;
+const data = skillsData;
 
 /**
  * Get all available skills

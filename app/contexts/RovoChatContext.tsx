@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, ReactNode } from 'react';
+import type { Skill } from '@/lib/skills';
 
 export interface Message {
   id: string;
@@ -11,6 +12,8 @@ export interface Message {
     data: any;
   };
   widgetLoading?: boolean;
+  promptText?: string;
+  skills?: Skill[];
 }
 
 interface RovoChatContextType {

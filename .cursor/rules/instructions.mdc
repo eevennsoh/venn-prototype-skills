@@ -64,19 +64,24 @@ const loadingOpacity = token("opacity.loading");
 - **Reference**: [ADS Color Tokens](https://atlassian.design/foundations/design-tokens)
 - **Fallback**: Tailwind color classes only when no appropriate token exists
 
-### 🆎 **Headings**
+### 🔤 **Typography (Font, Text Styles)**
+
+#### Headings (h1 - h6)
 
 - **NEVER USE** native html heading elements like `<h1>`, `<h2>`, etc.
 - **ALWAYS USE** ADS Heading component from `@atlaskit/heading`
 - **Heading automatically handles**: Font tokens, color tokens, spacing tokens
 - **Fallback**: Custom text styling with font tokens only if ADS doesn't cover the use case
 
-### **Text**
+#### Body Text (p, span, div)
 
 - **NEVER USE** native html text elements like `<p>`, `<span>`, `<div>` for content
-- **ALWAYS USE** ADS Text component from `@atlaskit/primitives` or `@atlaskit/text`
+- **ALWAYS USE** ADS Text component from `@atlaskit/primitives`
+- **Import**: `import {Text} from '@atlaskit/primitives';`
 - **Text automatically handles**: Font tokens, color tokens, line-height tokens
-- **Fallback**: Custom text styling with font tokens only if ADS doesn't cover the use case
+- **Custom styling**: Apply ADS font tokens via `token('font.body.*')` if needed
+- **Examples**: `token('font.body.medium')`, `token('font.body.large')`
+- **NEVER USE** hardcoded font-size, line-height, letter-spacing values
 
 ### 📏 **Spacing (Padding, Margin, Gaps)**
 
@@ -85,14 +90,6 @@ const loadingOpacity = token("opacity.loading");
 - **NEVER USE** pixel values (px), rem values, or Tailwind spacing classes like `p-4`, `m-8`
 - **Implementation**: Use inline styles with CSS variables: `style={{ padding: token('space.100') }}`
 - **Fallback**: Only use Tailwind spacing classes if specific token doesn't exist
-
-### 🔤 **Typography (Font, Text Styles)**
-
-- **ALWAYS USE** ADS font tokens via `token('font.*')` for custom text styling
-- **Examples**: `token('font.heading.xxlarge')`, `token('font.heading.large')`, `token('font.body.medium')`
-- **Preferred**: Use ADS Heading and Text components when possible (they handle tokens automatically)
-- **NEVER USE** hardcoded font-size, line-height, letter-spacing values
-- **Implementation**: Apply to custom elements: `style={{ font: token('font.heading.xxlarge') }}`
 
 ### 🖼️ **Borders**
 

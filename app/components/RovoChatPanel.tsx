@@ -10,7 +10,9 @@ import SkillSuggestions from "./SkillSuggestions";
 import { useRovoChat, Message } from "../contexts/RovoChatContext";
 import { useSystemPrompt } from "../contexts/SystemPromptContext";
 import { API_ENDPOINTS } from "@/lib/api-config";
-import type { Skill } from "@/lib/types/skills";
+import { getIcon } from "@/lib/icon-mapper";
+import SkillLozenge from "./SkillLozenge";
+import type { Skill } from "@/lib/skills";
 
 // Minimal markdown-to-HTML renderer for assistant messages
 function renderMarkdownToHtml(text: string): string {
@@ -152,6 +154,8 @@ export default function RovoChatPanel({ onClose, apiUrl }: RovoChatPanelProps) {
 			id: Date.now().toString(),
 			type: "user",
 			content: content,
+			promptText: prompt.trim(),
+			skills: selectedSkills,
 		};
 
 		setMessages((prev) => [...prev, userMessage]);
@@ -349,67 +353,76 @@ export default function RovoChatPanel({ onClose, apiUrl }: RovoChatPanelProps) {
 						}}
 					/>
 				) : (
-					<>
-						<div style={{ padding: token("space.100"), display: "flex", flexDirection: "column", gap: token("space.200"), paddingBottom: "calc(32px + 80px)" }}>
-							{messages.map((message) => (
-								<div
-									key={message.id}
-									style={{
-										display: "flex",
-										justifyContent: message.type === "user" ? "flex-end" : "flex-start",
-										paddingLeft: message.type === "user" ? token("space.200") : "0",
-									}}
-								>
-									{message.type === "user" ? (
+					<div style={{ padding: token("space.100"), display: "flex", flexDirection: "column", gap: token("space.200"), paddingBottom: "calc(32px + 80px)" }}>
+						{messages.map((message) => (
+							<div
+								key={message.id}
+								style={{
+									display: "flex",
+									justifyContent: message.type === "user" ? "flex-end" : "flex-start",
+									paddingLeft: message.type === "user" ? token("space.200") : "0",
+								}}
+							>
+								{message.type === "user" ? (
+									<div
+										style={{
+											backgroundColor: token("color.text.brand"),
+											borderRadius: "12px 12px 4px 12px",
+											padding: `${token("space.100")} ${token("space.150")}`,
+											color: token("elevation.surface"),
+											fontSize: "14px",
+											lineHeight: "1.43",
+											maxWidth: "85%",
+											display: "flex",
+											flexWrap: "wrap",
+											alignItems: "center",
+											gap: token("space.050"),
+										}}
+									>
+										{message.skills && message.skills.length > 0 ? (
+											<>
+												{message.skills.map((skill) => (
+													<SkillLozenge
+														key={`msg-${message.id}-skill-${skill.id}`}
+														icon={getIcon(skill.icon || "add", "small", skill.fill, true)}
+														label={skill.name}
+														color="blue"
+														fillColor={skill.fill}
+														isInsideBlueBackground={true}
+													/>
+												))}
+												{message.promptText && (
+													<span>{message.promptText}</span>
+												)}
+											</>
+										) : (
+											message.content
+										)}
+									</div>
+								) : (
+									<div
+										style={{
+											width: "100%",
+										}}
+									>
 										<div
 											style={{
-												backgroundColor: token("color.text.brand"),
-												borderRadius: "12px 12px 4px 12px",
-												padding: `${token("space.100")} ${token("space.150")}`,
-												color: token("elevation.surface"),
 												fontSize: "14px",
 												lineHeight: "1.43",
-												maxWidth: "85%",
+												color: token("color.text"),
+												marginBottom: message.widget || message.widgetLoading ? token("space.100") : "0",
+												paddingLeft: token("space.100"),
+												paddingRight: token("space.100"),
 											}}
-										>
-											{message.content}
-										</div>
-									) : (
-										<div
-											style={{
-												width: "100%",
-											}}
-										>
-											<div
-												style={{
-													fontSize: "14px",
-													lineHeight: "1.43",
-													color: token("color.text"),
-													marginBottom: message.widget || message.widgetLoading ? token("space.100") : "0",
-													paddingLeft: token("space.100"),
-													paddingRight: token("space.100"),
-												}}
-												dangerouslySetInnerHTML={{ __html: renderMarkdownToHtml(message.content) }}
-											/>
-											{message.widgetLoading && <LoadingWidget widgetType={message.widget?.type} />}
-											{message.widget && !message.widgetLoading && <>{message.widget.type === "work-items" && <WorkItemsWidget data={message.widget.data} />}</>}
-										</div>
-									)}
-								</div>
-							))}
-						</div>
-						{/* Show SkillSuggestions below messages */}
-						<SkillSuggestions
-							searchQuery={prompt}
-							shouldShowGreeting={shouldShowGreeting}
-							onSkillHighlight={handleSkillHighlight}
-							onSkillConfirm={handleSkillConfirm}
-							arrowKeyPress={arrowKeyPress}
-							onSkillSelect={(skill) => {
-								setPrompt(skill);
-							}}
-						/>
-					</>
+											dangerouslySetInnerHTML={{ __html: renderMarkdownToHtml(message.content) }}
+										/>
+										{message.widgetLoading && <LoadingWidget widgetType={message.widget?.type} />}
+										{message.widget && !message.widgetLoading && <>{message.widget.type === "work-items" && <WorkItemsWidget data={message.widget.data} />}</>}
+									</div>
+								)}
+							</div>
+						))}
+					</div>
 				)}
 			</div>
 
