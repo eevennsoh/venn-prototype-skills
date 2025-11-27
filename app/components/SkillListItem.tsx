@@ -8,10 +8,13 @@ export interface SkillListItemProps {
 	label: string;
 	byline?: string;
 	onClick?: () => void;
+	isActive?: boolean;
+	onMouseEnter?: () => void;
 }
 
-export default function SkillListItem({ icon, label, byline, onClick }: SkillListItemProps) {
+export default function SkillListItem({ icon, label, byline, onClick, isActive = false, onMouseEnter }: SkillListItemProps) {
 	const [isHovered, setIsHovered] = React.useState(false);
+	const isHighlighted = isActive || isHovered;
 
 	return (
 		<div
@@ -24,12 +27,13 @@ export default function SkillListItem({ icon, label, byline, onClick }: SkillLis
 				borderRadius: token("space.050"),
 				cursor: onClick ? "pointer" : "default",
 				transition: "background-color 0.15s ease",
-				backgroundColor: isHovered && onClick ? token("elevation.surface.hovered") : "transparent",
+				backgroundColor: isHighlighted && onClick ? token("elevation.surface.hovered") : "transparent",
 				height: "44px",
 				boxSizing: "border-box",
 			}}
 			onMouseEnter={() => {
 				setIsHovered(true);
+				onMouseEnter?.();
 			}}
 			onMouseLeave={() => {
 				setIsHovered(false);
@@ -75,7 +79,7 @@ export default function SkillListItem({ icon, label, byline, onClick }: SkillLis
 				>
 					{label}
 				</p>
-				{isHovered && byline && (
+				{isHighlighted && byline && (
 					<p
 						style={{
 							margin: 0,

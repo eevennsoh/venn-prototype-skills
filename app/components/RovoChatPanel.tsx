@@ -10,6 +10,7 @@ import SkillSuggestions from "./SkillSuggestions";
 import { useRovoChat, Message } from "../contexts/RovoChatContext";
 import { useSystemPrompt } from "../contexts/SystemPromptContext";
 import { API_ENDPOINTS } from "@/lib/api-config";
+import type { Skill } from "@/lib/types/skills";
 
 // Minimal markdown-to-HTML renderer for assistant messages
 function renderMarkdownToHtml(text: string): string {
@@ -82,12 +83,50 @@ function LoadingWidget({ widgetType }: { widgetType?: string }) {
 export default function RovoChatPanel({ onClose, apiUrl }: RovoChatPanelProps) {
 	const [prompt, setPrompt] = useState("");
 	const [composerHasContent, setComposerHasContent] = useState(false);
+	const [selectedSkills, setSelectedSkills] = useState<Skill[]>([]);
+	const [pendingSkill, setPendingSkill] = useState<Skill | null>(null);
+	const [arrowKeyPress, setArrowKeyPress] = useState<{ direction: "up" | "down"; timestamp: number } | null>(null);
+	const [highlightedSkill, setHighlightedSkill] = useState<Skill | null>(null);
 	const scrollRef = useRef<HTMLDivElement>(null);
 	const { messages, setMessages } = useRovoChat();
 	const { customPrompt } = useSystemPrompt();
 
 	// Derive greeting visibility: show when no messages and composer has no content
 	const shouldShowGreeting = messages.length === 0 && !composerHasContent;
+
+	// Handle skill highlight (keyboard navigation) - update ghost text
+	const handleSkillHighlight = (skill: Skill | null) => {
+		setHighlightedSkill(skill);
+		// Highlighting shows preview but doesn't change the search query
+		// The actual prompt change happens on selection
+	};
+
+	// Handle skill confirmation (Enter or click)
+	const handleSkillConfirm = (skill: Skill) => {
+		setPendingSkill(skill);
+		setHighlightedSkill(null); // Clear highlight when skill is confirmed
+		// Don't set prompt here - it will be cleared when the skill is converted to a lozenge
+	};
+
+	// Handle pending skill consumed by composer
+	const handlePendingSkillConsumed = () => {
+		setPendingSkill(null);
+	};
+
+	// Clear highlighted skill when prompt changes (user starts typing again)
+	useEffect(() => {
+		setHighlightedSkill(null);
+	}, [prompt]);
+
+	// Handle arrow key navigation from composer
+	const handleComposerKeyArrow = (direction: "up" | "down") => {
+		setArrowKeyPress({ direction, timestamp: Date.now() });
+	};
+
+	// Clear arrow key press after it's been processed
+	const handleArrowKeyProcessed = () => {
+		setArrowKeyPress(null);
+	};
 
 	useEffect(() => {
 		if (scrollRef.current) {
@@ -96,17 +135,29 @@ export default function RovoChatPanel({ onClose, apiUrl }: RovoChatPanelProps) {
 	}, [messages]);
 
 	const handleSubmit = async () => {
-		if (!prompt.trim()) return;
+		if (!composerHasContent) return;
+
+		// Build content from prompt and selected skills
+		let content = prompt.trim();
+		if (selectedSkills.length > 0) {
+			const skillNames = selectedSkills.map(skill => skill.name).join(", ");
+			if (content) {
+				content = `${skillNames}: ${content}`;
+			} else {
+				content = skillNames;
+			}
+		}
 
 		const userMessage: Message = {
 			id: Date.now().toString(),
 			type: "user",
-			content: prompt,
+			content: content,
 		};
 
 		setMessages((prev) => [...prev, userMessage]);
-		const currentPrompt = prompt;
+		const currentPrompt = content;
 		setPrompt("");
+		setSelectedSkills([]); // Clear selected skills after submission
 
 		const assistantMessageId = (Date.now() + 1).toString();
 		const assistantMessage: Message = {
@@ -289,19 +340,12 @@ export default function RovoChatPanel({ onClose, apiUrl }: RovoChatPanelProps) {
 					<SkillSuggestions
 						searchQuery={prompt}
 						shouldShowGreeting={shouldShowGreeting}
+						onSkillHighlight={handleSkillHighlight}
+						onSkillConfirm={handleSkillConfirm}
+						arrowKeyPress={arrowKeyPress}
+						onArrowKeyProcessed={handleArrowKeyProcessed}
 						onSkillSelect={(skill) => {
 							setPrompt(skill);
-							// Optionally auto-submit after a short delay
-							setTimeout(() => {
-								const userMessage: Message = {
-									id: Date.now().toString(),
-									type: "user",
-									content: skill,
-								};
-								setMessages((prev) => [...prev, userMessage]);
-								setPrompt("");
-								// You can trigger handleSubmit here or let the user click send
-							}, 0);
 						}}
 					/>
 				) : (
@@ -358,6 +402,9 @@ export default function RovoChatPanel({ onClose, apiUrl }: RovoChatPanelProps) {
 						<SkillSuggestions
 							searchQuery={prompt}
 							shouldShowGreeting={shouldShowGreeting}
+							onSkillHighlight={handleSkillHighlight}
+							onSkillConfirm={handleSkillConfirm}
+							arrowKeyPress={arrowKeyPress}
 							onSkillSelect={(skill) => {
 								setPrompt(skill);
 							}}
@@ -366,7 +413,17 @@ export default function RovoChatPanel({ onClose, apiUrl }: RovoChatPanelProps) {
 				)}
 			</div>
 
-			<ChatComposer prompt={prompt} onPromptChange={setPrompt} onSubmit={handleSubmit} onContentStateChange={setComposerHasContent} />
+			<ChatComposer
+				prompt={prompt}
+				onPromptChange={setPrompt}
+				onSubmit={handleSubmit}
+				onContentStateChange={setComposerHasContent}
+				onSelectedSkillsChange={setSelectedSkills}
+				pendingSkill={pendingSkill}
+				onPendingSkillConsumed={handlePendingSkillConsumed}
+				onKeyArrow={handleComposerKeyArrow}
+				highlightedSkill={highlightedSkill}
+			/>
 		</div>
 	);
 }

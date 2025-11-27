@@ -1,14 +1,19 @@
 "use client";
 
-import React, { useMemo, useState, useEffect } from "react";
+import React, { useMemo, useState, useEffect, useRef } from "react";
 import { token } from "@atlaskit/tokens";
 import SkillListItem from "./SkillListItem";
 import ChatGreeting from "./ChatGreeting";
 import { getDefaultSuggestions, searchSkills } from "@/lib/skills-data";
 import { getIcon } from "@/lib/icon-mapper";
+import type { Skill } from "@/lib/types/skills";
 
 export interface SkillSuggestionsProps {
 	onSkillSelect?: (skill: string) => void;
+	onSkillHighlight?: (skill: Skill | null) => void;
+	onSkillConfirm?: (skill: Skill) => void;
+	arrowKeyPress?: { direction: "up" | "down"; timestamp: number } | null;
+	onArrowKeyProcessed?: () => void;
 	searchQuery?: string;
 	shouldShowGreeting?: boolean;
 }
@@ -18,14 +23,18 @@ interface SkillDisplay {
 	label: string;
 	byline?: string;
 	icon: React.ReactNode;
+	skill: Skill;
 }
 
-export default function SkillSuggestions({ onSkillSelect, searchQuery = "", shouldShowGreeting = true }: SkillSuggestionsProps) {
+export default function SkillSuggestions({ onSkillSelect, onSkillHighlight, onSkillConfirm, arrowKeyPress, onArrowKeyProcessed, searchQuery = "", shouldShowGreeting = true }: SkillSuggestionsProps) {
 	const [greetingOpacity, setGreetingOpacity] = useState(0);
 	const [greetingTransform, setGreetingTransform] = useState("translateY(16px)");
 	const [skillsOpacity, setSkillsOpacity] = useState(0);
 	const [skillsTransform, setSkillsTransform] = useState("translateY(8px)");
 	const [hasAnimated, setHasAnimated] = useState(false);
+	const [highlightedIndex, setHighlightedIndex] = useState(0);
+	const containerRef = useRef<HTMLDivElement>(null);
+	const isKeyboardNavigationRef = useRef(false);
 
 	// Memoize skills calculation based on search query
 	const displayedSkills = useMemo(() => {
@@ -36,8 +45,56 @@ export default function SkillSuggestions({ onSkillSelect, searchQuery = "", shou
 			label: skill.name,
 			byline: skill.description,
 			icon: getIcon(skill.icon || "add"),
+			skill: skill,
 		}));
 	}, [searchQuery]);
+
+	// Reset highlighted index when displayed skills change
+	useEffect(() => {
+		if (!searchQuery.trim()) {
+			// No highlighting when not typing
+			setHighlightedIndex(-1);
+		} else if (displayedSkills.length > 0) {
+			// Auto-highlight first item when typing starts and there are results
+			setHighlightedIndex(0);
+		} else {
+			// No results, no highlight
+			setHighlightedIndex(-1);
+		}
+	}, [searchQuery, displayedSkills.length]);
+
+	// Handle external arrow key presses from composer
+	useEffect(() => {
+		// Only allow navigation if user has started typing (searchQuery is not empty)
+		if (!arrowKeyPress || displayedSkills.length === 0 || !searchQuery.trim()) return;
+
+		isKeyboardNavigationRef.current = true;
+
+		let currentIndex = highlightedIndex;
+		// If nothing is highlighted yet, start from the first item
+		if (currentIndex === -1) {
+			currentIndex = 0;
+		}
+
+		if (arrowKeyPress.direction === "down") {
+			const newIndex = (currentIndex + 1) % displayedSkills.length;
+			setHighlightedIndex(newIndex);
+			if (newIndex >= 0 && newIndex < displayedSkills.length) {
+				onSkillHighlight?.(displayedSkills[newIndex].skill);
+			}
+		} else if (arrowKeyPress.direction === "up") {
+			const newIndex = currentIndex === 0 ? displayedSkills.length - 1 : currentIndex - 1;
+			setHighlightedIndex(newIndex);
+			if (newIndex >= 0 && newIndex < displayedSkills.length) {
+				onSkillHighlight?.(displayedSkills[newIndex].skill);
+			}
+		}
+
+		// Clear the arrow key press to prevent re-triggering
+		onArrowKeyProcessed?.();
+	}, [arrowKeyPress, onSkillHighlight, onArrowKeyProcessed, searchQuery]);
+
+	// This effect is now handled by the previous useEffect that resets highlighted index
 
 	// Initial stagger animation on mount
 	useEffect(() => {
@@ -73,6 +130,16 @@ export default function SkillSuggestions({ onSkillSelect, searchQuery = "", shou
 		}
 	}, [shouldShowGreeting, hasAnimated]);
 
+
+	const handleItemMouseEnter = (index: number) => {
+		// Allow mouse hover highlighting if user has started typing OR we're showing the greeting (initial state)
+		if (searchQuery.trim() || shouldShowGreeting) {
+			isKeyboardNavigationRef.current = false;
+			setHighlightedIndex(index);
+			onSkillHighlight?.(displayedSkills[index].skill);
+		}
+	};
+
 	return (
 		<div
 			style={{
@@ -106,6 +173,7 @@ export default function SkillSuggestions({ onSkillSelect, searchQuery = "", shou
 
 			{/* Skills list */}
 			<div
+				ref={containerRef}
 				style={{
 					display: "flex",
 					flexDirection: "column",
@@ -117,8 +185,24 @@ export default function SkillSuggestions({ onSkillSelect, searchQuery = "", shou
 					transition: "opacity 0.3s ease-in-out, transform 0.3s ease-in-out",
 				}}
 			>
-				{displayedSkills.map((skill) => (
-					<SkillListItem key={skill.id} icon={skill.icon} label={skill.label} byline={skill.byline} onClick={() => onSkillSelect?.(skill.label)} />
+				{displayedSkills.map((skill, index) => (
+					<SkillListItem
+						key={skill.id}
+						icon={skill.icon}
+						label={skill.label}
+						byline={skill.byline}
+						isActive={highlightedIndex === index && (searchQuery.trim() || shouldShowGreeting)}
+						onClick={() => {
+							if (onSkillConfirm) {
+								// New flow: convert to lozenge
+								onSkillConfirm(skill.skill);
+							} else {
+								// Fallback: legacy flow
+								onSkillSelect?.(skill.label);
+							}
+						}}
+						onMouseEnter={() => handleItemMouseEnter(index)}
+					/>
 				))}
 			</div>
 		</div>

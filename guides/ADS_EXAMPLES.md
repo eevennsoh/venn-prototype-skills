@@ -3,23 +3,25 @@
 # Avatar Component Examples
 
 ## Basic example
-```tsx
-import Avatar from '@atlaskit/avatar';
 
-<Avatar src="/avatar.jpg" name="John Doe" />
+```tsx
+import Avatar from "@atlaskit/avatar";
+
+<Avatar src="/avatar.jpg" name="John Doe" />;
 ```
 
 ## Key Props
 
-| Prop | Type | Description |
-|------|------|-------------|
-| `src` | `string` | URL of the avatar image |
-| `name` | `string` | Name for fallback initials |
-| `appearance` | `'circle' \| 'square'` | Shape of the avatar |
-| `size` | `'xsmall' \| 'small' \| 'medium' \| 'large' \| 'xlarge'` | Size of the avatar |
-| `onClick` | `() => void` | Click handler for interactive avatars |
+| Prop         | Type                                                     | Description                           |
+| ------------ | -------------------------------------------------------- | ------------------------------------- |
+| `src`        | `string`                                                 | URL of the avatar image               |
+| `name`       | `string`                                                 | Name for fallback initials            |
+| `appearance` | `'circle' \| 'square'`                                   | Shape of the avatar                   |
+| `size`       | `'xsmall' \| 'small' \| 'medium' \| 'large' \| 'xlarge'` | Size of the avatar                    |
+| `onClick`    | `() => void`                                             | Click handler for interactive avatars |
 
 ## Other examples
+
 ```tsx
 // Square appearance
 <Avatar src="/avatar.jpg" name="John Doe" appearance="square" />
@@ -30,12 +32,11 @@ import Avatar from '@atlaskit/avatar';
 <Avatar name="John Doe" size="large" />
 
 // Clickable avatar
-<Avatar 
-  name="John Doe" 
+<Avatar
+  name="John Doe"
   onClick={() => console.log('Avatar clicked')}
 />
 ```
-
 
 ---
 
@@ -44,13 +45,15 @@ import Avatar from '@atlaskit/avatar';
 # Button Component Examples
 
 ## Basic example
-```tsx
-import Button from '@atlaskit/button/new';
 
-<Button>Create Project</Button>
+```tsx
+import Button from "@atlaskit/button/new";
+
+<Button>Create Project</Button>;
 ```
 
 ## Other examples
+
 ```tsx
 // Secondary options
 <Button appearance="subtle">Learn More</Button>
@@ -84,28 +87,26 @@ import AddIcon from "@atlaskit/icon/core/add-icon";
 # IconButton Component Examples
 
 ## Basic example
-```tsx
-import { IconButton } from '@atlaskit/button/new';
-import MoreIcon from '@atlaskit/icon/core/more';
 
-<IconButton 
-  icon={MoreIcon} 
-  label="Show more options" 
-  onClick={() => setShowMenu(true)} 
-/>
+```tsx
+import { IconButton } from "@atlaskit/button/new";
+import MoreIcon from "@atlaskit/icon/core/more";
+
+<IconButton icon={MoreIcon} label="Show more options" onClick={() => setShowMenu(true)} />;
 ```
 
 ## Key Props
 
-| Prop | Type | Description |
-|------|------|-------------|
-| `icon` | `ReactNode` | Icon component to display |
-| `label` | `string` | Accessible label for screen readers |
-| `appearance` | `'default' \| 'primary' \| 'subtle' \| 'danger'` | Visual style of the button |
-| `spacing` | `'default' \| 'compact'` | Spacing around the button |
-| `shape` | `'square' \| 'circle'` | Shape of the button |
+| Prop         | Type                                             | Description                         |
+| ------------ | ------------------------------------------------ | ----------------------------------- |
+| `icon`       | `ReactNode`                                      | Icon component to display           |
+| `label`      | `string`                                         | Accessible label for screen readers |
+| `appearance` | `'default' \| 'primary' \| 'subtle' \| 'danger'` | Visual style of the button          |
+| `spacing`    | `'default' \| 'compact'`                         | Spacing around the button           |
+| `shape`      | `'square' \| 'circle'`                           | Shape of the button                 |
 
 ## Other examples
+
 ```tsx
 // Different appearances
 <IconButton icon={AddIcon} label="Add new item" appearance="primary" />
@@ -119,10 +120,10 @@ import MoreIcon from '@atlaskit/icon/core/more';
 <IconButton icon={InfoIcon} label="Show information" appearance="subtle" shape="circle" />
 
 // Menu trigger
-<IconButton 
-  icon={MoreIcon} 
-  label="Show more options" 
-  onClick={() => setShowMenu(true)} 
+<IconButton
+  icon={MoreIcon}
+  label="Show more options"
+  onClick={() => setShowMenu(true)}
 />
 ```
 
@@ -133,24 +134,26 @@ import MoreIcon from '@atlaskit/icon/core/more';
 # LinkButton Component Examples
 
 ## Basic example
+
 ```tsx
-import LinkButton from '@atlaskit/button/new';
+import LinkButton from "@atlaskit/button/new";
 
 <LinkButton href="/about" appearance="subtle">
-  About Page
-</LinkButton>
+	About Page
+</LinkButton>;
 ```
 
 ## Key Props
 
-| Prop | Type | Description |
-|------|------|-------------|
-| `href` | `string \| object` | URL string or router configuration object |
-| `appearance` | `'default' \| 'primary' \| 'subtle' \| 'warning' \| 'danger'` | Visual style of the button |
-| `target` | `string` | Link target attribute |
-| `isDisabled` | `boolean` | Removes href and adds aria-disabled |
+| Prop         | Type                                                          | Description                               |
+| ------------ | ------------------------------------------------------------- | ----------------------------------------- |
+| `href`       | `string \| object`                                            | URL string or router configuration object |
+| `appearance` | `'default' \| 'primary' \| 'subtle' \| 'warning' \| 'danger'` | Visual style of the button                |
+| `target`     | `string`                                                      | Link target attribute                     |
+| `isDisabled` | `boolean`                                                     | Removes href and adds aria-disabled       |
 
 ## Other examples
+
 ```tsx
 // External link
 <LinkButton
@@ -189,65 +192,44 @@ import LinkButton from '@atlaskit/button/new';
 # Split Button Component Examples
 
 ## Basic example
+
 ```tsx
-import SplitButton from '@atlaskit/button/new';
+import SplitButton from "@atlaskit/button/new";
 
 <SplitButton spacing="compact">
-  <Button>Link work item</Button>
-  <DropdownMenu
-    shouldRenderToParent
-    trigger={({ triggerRef, ...triggerProps }) => (
-      <IconButton
-        ref={triggerRef}
-        {...triggerProps}
-        icon={ChevronDownIcon}
-        label="More link work item options"
-      />
-    )}
-  >
-    <DropdownItemGroup>
-      <DropdownItem>Create new link</DropdownItem>
-      <DropdownItem>Link existing item</DropdownItem>
-    </DropdownItemGroup>
-  </DropdownMenu>
-</SplitButton>
+	<Button>Link work item</Button>
+	<DropdownMenu shouldRenderToParent trigger={({ triggerRef, ...triggerProps }) => <IconButton ref={triggerRef} {...triggerProps} icon={ChevronDownIcon} label="More link work item options" />}>
+		<DropdownItemGroup>
+			<DropdownItem>Create new link</DropdownItem>
+			<DropdownItem>Link existing item</DropdownItem>
+		</DropdownItemGroup>
+	</DropdownMenu>
+</SplitButton>;
 ```
 
 ## Key Props
 
-| Prop | Type | Description |
-|------|------|-------------|
+| Prop         | Type                     | Description                           |
+| ------------ | ------------------------ | ------------------------------------- |
 | `appearance` | `'default' \| 'primary'` | Applied to both Button and IconButton |
-| `spacing` | `'default' \| 'compact'` | Controls button spacing |
-| `isDisabled` | `boolean` | Disables all child buttons |
+| `spacing`    | `'default' \| 'compact'` | Controls button spacing               |
+| `isDisabled` | `boolean`                | Disables all child buttons            |
 
 ## Other examples
+
 ```tsx
 // With custom button props
 <SplitButton appearance="primary">
-  <Button 
-    iconBefore={AddIcon}
-    onClick={() => console.log('Primary action')}
-  >
-    Create Project
-  </Button>
-  <DropdownMenu
-    shouldRenderToParent
-    trigger={({ triggerRef, ...triggerProps }) => (
-      <IconButton
-        ref={triggerRef}
-        {...triggerProps}
-        icon={ChevronDownIcon}
-        label="More create project options"
-      />
-    )}
-  >
-    <DropdownItemGroup>
-      <DropdownItem>Create from template</DropdownItem>
-      <DropdownItem>Import from file</DropdownItem>
-      <DropdownItem>Clone existing</DropdownItem>
-    </DropdownItemGroup>
-  </DropdownMenu>
+	<Button iconBefore={AddIcon} onClick={() => console.log("Primary action")}>
+		Create Project
+	</Button>
+	<DropdownMenu shouldRenderToParent trigger={({ triggerRef, ...triggerProps }) => <IconButton ref={triggerRef} {...triggerProps} icon={ChevronDownIcon} label="More create project options" />}>
+		<DropdownItemGroup>
+			<DropdownItem>Create from template</DropdownItem>
+			<DropdownItem>Import from file</DropdownItem>
+			<DropdownItem>Clone existing</DropdownItem>
+		</DropdownItemGroup>
+	</DropdownMenu>
 </SplitButton>
 ```
 
@@ -258,15 +240,17 @@ import SplitButton from '@atlaskit/button/new';
 # Banner Component Examples
 
 ## Basic example
+
 ```tsx
-import Banner from '@atlaskit/banner';
+import Banner from "@atlaskit/banner";
 
 <Banner appearance="announcement" isOpen={true}>
-  System maintenance scheduled for tonight
-</Banner>
+	System maintenance scheduled for tonight
+</Banner>;
 ```
 
 ## Other examples
+
 ```tsx
 // Error banner
 <Banner appearance="error" isOpen={true}>
@@ -280,15 +264,14 @@ import Banner from '@atlaskit/banner';
 
 // Banner with icon
 import StatusWarningIcon from '@atlaskit/icon/core/status-warning';
-<Banner 
-  appearance="warning" 
+<Banner
+  appearance="warning"
   isOpen={true}
   icon={<StatusWarningIcon />}
 >
   Critical security update required
 </Banner>
 ```
-
 
 ---
 
@@ -297,20 +280,22 @@ import StatusWarningIcon from '@atlaskit/icon/core/status-warning';
 # Badge Component Examples
 
 ## Basic example
-```tsx
-import Badge from '@atlaskit/badge';
 
-<Badge appearance="added">Badge</Badge>
+```tsx
+import Badge from "@atlaskit/badge";
+
+<Badge appearance="added">Badge</Badge>;
 ```
 
 ## Key Props
 
-| Prop | Type | Description |
-|------|------|-------------|
-| `appearance` | `'added' \| 'removed' \| 'moved' \| 'new' \| 'primary'` | Visual style of the badge |
-| `children` | `ReactNode` | Content to display inside the badge |
+| Prop         | Type                                                    | Description                         |
+| ------------ | ------------------------------------------------------- | ----------------------------------- |
+| `appearance` | `'added' \| 'removed' \| 'moved' \| 'new' \| 'primary'` | Visual style of the badge           |
+| `children`   | `ReactNode`                                             | Content to display inside the badge |
 
 ## Other examples
+
 ```tsx
 // Online, success status
 <Badge appearance="added">Online</Badge>
@@ -335,18 +320,15 @@ import Badge from '@atlaskit/badge';
 # Checkbox Component Examples
 
 ## Basic example
-```tsx
-import { Checkbox } from '@atlaskit/checkbox';
 
-<Checkbox
-  label="Accept terms and conditions"
-  value="terms"
-  name="agreement"
-  onChange={handleChange}
-/>
+```tsx
+import { Checkbox } from "@atlaskit/checkbox";
+
+<Checkbox label="Accept terms and conditions" value="terms" name="agreement" onChange={handleChange} />;
 ```
 
 ## Other examples
+
 ```tsx
 // Controlled checkbox
 const [isChecked, setIsChecked] = useState(false);
@@ -418,7 +400,6 @@ const [isChecked, setIsChecked] = useState(false);
 </div>
 ```
 
-
 ---
 
 ## progress-bar-examples
@@ -426,50 +407,51 @@ const [isChecked, setIsChecked] = useState(false);
 # Progress Bar Component Examples
 
 ## Basic example
-```tsx
-import ProgressBar from '@atlaskit/progress-bar';
 
-<ProgressBar value={0.5} ariaLabel="Task progress: 50% complete" />
+```tsx
+import ProgressBar from "@atlaskit/progress-bar";
+
+<ProgressBar value={0.5} ariaLabel="Task progress: 50% complete" />;
 ```
 
 ## Other examples
+
 ```tsx
 // Indeterminate loading
 <ProgressBar isIndeterminate ariaLabel="Loading data" />
 
 // Success state
-<ProgressBar 
-  value={1} 
-  appearance="success" 
-  ariaLabel="Upload complete" 
+<ProgressBar
+  value={1}
+  appearance="success"
+  ariaLabel="Upload complete"
 />
 
 // File upload progress
-<ProgressBar 
-  value={0.75} 
-  ariaLabel="Uploading file: 75% complete" 
+<ProgressBar
+  value={0.75}
+  ariaLabel="Uploading file: 75% complete"
 />
 
 // Form submission progress
-<ProgressBar 
-  value={0.33} 
-  ariaLabel="Saving changes: 1 of 3 steps complete" 
+<ProgressBar
+  value={0.33}
+  ariaLabel="Saving changes: 1 of 3 steps complete"
 />
 
 // Installation progress
-<ProgressBar 
-  value={0.8} 
-  ariaLabel="Installing updates: 80% complete" 
+<ProgressBar
+  value={0.8}
+  ariaLabel="Installing updates: 80% complete"
 />
 
 // Dark theme (inverse)
-<ProgressBar 
-  value={0.6} 
-  appearance="inverse" 
-  ariaLabel="Processing: 60% complete" 
+<ProgressBar
+  value={0.6}
+  appearance="inverse"
+  ariaLabel="Processing: 60% complete"
 />
 ```
-
 
 ---
 
@@ -478,18 +460,15 @@ import ProgressBar from '@atlaskit/progress-bar';
 # Radio Component Examples
 
 ## Basic example
-```tsx
-import { Radio, RadioGroup } from '@atlaskit/radio';
 
-<Radio
-  value="option1"
-  label="Option 1"
-  name="choices"
-  onChange={handleChange}
-/>
+```tsx
+import { Radio, RadioGroup } from "@atlaskit/radio";
+
+<Radio value="option1" label="Option 1" name="choices" onChange={handleChange} />;
 ```
 
 ## Other examples
+
 ```tsx
 // Radio group with options
 const options = [
@@ -565,7 +544,6 @@ const [value, setValue] = useState('red');
 />
 ```
 
-
 ---
 
 ## tabs-examples
@@ -573,20 +551,22 @@ const [value, setValue] = useState('red');
 # Tabs Component Examples
 
 ## Basic example
+
 ```tsx
-import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
+import Tabs, { Tab, TabList, TabPanel } from "@atlaskit/tabs";
 
 <Tabs>
-  <TabList>
-    <Tab>Overview</Tab>
-    <Tab>Details</Tab>
-  </TabList>
-  <TabPanel>Overview content</TabPanel>
-  <TabPanel>Details content</TabPanel>
-</Tabs>
+	<TabList>
+		<Tab>Overview</Tab>
+		<Tab>Details</Tab>
+	</TabList>
+	<TabPanel>Overview content</TabPanel>
+	<TabPanel>Details content</TabPanel>
+</Tabs>;
 ```
 
 ## Other examples
+
 ```tsx
 // Controlled tabs
 const [selectedTab, setSelectedTab] = useState(0);
@@ -673,7 +653,6 @@ const [selectedTab, setSelectedTab] = useState(0);
 </Tabs>
 ```
 
-
 ---
 
 ## tooltip-examples
@@ -681,23 +660,25 @@ const [selectedTab, setSelectedTab] = useState(0);
 # Tooltip Component Examples
 
 ## Basic example
+
 ```tsx
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from "@atlaskit/tooltip";
 
 <Tooltip content="Save document">
-  <IconButton icon={SaveIcon} label="Save" />
-</Tooltip>
+	<IconButton icon={SaveIcon} label="Save" />
+</Tooltip>;
 ```
 
 ## Key Props
 
-| Prop | Type | Description |
-|------|------|-------------|
-| `content` | `ReactNode` | Content to display in the tooltip |
-| `position` | `'top' \| 'right' \| 'bottom' \| 'left'` | Position of the tooltip |
-| `children` | `ReactNode` | Element that triggers the tooltip |
+| Prop       | Type                                     | Description                       |
+| ---------- | ---------------------------------------- | --------------------------------- |
+| `content`  | `ReactNode`                              | Content to display in the tooltip |
+| `position` | `'top' \| 'right' \| 'bottom' \| 'left'` | Position of the tooltip           |
+| `children` | `ReactNode`                              | Element that triggers the tooltip |
 
 ## Other examples
+
 ```tsx
 // Different positions
 <Tooltip content="Top tooltip" position="top">
@@ -726,7 +707,7 @@ import Tooltip from '@atlaskit/tooltip';
 <Tooltip content={
   <div>
     <div>Click to expand</div>
-    <div style={{ fontSize: '12px', color: token('color.text.subtle') }}>
+    <div style={{ font: token('font.body.small'), color: token('color.text.subtle') }}>
       Shows additional options
     </div>
   </div>
@@ -742,43 +723,42 @@ import Tooltip from '@atlaskit/tooltip';
 # Icon Component Examples
 
 ## Basic example
-```tsx
-import AddIcon from '@atlaskit/icon/core/add';
 
-<AddIcon label="Add item" />
+```tsx
+import AddIcon from "@atlaskit/icon/core/add";
+
+<AddIcon label="Add item" />;
 ```
 
 ## Key Props
 
-| Prop | Type | Description |
-|------|------|-------------|
-| `label` | `string` | Accessible label for screen readers |
-| `size` | `'small' \| 'medium' \| 'large'` | Size of the icon |
-| `color` | `string` | Color of the icon |
+| Prop    | Type                             | Description                         |
+| ------- | -------------------------------- | ----------------------------------- |
+| `label` | `string`                         | Accessible label for screen readers |
+| `size`  | `'small' \| 'medium' \| 'large'` | Size of the icon                    |
+| `color` | `string`                         | Color of the icon                   |
 
 ## Other examples
+
 ```tsx
 // Basic icon with small size
-<AddIcon label="Add item" size="small" />
+<AddIcon label="Add item" size="small" />;
 
 // Icon with custom color
-import { token } from '@atlaskit/tokens';
-<AddIcon label="Add item" color={token('color.icon.danger')} />
+import { token } from "@atlaskit/tokens";
+<AddIcon label="Add item" color={token("color.icon.danger")} />;
 
 // Icon in button
-import Button from '@atlaskit/button/new';
-<Button iconBefore={AddIcon}>Create</Button>
+import Button from "@atlaskit/button/new";
+<Button iconBefore={AddIcon}>Create</Button>;
 
 // Icon in text field
-import Textfield from '@atlaskit/textfield';
-<Textfield 
-  placeholder="Search..." 
-  elemBeforeInput={<SearchIcon label="search" />}
-/>
+import Textfield from "@atlaskit/textfield";
+<Textfield placeholder="Search..." elemBeforeInput={<SearchIcon label="search" />} />;
 
 // More menu icon
-import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
-<ShowMoreHorizontalIcon label="More options" />
+import ShowMoreHorizontalIcon from "@atlaskit/icon/core/show-more-horizontal";
+<ShowMoreHorizontalIcon label="More options" />;
 ```
 
 ---
@@ -788,24 +768,26 @@ import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 # IconTile Component Examples
 
 ## Basic example
-```tsx
-import { IconTile } from '@atlaskit/icon';
-import AddIcon from '@atlaskit/icon/core/add';
 
-<IconTile icon={AddIcon} label="Add icon" appearance="blue" shape="circle" size="24" />
+```tsx
+import { IconTile } from "@atlaskit/icon";
+import AddIcon from "@atlaskit/icon/core/add";
+
+<IconTile icon={AddIcon} label="Add icon" appearance="blue" shape="circle" size="24" />;
 ```
 
 ## Key Props
 
-| Prop | Type | Description |
-|------|------|-------------|
-| `icon` | `ReactNode` | Icon component to display |
-| `label` | `string` | Accessible label for screen readers |
-| `appearance` | `'blue' \| 'green' \| 'red' \| 'yellow' \| 'gray'` | Color appearance |
-| `shape` | `'circle' \| 'square'` | Shape of the tile |
-| `size` | `'16' \| '24' \| '32' \| '40' \| '48'` | Size in pixels |
+| Prop         | Type                                               | Description                         |
+| ------------ | -------------------------------------------------- | ----------------------------------- |
+| `icon`       | `ReactNode`                                        | Icon component to display           |
+| `label`      | `string`                                           | Accessible label for screen readers |
+| `appearance` | `'blue' \| 'green' \| 'red' \| 'yellow' \| 'gray'` | Color appearance                    |
+| `shape`      | `'circle' \| 'square'`                             | Shape of the tile                   |
+| `size`       | `'16' \| '24' \| '32' \| '40' \| '48'`             | Size in pixels                      |
 
 ## Other examples
+
 ```tsx
 // Different shapes and sizes
 <IconTile icon={AddIcon} label="Add icon" appearance="blue" shape="square" size="32" />
@@ -838,13 +820,15 @@ import AddIcon from '@atlaskit/icon/core/add';
 # Skeleton Component Examples
 
 ## Basic example
-```tsx
-import Skeleton from '@atlaskit/skeleton';
 
-<Skeleton height="20px" width="200px" />
+```tsx
+import Skeleton from "@atlaskit/skeleton";
+
+<Skeleton height="20px" width="200px" />;
 ```
 
 ## Other examples
+
 ```tsx
 // Text line skeleton
 <Skeleton height="16px" width="150px" />
@@ -882,7 +866,6 @@ import Skeleton from '@atlaskit/skeleton';
 <Skeleton height="20px" width="200px" isShimmering={false} />
 ```
 
-
 ---
 
 ## tag-examples
@@ -890,13 +873,15 @@ import Skeleton from '@atlaskit/skeleton';
 # Tag Component Examples
 
 ## Basic example
-```tsx
-import Tag from '@atlaskit/tag';
 
-<Tag text="React" />
+```tsx
+import Tag from "@atlaskit/tag";
+
+<Tag text="React" />;
 ```
 
 ## Other examples
+
 ```tsx
 // Rounded appearance
 <Tag text="Design" appearance="rounded" />
@@ -934,7 +919,6 @@ import Tag from '@atlaskit/tag';
 </div>
 ```
 
-
 ---
 
 ## textarea-examples
@@ -942,17 +926,15 @@ import Tag from '@atlaskit/tag';
 # TextArea Component Examples
 
 ## Basic example
-```tsx
-import TextArea from '@atlaskit/textarea';
 
-<TextArea
-  placeholder="Enter your message"
-  resize="auto"
-  maxHeight="200px"
-/>
+```tsx
+import TextArea from "@atlaskit/textarea";
+
+<TextArea placeholder="Enter your message" resize="auto" maxHeight="200px" />;
 ```
 
 ## Other examples
+
 ```tsx
 // Comment textarea
 <TextArea
@@ -1018,7 +1000,6 @@ const [value, setValue] = useState('');
 />
 ```
 
-
 ---
 
 ## toggle-examples
@@ -1026,18 +1007,15 @@ const [value, setValue] = useState('');
 # Toggle Component Examples
 
 ## Basic example
-```tsx
-import Toggle from '@atlaskit/toggle';
 
-<Toggle
-  id="notifications"
-  label="Enable notifications"
-  isChecked={false}
-  onChange={handleChange}
-/>
+```tsx
+import Toggle from "@atlaskit/toggle";
+
+<Toggle id="notifications" label="Enable notifications" isChecked={false} onChange={handleChange} />;
 ```
 
 ## Other examples
+
 ```tsx
 // Controlled toggle
 const [isEnabled, setIsEnabled] = useState(false);
@@ -1103,7 +1081,6 @@ const [isEnabled, setIsEnabled] = useState(false);
 />
 ```
 
-
 ---
 
 ## navigation-examples
@@ -1111,101 +1088,73 @@ const [isEnabled, setIsEnabled] = useState(false);
 # Navigation Component Examples
 
 ## Basic example
+
 ```tsx
 import { LinkMenuItem } from "@atlaskit/navigation-system/side-nav-items/link-menu-item";
 
-<LinkMenuItem 
-  href="/dashboard"
-  elemBefore={<DashboardIcon label="" />}
-  isSelected={currentPath === "/dashboard"}
->
-  Dashboard
-</LinkMenuItem>
+<LinkMenuItem href="/dashboard" elemBefore={<DashboardIcon label="" />} isSelected={currentPath === "/dashboard"}>
+	Dashboard
+</LinkMenuItem>;
 ```
 
 ## Key Props
 
-| Prop | Type | Description |
-|------|------|-------------|
-| `href` | `string` | URL for navigation (LinkMenuItem) |
-| `onClick` | `() => void` | Click handler (ButtonMenuItem) |
-| `elemBefore` | `ReactNode` | Icon or element before text |
-| `isSelected` | `boolean` | Whether item is currently selected |
+| Prop         | Type         | Description                        |
+| ------------ | ------------ | ---------------------------------- |
+| `href`       | `string`     | URL for navigation (LinkMenuItem)  |
+| `onClick`    | `() => void` | Click handler (ButtonMenuItem)     |
+| `elemBefore` | `ReactNode`  | Icon or element before text        |
+| `isSelected` | `boolean`    | Whether item is currently selected |
 
 ## Other examples
+
 ```tsx
 // Button menu item for actions
 import { ButtonMenuItem } from "@atlaskit/navigation-system/side-nav-items/button-menu-item";
 
-<ButtonMenuItem 
-  onClick={handleAction}
-  elemBefore={<AddIcon label="" />}
-  isSelected={isModalOpen}
->
-  Create Project
-</ButtonMenuItem>
+<ButtonMenuItem onClick={handleAction} elemBefore={<AddIcon label="" />} isSelected={isModalOpen}>
+	Create Project
+</ButtonMenuItem>;
 
 // Flyout menu item for hierarchical navigation
-import { 
-  FlyoutMenuItem, 
-  FlyoutMenuItemContent, 
-  FlyoutMenuItemTrigger 
-} from "@atlaskit/navigation-system/side-nav-items/flyout-menu-item";
+import { FlyoutMenuItem, FlyoutMenuItemContent, FlyoutMenuItemTrigger } from "@atlaskit/navigation-system/side-nav-items/flyout-menu-item";
 
 <FlyoutMenuItem>
-  <FlyoutMenuItemTrigger elemBefore={<ProjectIcon label="" />}>
-    Projects
-  </FlyoutMenuItemTrigger>
-  <FlyoutMenuItemContent>
-    <MenuList>
-      <LinkMenuItem href="/projects/web-app">Web Application</LinkMenuItem>
-      <LinkMenuItem href="/projects/mobile-app">Mobile Application</LinkMenuItem>
-    </MenuList>
-  </FlyoutMenuItemContent>
-</FlyoutMenuItem>
+	<FlyoutMenuItemTrigger elemBefore={<ProjectIcon label="" />}>Projects</FlyoutMenuItemTrigger>
+	<FlyoutMenuItemContent>
+		<MenuList>
+			<LinkMenuItem href="/projects/web-app">Web Application</LinkMenuItem>
+			<LinkMenuItem href="/projects/mobile-app">Mobile Application</LinkMenuItem>
+		</MenuList>
+	</FlyoutMenuItemContent>
+</FlyoutMenuItem>;
 
 // Expandable menu item
-import {
-  ExpandableMenuItem,
-  ExpandableMenuItemContent,
-  ExpandableMenuItemTrigger,
-} from "@atlaskit/navigation-system/side-nav-items/expandable-menu-item";
+import { ExpandableMenuItem, ExpandableMenuItemContent, ExpandableMenuItemTrigger } from "@atlaskit/navigation-system/side-nav-items/expandable-menu-item";
 
 <ExpandableMenuItem>
-  <ExpandableMenuItemTrigger elemBefore={<ProjectIcon label="" />}>
-    Projects
-  </ExpandableMenuItemTrigger>
-  <ExpandableMenuItemContent>
-    <MenuSection isMenuListItem>
-      <MenuSectionHeading>Starred</MenuSectionHeading>
-      <LinkMenuItem elemBefore={<Avatar label="" size="xsmall" />}>
-        Teams
-      </LinkMenuItem>
-    </MenuSection>
-  </ExpandableMenuItemContent>
-</ExpandableMenuItem>
+	<ExpandableMenuItemTrigger elemBefore={<ProjectIcon label="" />}>Projects</ExpandableMenuItemTrigger>
+	<ExpandableMenuItemContent>
+		<MenuSection isMenuListItem>
+			<MenuSectionHeading>Starred</MenuSectionHeading>
+			<LinkMenuItem elemBefore={<Avatar label="" size="xsmall" />}>Teams</LinkMenuItem>
+		</MenuSection>
+	</ExpandableMenuItemContent>
+</ExpandableMenuItem>;
 
 // Complete navigation structure
 import { SideNavContent, MenuList } from "@atlaskit/navigation-system";
 
 <SideNavContent>
-  <MenuList>
-    <LinkMenuItem 
-      href="/" 
-      elemBefore={<HomeIcon label="" />}
-      isSelected={currentPath === "/"}
-    >
-      Overview
-    </LinkMenuItem>
-    <ButtonMenuItem 
-      onClick={handleAction} 
-      elemBefore={<SettingsIcon label="" />}
-      isSelected={activeSection === "settings"}
-    >
-      Settings
-    </ButtonMenuItem>
-  </MenuList>
-</SideNavContent>
+	<MenuList>
+		<LinkMenuItem href="/" elemBefore={<HomeIcon label="" />} isSelected={currentPath === "/"}>
+			Overview
+		</LinkMenuItem>
+		<ButtonMenuItem onClick={handleAction} elemBefore={<SettingsIcon label="" />} isSelected={activeSection === "settings"}>
+			Settings
+		</ButtonMenuItem>
+	</MenuList>
+</SideNavContent>;
 ```
 
 ---
@@ -1215,21 +1164,23 @@ import { SideNavContent, MenuList } from "@atlaskit/navigation-system";
 # Lozenge Component Examples
 
 ## Basic example
-```tsx
-import Lozenge from '@atlaskit/lozenge';
 
-<Lozenge appearance="success">Done</Lozenge>
+```tsx
+import Lozenge from "@atlaskit/lozenge";
+
+<Lozenge appearance="success">Done</Lozenge>;
 ```
 
 ## Key Props
 
-| Prop | Type | Description |
-|------|------|-------------|
-| `appearance` | `'success' \| 'inprogress' \| 'removed' \| 'new' \| 'moved'` | Visual style of the lozenge |
-| `isBold` | `boolean` | Use bold styling for emphasis |
-| `children` | `ReactNode` | Content to display inside the lozenge |
+| Prop         | Type                                                         | Description                           |
+| ------------ | ------------------------------------------------------------ | ------------------------------------- |
+| `appearance` | `'success' \| 'inprogress' \| 'removed' \| 'new' \| 'moved'` | Visual style of the lozenge           |
+| `isBold`     | `boolean`                                                    | Use bold styling for emphasis         |
+| `children`   | `ReactNode`                                                  | Content to display inside the lozenge |
 
 ## Other examples
+
 ```tsx
 // Different status appearances
 <Lozenge appearance="inprogress">In Progress</Lozenge>
@@ -1249,23 +1200,25 @@ import Lozenge from '@atlaskit/lozenge';
 # Tooltip Component Examples
 
 ## Basic example
+
 ```tsx
-import Tooltip from '@atlaskit/tooltip';
+import Tooltip from "@atlaskit/tooltip";
 
 <Tooltip content="Save document">
-  <IconButton icon={SaveIcon} label="Save" />
-</Tooltip>
+	<IconButton icon={SaveIcon} label="Save" />
+</Tooltip>;
 ```
 
 ## Key Props
 
-| Prop | Type | Description |
-|------|------|-------------|
-| `content` | `ReactNode` | Content to display in the tooltip |
-| `position` | `'top' \| 'right' \| 'bottom' \| 'left'` | Position of the tooltip |
-| `children` | `ReactNode` | Element that triggers the tooltip |
+| Prop       | Type                                     | Description                       |
+| ---------- | ---------------------------------------- | --------------------------------- |
+| `content`  | `ReactNode`                              | Content to display in the tooltip |
+| `position` | `'top' \| 'right' \| 'bottom' \| 'left'` | Position of the tooltip           |
+| `children` | `ReactNode`                              | Element that triggers the tooltip |
 
 ## Other examples
+
 ```tsx
 // Different positions
 <Tooltip content="Top tooltip" position="top">
@@ -1294,7 +1247,7 @@ import Tooltip from '@atlaskit/tooltip';
 <Tooltip content={
   <div>
     <div>Click to expand</div>
-    <div style={{ fontSize: '12px', color: token('color.text.subtle') }}>
+    <div style={{ font: token('font.body.small'), color: token('color.text.subtle') }}>
       Shows additional options
     </div>
   </div>
@@ -1310,21 +1263,23 @@ import Tooltip from '@atlaskit/tooltip';
 # Text Component Examples
 
 ## Basic example
+
 ```tsx
 import { Text } from "@atlaskit/primitives";
 
-<Text size="large">Body text</Text>
+<Text size="large">Body text</Text>;
 ```
 
 ## Key Props
 
-| Prop | Type | Description |
-|------|------|-------------|
-| `size` | `'small' \| 'medium' \| 'large'` | Size of the text |
-| `weight` | `'normal' \| 'semibold' \| 'bold'` | Font weight of the text |
-| `color` | `string` | Color token for the text |
+| Prop     | Type                               | Description              |
+| -------- | ---------------------------------- | ------------------------ |
+| `size`   | `'small' \| 'medium' \| 'large'`   | Size of the text         |
+| `weight` | `'normal' \| 'semibold' \| 'bold'` | Font weight of the text  |
+| `color`  | `string`                           | Color token for the text |
 
 ## Other examples
+
 ```tsx
 // Different sizes
 <Text size="small">Small text</Text>
@@ -1347,7 +1302,6 @@ import { Text } from "@atlaskit/primitives";
 <Text size="large">Body text</Text>
 ```
 
-
 ---
 
 ## color-examples
@@ -1355,21 +1309,23 @@ import { Text } from "@atlaskit/primitives";
 # Color Token Examples
 
 ## Basic example
-```tsx
-import { token } from '@atlaskit/tokens';
 
-<div style={{ backgroundColor: token('elevation.surface') }} />
+```tsx
+import { token } from "@atlaskit/tokens";
+
+<div style={{ backgroundColor: token("elevation.surface") }} />;
 ```
 
 ## Key Props
 
-| Prop | Type | Description |
-|------|------|-------------|
-| `token()` | `function` | Function to access design system color tokens |
-| `'elevation.surface'` | `string` | Token name for background colors |
-| `'color.text'` | `string` | Token name for text colors |
+| Prop                  | Type       | Description                                   |
+| --------------------- | ---------- | --------------------------------------------- |
+| `token()`             | `function` | Function to access design system color tokens |
+| `'elevation.surface'` | `string`   | Token name for background colors              |
+| `'color.text'`        | `string`   | Token name for text colors                    |
 
 ## Other examples
+
 ```tsx
 // Background colors
 <div style={{ backgroundColor: token('elevation.surface') }} />
@@ -1382,7 +1338,6 @@ import { token } from '@atlaskit/tokens';
 // ❌ <div className="text-black" />
 ```
 
-
 ---
 
 ## radius-examples
@@ -1390,33 +1345,34 @@ import { token } from '@atlaskit/tokens';
 # Radius Token Examples
 
 ## Basic example
-```tsx
-import { token } from '@atlaskit/tokens';
 
-<div style={{ borderRadius: token('border.radius.100') }} />
+```tsx
+import { token } from "@atlaskit/tokens";
+
+<div style={{ borderRadius: token("radius.small") }} />;
 ```
 
 ## Key Props
 
-| Prop | Type | Description |
-|------|------|-------------|
-| `token()` | `function` | Function to access design system radius tokens |
-| `'border.radius.100'` | `string` | Small border radius |
-| `'border.radius.200'` | `string` | Medium border radius |
-| `'border.radius.300'` | `string` | Large border radius |
+| Prop              | Type       | Description                                    |
+| ----------------- | ---------- | ---------------------------------------------- |
+| `token()`         | `function` | Function to access design system radius tokens |
+| `'radius.small'`  | `string`   | Small border radius                            |
+| `'radius.medium'` | `string`   | Medium border radius                           |
+| `'radius.large'`  | `string`   | Large border radius                            |
 
 ## Other examples
+
 ```tsx
 // Small radius for buttons
-<div style={{ borderRadius: token('border.radius.100') }} />
+<div style={{ borderRadius: token('radius.small') }} />
 
 // Medium radius for cards
-<div style={{ borderRadius: token('border.radius.200') }} />
+<div style={{ borderRadius: token('radius.medium') }} />
 
 // Large radius for modals
-<div style={{ borderRadius: token('border.radius.300') }} />
+<div style={{ borderRadius: token('radius.large') }} />
 ```
-
 
 ---
 
@@ -1425,24 +1381,24 @@ import { token } from '@atlaskit/tokens';
 # Spacing Token Examples
 
 ## Basic example
-```tsx
-import { token } from '@atlaskit/tokens';
 
-<div style={{ padding: token('space.200') }}>
-  Content here
-</div>
+```tsx
+import { token } from "@atlaskit/tokens";
+
+<div style={{ padding: token("space.200") }}>Content here</div>;
 ```
 
 ## Key Props
 
-| Prop | Type | Description |
-|------|------|-------------|
-| `token()` | `function` | Function to access design system spacing tokens |
-| `'space.100'` | `string` | 8px spacing |
-| `'space.150'` | `string` | 12px spacing |
-| `'space.200'` | `string` | 16px spacing |
+| Prop          | Type       | Description                                     |
+| ------------- | ---------- | ----------------------------------------------- |
+| `token()`     | `function` | Function to access design system spacing tokens |
+| `'space.100'` | `string`   | 8px spacing                                     |
+| `'space.150'` | `string`   | 12px spacing                                    |
+| `'space.200'` | `string`   | 16px spacing                                    |
 
 ## Other examples
+
 ```tsx
 // Container with consistent spacing
 <div style={{
@@ -1465,4 +1421,3 @@ import { token } from '@atlaskit/tokens';
 ```
 
 ---
-

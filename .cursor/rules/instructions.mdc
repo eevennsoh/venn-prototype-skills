@@ -14,32 +14,117 @@ alwaysApply: true
 **Priority**: Use design tokens first → Tailwind classes for missing tokens → inline styles as last resort
 **Priority**: ADS components first → Shadcn for anything missing → custom components as a last resort
 
+## 🎯 Design Tokens - The Foundation
+
+**CRITICAL**: Always use ADS design tokens for styling properties. They ensure consistency, theming support, and accessibility. Use `token()` function from `@atlaskit/tokens` for all style values.
+
+### 📝 Token Usage Pattern
+
+```tsx
+import { token } from "@atlaskit/tokens";
+
+// Colors
+const textColor = token("color.text");
+const accentColor = token("color.text.accent.lime");
+const backgroundColor = token("color.background.neutral");
+
+// Typography (for custom text styling)
+const largeHeading = token("font.heading.xxlarge");
+const bodyText = token("font.body.medium");
+
+// Spacing (padding, margin, gap)
+const spacing = token("space.100");
+const largeSpacing = token("space.500");
+
+// Borders
+const borderWidth = token("border.width");
+const borderColor = token("color.border");
+
+// Elevation (shadows)
+const surfaceElevation = token("elevation.surface");
+const overlayElevation = token("elevation.overlay");
+
+// Border Radius
+const smallRadius = token("radius.small");
+const mediumRadius = token("radius.medium");
+const largeRadius = token("radius.large");
+
+// Opacity
+const disabledOpacity = token("opacity.disabled");
+const loadingOpacity = token("opacity.loading");
+```
+
 ## Quick Navigation Guide
 
 ### 🎨 **Colors**
 
-- **First**: Use ADS design tokens for all colors
-- **NEVER USE**: Hex values like `#FFFFFF`
-- **Reference**: Colors section for available tokens and tailwind references
-- **Fallback**: Tailwind classes only when no appropriate token exists
+- **First**: Use ADS design tokens for all colors via `token('color.*')`
+- **Examples**: `token('color.text')`, `token('color.text.accent.lime')`, `token('color.background.neutral')`
+- **NEVER USE**: Hex values like `#FFFFFF`, hardcoded color names
+- **Reference**: [ADS Color Tokens](https://atlassian.design/foundations/design-tokens)
+- **Fallback**: Tailwind color classes only when no appropriate token exists
 
 ### 🆎 **Headings**
 
-- **NEVER USE** native html heading elements like `<h1>`,`
-- **Instead** use ADS Heading component
-- **Fallback**: Custom text styling only if ADS doesn't cover the use case
+- **NEVER USE** native html heading elements like `<h1>`, `<h2>`, etc.
+- **ALWAYS USE** ADS Heading component from `@atlaskit/heading`
+- **Heading automatically handles**: Font tokens, color tokens, spacing tokens
+- **Fallback**: Custom text styling with font tokens only if ADS doesn't cover the use case
 
 ### **Text**
 
-- **NEVER USE** native html heading elements like `<p>`,`<span>`,`<div>`
-- **Instead** use ADS Text primitive
-- **Fallback**: Custom text styling only if ADS doesn't cover the use case
+- **NEVER USE** native html text elements like `<p>`, `<span>`, `<div>` for content
+- **ALWAYS USE** ADS Text component from `@atlaskit/primitives` or `@atlaskit/text`
+- **Text automatically handles**: Font tokens, color tokens, line-height tokens
+- **Fallback**: Custom text styling with font tokens only if ADS doesn't cover the use case
 
-### 🎨 **Padding, marging, gaps**
+### 📏 **Spacing (Padding, Margin, Gaps)**
 
-- **NEVER USE** pixel or rem values for padding, margin or gap
-- **Instead** use space tokens like `space.100` instead
-- **Fallback**: Custom tailwind spacing if ADS doesn't cover the use case
+- **ALWAYS USE** ADS space tokens via `token('space.*')`
+- **Examples**: `token('space.025')`, `token('space.100')`, `token('space.500')`
+- **NEVER USE** pixel values (px), rem values, or Tailwind spacing classes like `p-4`, `m-8`
+- **Implementation**: Use inline styles with CSS variables: `style={{ padding: token('space.100') }}`
+- **Fallback**: Only use Tailwind spacing classes if specific token doesn't exist
+
+### 🔤 **Typography (Font, Text Styles)**
+
+- **ALWAYS USE** ADS font tokens via `token('font.*')` for custom text styling
+- **Examples**: `token('font.heading.xxlarge')`, `token('font.heading.large')`, `token('font.body.medium')`
+- **Preferred**: Use ADS Heading and Text components when possible (they handle tokens automatically)
+- **NEVER USE** hardcoded font-size, line-height, letter-spacing values
+- **Implementation**: Apply to custom elements: `style={{ font: token('font.heading.xxlarge') }}`
+
+### 🖼️ **Borders**
+
+- **ALWAYS USE** ADS border tokens via `token('border.*')` and `token('color.border')`
+- **Examples**: `token('border.width')`, `token('color.border')`, `token('color.border.bold')`
+- **NEVER USE** hardcoded pixel values like `1px`, `2px`, or hex colors
+- **Implementation**: `style={{ border: `${token('border.width')} solid ${token('color.border')}` }}`
+- **Fallback**: Use Tailwind border classes only if no appropriate token exists
+
+### 🎭 **Elevation (Shadows)**
+
+- **ALWAYS USE** ADS elevation tokens via `token('elevation.*')`
+- **Examples**: `token('elevation.surface')`, `token('elevation.overlay')`, `token('elevation.raised')`
+- **NEVER USE** hardcoded box-shadow values or custom shadow definitions
+- **Implementation**: `style={{ boxShadow: token('elevation.overlay') }}`
+- **Use Cases**: Cards, panels, modals, popovers, dropdowns
+
+### 🔍 **Border Radius**
+
+- **ALWAYS USE** ADS radius tokens via `token('radius.*')`
+- **Examples**: `token('radius.small')`, `token('radius.medium')`, `token('radius.large')`
+- **NEVER USE** hardcoded pixel values like `4px`, `8px`, or `border-radius`
+- **Implementation**: `style={{ borderRadius: token('radius.medium') }}`
+- **Fallback**: Use Tailwind radius classes only if no appropriate token exists
+
+### 👁️ **Opacity**
+
+- **ALWAYS USE** ADS opacity tokens via `token('opacity.*')`
+- **Examples**: `token('opacity.disabled')`, `token('opacity.loading')`, `token('opacity.hover')`
+- **NEVER USE** hardcoded opacity values like `0.5`, `0.7`, or `opacity-50`
+- **Implementation**: `style={{ opacity: token('opacity.disabled') }}`
+- **Use Cases**: Disabled states, loading indicators, hover effects, transitions
 
 ### 🎨 **Lozenge**
 

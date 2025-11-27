@@ -37,61 +37,20 @@ export function getSkillsByType(type: "atlassian" | "third-party"): Skill[] {
 }
 
 /**
- * Calculate weighted match score for a skill based on query
- * Higher scores = better matches
- */
-function calculateMatchScore(skill: Skill, query: string): number {
-	const lowerQuery = query.toLowerCase();
-	const lowerName = skill.name.toLowerCase();
-	const lowerDescription = skill.description.toLowerCase();
-	
-	let score = 0;
-	
-	// Name matches (highest weight)
-	if (lowerName === lowerQuery) {
-		score += 100; // Exact match
-	} else if (lowerName.startsWith(lowerQuery)) {
-		score += 80; // Starts with query
-	} else if (lowerName.includes(lowerQuery)) {
-		score += 60; // Contains query
-	}
-	
-	// Description matches (medium weight)
-	if (lowerDescription.includes(lowerQuery)) {
-		score += 40;
-	}
-	
-	// Tag matches (lower weight)
-	if (skill.tags?.some((tag) => tag.toLowerCase().includes(lowerQuery))) {
-		score += 20;
-	}
-	
-	// Bonus for shorter names (more relevant)
-	if (score > 0 && lowerName.length < 25) {
-		score += 5;
-	}
-	
-	return score;
-}
-
-/**
- * Search skills by name or description with weighted scoring
- * Returns results sorted by relevance
+ * Search skills by prefix matching - only skills that start with the query
+ * Returns results sorted alphabetically
  */
 export function searchSkills(query: string): Skill[] {
 	if (!query.trim()) {
 		return [];
 	}
-	
+
+	const lowerQuery = query.toLowerCase();
+
 	const results = data.skills
-		.map((skill) => ({
-			skill,
-			score: calculateMatchScore(skill, query),
-		}))
-		.filter(({ score }) => score > 0)
-		.sort((a, b) => b.score - a.score)
-		.map(({ skill }) => skill);
-	
+		.filter((skill) => skill.name.toLowerCase().startsWith(lowerQuery))
+		.sort((a, b) => a.name.localeCompare(b.name)); // Sort alphabetically
+
 	return results;
 }
 

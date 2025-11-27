@@ -2,7 +2,7 @@
 
 import { useTheme } from "@/app/contexts/ThemeContext";
 import { IconButton } from "@atlaskit/button/new";
-import DropdownMenu, { DropdownItem, DropdownItemGroup } from "@atlaskit/dropdown-menu";
+import DropdownMenu, { DropdownItemRadio, DropdownItemRadioGroup } from "@atlaskit/dropdown-menu";
 import ThemeIcon from "@atlaskit/icon/core/theme";
 import { token } from "@atlaskit/tokens";
 
@@ -32,11 +32,17 @@ export function ThemeToggle({ isOverlay = false, top, right, bottom, left, zInde
 
 	const dropdown = (
 		<DropdownMenu shouldRenderToParent trigger={({ triggerRef, ...props }: any) => <IconButton ref={triggerRef} {...props} icon={ThemeIcon} label={`Theme: ${getLabel()}`} />}>
-			<DropdownItemGroup>
-				<DropdownItem onClick={() => setTheme("light")}>Light</DropdownItem>
-				<DropdownItem onClick={() => setTheme("dark")}>Dark</DropdownItem>
-				<DropdownItem onClick={() => setTheme("system")}>System</DropdownItem>
-			</DropdownItemGroup>
+			<DropdownItemRadioGroup id="theme-options">
+				<DropdownItemRadio id="light" onClick={() => setTheme("light")} isSelected={theme === "light"}>
+					Light
+				</DropdownItemRadio>
+				<DropdownItemRadio id="dark" onClick={() => setTheme("dark")} isSelected={theme === "dark"}>
+					Dark
+				</DropdownItemRadio>
+				<DropdownItemRadio id="system" onClick={() => setTheme("system")} isSelected={theme === "system"}>
+					System
+				</DropdownItemRadio>
+			</DropdownItemRadioGroup>
 		</DropdownMenu>
 	);
 
