@@ -9,10 +9,10 @@ import WorkItemsWidget from "./WorkItemsWidget";
 import SkillSuggestions from "./SkillSuggestions";
 import { useRovoChat, Message } from "../contexts/RovoChatContext";
 import { useSystemPrompt } from "../contexts/SystemPromptContext";
-import { API_ENDPOINTS } from "@/lib/api-config";
 import { getIcon } from "@/lib/icon-mapper";
 import SkillLozenge from "./SkillLozenge";
 import type { Skill } from "@/lib/skills";
+import { useChatStream } from "../hooks/useChatStream";
 
 // Minimal markdown-to-HTML renderer for assistant messages
 function renderMarkdownToHtml(text: string): string {
@@ -92,6 +92,7 @@ export default function RovoChatPanel({ onClose, apiUrl }: RovoChatPanelProps) {
 	const scrollRef = useRef<HTMLDivElement>(null);
 	const { messages, setMessages } = useRovoChat();
 	const { customPrompt } = useSystemPrompt();
+	const { streamChatResponse } = useChatStream();
 
 	// Derive greeting visibility: show when no messages and composer has no content
 	const shouldShowGreeting = messages.length === 0 && !composerHasContent;
@@ -105,6 +106,14 @@ export default function RovoChatPanel({ onClose, apiUrl }: RovoChatPanelProps) {
 
 	// Handle skill confirmation (Enter or click)
 	const handleSkillConfirm = (skill: Skill) => {
+		// Check if this is the "Discover skills and more" special link
+		if (skill.id === "discover-skills") {
+			// Handle the discover skills link - navigate or perform action
+			// TODO: Implement navigation to discover skills page
+			console.log("Discover skills link clicked - implement navigation later");
+			return;
+		}
+
 		setPendingSkill(skill);
 		setHighlightedSkill(null); // Clear highlight when skill is confirmed
 		// Don't set prompt here - it will be cleared when the skill is converted to a lozenge
@@ -142,7 +151,7 @@ export default function RovoChatPanel({ onClose, apiUrl }: RovoChatPanelProps) {
 		// Build content from prompt and selected skills
 		let content = prompt.trim();
 		if (selectedSkills.length > 0) {
-			const skillNames = selectedSkills.map(skill => skill.name).join(", ");
+			const skillNames = selectedSkills.map((skill) => skill.name).join(", ");
 			if (content) {
 				content = `${skillNames}: ${content}`;
 			} else {
@@ -171,146 +180,17 @@ export default function RovoChatPanel({ onClose, apiUrl }: RovoChatPanelProps) {
 		};
 		setMessages((prev) => [...prev, assistantMessage]);
 
-		try {
-			// Get last 3 messages (excluding the one we just added) for context
-			const recentHistory = messages.slice(-6).filter((msg) => msg.id !== userMessage.id);
+		// Get last 6 messages (excluding the one we just added) for context
+		const recentHistory = messages.slice(-6).filter((msg) => msg.id !== userMessage.id);
 
-			const response = await fetch(API_ENDPOINTS.CHAT, {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					message: currentPrompt,
-					conversationHistory: recentHistory,
-					customSystemPrompt: customPrompt,
-				}),
-			});
-
-			if (!response.ok) {
-				throw new Error("Failed to get response");
-			}
-
-			const reader = response.body?.getReader();
-			const decoder = new TextDecoder();
-
-			if (!reader) {
-				throw new Error("No reader available");
-			}
-
-			let fullText = "";
-			let widgetBufferStarted = false;
-			let widgetTextBuffer = "";
-			let widgetType: string | null = null;
-
-			while (true) {
-				const { done, value } = await reader.read();
-				if (done) break;
-
-				const chunk = decoder.decode(value, { stream: true });
-				const lines = chunk.split("\n");
-
-				for (const line of lines) {
-					if (line.startsWith("data: ")) {
-						const data = line.slice(6);
-						if (data === "[DONE]") {
-							break;
-						}
-						try {
-							const parsed = JSON.parse(data);
-							if (parsed.text) {
-								// Check for loading signal - don't add to fullText
-								if (parsed.text.includes("WIDGET_LOADING:")) {
-									const loadingMatch = parsed.text.match(/WIDGET_LOADING:(\w+)/);
-									if (loadingMatch) {
-										const type = loadingMatch[1];
-										console.log("Widget loading signal detected:", type);
-										setMessages((prev) => prev.map((msg) => (msg.id === assistantMessageId ? { ...msg, widgetLoading: true, widget: { type, data: null } } : msg)));
-									}
-									continue; // Skip adding to fullText
-								}
-
-								fullText += parsed.text;
-
-								if (!widgetBufferStarted && fullText.includes("WIDGET_DATA:")) {
-									console.log("Widget data detected in stream");
-									widgetBufferStarted = true;
-									const beforeWidget = fullText.split("WIDGET_DATA:")[0].trim();
-									widgetTextBuffer = "WIDGET_DATA:" + fullText.split("WIDGET_DATA:")[1];
-
-									const typeMatch = widgetTextBuffer.match(/"type":"([^"]+)"/);
-									if (typeMatch) {
-										widgetType = typeMatch[1];
-										console.log("Widget type detected:", widgetType);
-									}
-
-									setMessages((prev) =>
-										prev.map((msg) => (msg.id === assistantMessageId ? { ...msg, content: beforeWidget, widgetLoading: true, widget: widgetType ? { type: widgetType, data: null } : undefined } : msg))
-									);
-								} else if (widgetBufferStarted) {
-									widgetTextBuffer = "WIDGET_DATA:" + fullText.split("WIDGET_DATA:")[1];
-
-									if (!widgetType) {
-										const typeMatch = widgetTextBuffer.match(/"type":"([^"]+)"/);
-										if (typeMatch) {
-											widgetType = typeMatch[1];
-											console.log("Widget type detected:", widgetType);
-											setMessages((prev) => prev.map((msg) => (msg.id === assistantMessageId ? { ...msg, widget: { type: widgetType!, data: null } } : msg)));
-										}
-									}
-								} else {
-									setMessages((prev) => prev.map((msg) => (msg.id === assistantMessageId ? { ...msg, content: fullText } : msg)));
-								}
-							}
-						} catch (e) {
-							// Skip invalid JSON
-						}
-					}
-				}
-			}
-
-			console.log("Stream finished. Full text length:", fullText.length);
-			console.log("Widget buffer started:", widgetBufferStarted);
-			if (widgetBufferStarted) {
-				console.log("Widget text buffer:", widgetTextBuffer);
-			}
-
-			if (widgetBufferStarted && widgetTextBuffer) {
-				console.log("Attempting to parse widget buffer");
-				const widgetMatch = widgetTextBuffer.match(/WIDGET_DATA:({[\s\S]*})/);
-				console.log("Widget match:", widgetMatch ? "found" : "not found");
-				if (widgetMatch) {
-					console.log("Matched JSON string:", widgetMatch[1]);
-					try {
-						const widgetData = JSON.parse(widgetMatch[1]);
-						console.log("Parsed widget data:", widgetData);
-						const textContent = fullText.replace(/WIDGET_DATA:{[\s\S]*}/, "").trim();
-
-						setMessages((prev) =>
-							prev.map((msg) =>
-								msg.id === assistantMessageId
-									? {
-											...msg,
-											content: textContent,
-											widget: widgetData,
-											widgetLoading: false,
-									  }
-									: msg
-							)
-						);
-					} catch (e) {
-						console.error("Failed to parse widget data:", e);
-						console.error("Widget text buffer:", widgetTextBuffer);
-						setMessages((prev) => prev.map((msg) => (msg.id === assistantMessageId ? { ...msg, widgetLoading: false } : msg)));
-					}
-				} else {
-					console.error("Widget match failed. Buffer:", widgetTextBuffer);
-				}
-			}
-		} catch (error) {
-			console.error("Error fetching AI response:", error);
-			setMessages((prev) => prev.map((msg) => (msg.id === assistantMessageId ? { ...msg, content: "Sorry, I encountered an error. Please try again." } : msg)));
-		}
+		// Stream the chat response using the custom hook
+		await streamChatResponse({
+			message: currentPrompt,
+			conversationHistory: recentHistory,
+			customSystemPrompt: customPrompt,
+			assistantMessageId,
+			setMessages,
+		});
 	};
 
 	return (
@@ -353,7 +233,7 @@ export default function RovoChatPanel({ onClose, apiUrl }: RovoChatPanelProps) {
 						}}
 					/>
 				) : (
-					<div style={{ padding: token("space.100"), display: "flex", flexDirection: "column", gap: token("space.200"), paddingBottom: "calc(32px + 80px)" }}>
+					<div style={{ padding: token("space.150"), display: "flex", flexDirection: "column", gap: token("space.200"), paddingBottom: "calc(32px + 80px)" }}>
 						{messages.map((message) => (
 							<div
 								key={message.id}
@@ -391,9 +271,7 @@ export default function RovoChatPanel({ onClose, apiUrl }: RovoChatPanelProps) {
 														isInsideBlueBackground={true}
 													/>
 												))}
-												{message.promptText && (
-													<span>{message.promptText}</span>
-												)}
+												{message.promptText && <span>{message.promptText}</span>}
 											</>
 										) : (
 											message.content
@@ -411,8 +289,7 @@ export default function RovoChatPanel({ onClose, apiUrl }: RovoChatPanelProps) {
 												lineHeight: "1.43",
 												color: token("color.text"),
 												marginBottom: message.widget || message.widgetLoading ? token("space.100") : "0",
-												paddingLeft: token("space.100"),
-												paddingRight: token("space.100"),
+												padding: token("space.150"),
 											}}
 											dangerouslySetInnerHTML={{ __html: renderMarkdownToHtml(message.content) }}
 										/>

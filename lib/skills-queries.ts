@@ -57,8 +57,25 @@ export function getSkillById(id: string): Skill | undefined {
 }
 
 /**
- * Get default suggestions (first 6 skills)
+ * Get default suggestions (first 5 skills + Discover more skills)
  */
-export function getDefaultSuggestions(limit: number = 6): Skill[] {
+export function getDefaultSuggestions(limit: number = 5): Skill[] {
 	return data.skills.slice(0, limit);
+}
+
+/**
+ * Get the "Discover skills and more" special skill
+ */
+export function getDiscoverMoreSkill(): Skill {
+	return {
+		id: "discover-skills",
+		name: "Discover skills and more",
+		description: "Explore more capabilities",
+		category: "productivity",
+		type: "atlassian" as const,
+		icon: "smart-link-embed",
+		collection: "General",
+		fill: "color.icon.subtlest",
+		tags: ["discover", "explore", "skills"],
+	};
 }

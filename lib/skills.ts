@@ -245,17 +245,6 @@ export const skillsData: SkillsData = {
 			tags: ["video", "loom", "recording"],
 		},
 		{
-			id: "discover-skills",
-			name: "Discover skills and more",
-			description: "Explore more capabilities",
-			category: "productivity",
-			type: "atlassian",
-			icon: "smart-link-embed",
-			collection: "General",
-			fill: "color.icon.subtlest",
-			tags: ["discover", "explore", "skills"],
-		},
-		{
 			id: "set-reminder",
 			name: "Set reminder",
 			description: "Create a task reminder",

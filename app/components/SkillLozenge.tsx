@@ -12,6 +12,7 @@ export interface SkillLozengeProps {
 	isSelected?: boolean;
 	fillColor?: string; // Optional color token for the icon and slash stroke
 	isInsideBlueBackground?: boolean; // Whether the skill is rendered inside a blue background
+	focusRingColor?: string;
 }
 
 const colorMap: Record<string, string> = {
@@ -23,7 +24,7 @@ const colorMap: Record<string, string> = {
 	teal: token("color.border.information"),
 };
 
-export default function SkillLozenge({ icon, label, color = "blue", onClick, isSelected = false, fillColor, isInsideBlueBackground = false }: SkillLozengeProps) {
+export default function SkillLozenge({ icon, label, color = "blue", onClick, isSelected = false, fillColor, isInsideBlueBackground = false, focusRingColor }: SkillLozengeProps) {
 	// When inside blue background, use inverse tokens for better contrast
 	// For blue icons, use the subtle blue token instead
 	const borderColor = React.useMemo(() => {
@@ -33,15 +34,9 @@ export default function SkillLozenge({ icon, label, color = "blue", onClick, isS
 		return fillColor ? token(fillColor as any) : colorMap[color] || colorMap.blue;
 	}, [isInsideBlueBackground, fillColor, color]);
 
-	const backgroundColor = React.useMemo(() => 
-		isInsideBlueBackground ? token("color.background.inverse.subtle") : token("color.background.neutral"),
-		[isInsideBlueBackground]
-	);
+	const backgroundColor = React.useMemo(() => (isInsideBlueBackground ? token("color.background.inverse.subtle") : token("color.background.neutral")), [isInsideBlueBackground]);
 
-	const textColorToken = React.useMemo(() =>
-		isInsideBlueBackground ? "color.text.inverse" : "color.text",
-		[isInsideBlueBackground]
-	);
+	const textColorToken = React.useMemo(() => (isInsideBlueBackground ? "color.text.inverse" : "color.text"), [isInsideBlueBackground]);
 
 	return (
 		<span
@@ -62,6 +57,10 @@ export default function SkillLozenge({ icon, label, color = "blue", onClick, isS
 				boxSizing: "border-box",
 				marginRight: token("space.025"),
 				verticalAlign: "middle",
+				...(focusRingColor && {
+					outline: `2px solid ${focusRingColor}`,
+					outlineOffset: "2px",
+				}),
 			}}
 		>
 			{/* Colored slash stroke */}

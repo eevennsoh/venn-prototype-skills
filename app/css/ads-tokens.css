@@ -189,19 +189,33 @@
 	/* Spacing Tokens */
 	/* Positive Spacing */
 	--ds-space0: 0;
+	--ds-space-0: 0;
 	--ds-space025: 2px;
+	--ds-space-025: 2px;
 	--ds-space050: 4px;
+	--ds-space-050: 4px;
 	--ds-space075: 6px;
+	--ds-space-075: 6px;
 	--ds-space100: 8px;
+	--ds-space-100: 8px;
 	--ds-space150: 12px;
+	--ds-space-150: 12px;
 	--ds-space200: 16px;
+	--ds-space-200: 16px;
 	--ds-space250: 20px;
+	--ds-space-250: 20px;
 	--ds-space300: 24px;
+	--ds-space-300: 24px;
 	--ds-space400: 32px;
+	--ds-space-400: 32px;
 	--ds-space500: 40px;
+	--ds-space-500: 40px;
 	--ds-space600: 48px;
+	--ds-space-600: 48px;
 	--ds-space800: 64px;
+	--ds-space-800: 64px;
 	--ds-space1000: 80px;
+	--ds-space-1000: 80px;
 
 	/* Negative Spacing */
 	--ds-spacenegative025: -2px;
