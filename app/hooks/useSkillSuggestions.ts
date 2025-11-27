@@ -15,8 +15,6 @@ export interface SkillDisplay {
 
 interface UseSkillSuggestionsProps {
 	onSkillHighlight?: (skill: Skill | null) => void;
-	arrowKeyPress?: { direction: "up" | "down"; timestamp: number } | null;
-	onArrowKeyProcessed?: () => void;
 	searchQuery?: string;
 	shouldShowGreeting?: boolean;
 }
@@ -51,8 +49,6 @@ interface UseSkillSuggestionsReturn {
  */
 export function useSkillSuggestions({
 	onSkillHighlight,
-	arrowKeyPress,
-	onArrowKeyProcessed,
 	searchQuery = "",
 	shouldShowGreeting = true,
 }: UseSkillSuggestionsProps): UseSkillSuggestionsReturn {
@@ -105,70 +101,10 @@ export function useSkillSuggestions({
 
 	// Reset highlighted index when displayed skills change
 	useEffect(() => {
-		if (!searchQuery.trim()) {
-			// No highlighting when not typing
-			setHighlightedIndex(-1);
-		} else if (displayedSkills.length > 0) {
-			// Check if there are any real skills (not just "Discover more skills")
-			const discoverMore = getDiscoverMoreSkill();
-			const hasRealSkills = displayedSkills.some((skill) => skill.skill.id !== discoverMore.id);
-
-			if (hasRealSkills) {
-				// Auto-highlight first item when typing starts and there are results
-				setHighlightedIndex(0);
-			} else {
-				// Only "Discover more skills" exists, don't highlight
-				setHighlightedIndex(-1);
-			}
-		} else {
-			// No results, no highlight
-			setHighlightedIndex(-1);
-		}
+		// No auto-highlighting when typing - only highlight on mouse hover or keyboard navigation
+		setHighlightedIndex(-1);
 	}, [searchQuery, displayedSkills.length]);
 
-	// Handle external arrow key presses from composer
-	useEffect(() => {
-		// Only allow navigation if user has started typing (searchQuery is not empty)
-		if (!arrowKeyPress || displayedSkills.length === 0 || !searchQuery.trim()) return;
-
-		isKeyboardNavigationRef.current = true;
-
-		// Find the index of the "Discover more skills" item (it's always the last one if it exists)
-		const discoverMore = getDiscoverMoreSkill();
-		const lastItemIsDiscoverMore = displayedSkills.length > 0 && displayedSkills[displayedSkills.length - 1].skill.id === discoverMore.id;
-
-		// Maximum navigable index (exclude "Discover more skills" from keyboard navigation)
-		const maxNavigableIndex = lastItemIsDiscoverMore ? displayedSkills.length - 2 : displayedSkills.length - 1;
-
-		// If there are no real skills (only "Discover more skills"), don't allow navigation
-		if (maxNavigableIndex < 0) {
-			onArrowKeyProcessed?.();
-			return;
-		}
-
-		let currentIndex = highlightedIndex;
-		// If nothing is highlighted yet, start from the first item
-		if (currentIndex === -1) {
-			currentIndex = 0;
-		}
-
-		if (arrowKeyPress.direction === "down") {
-			const newIndex = currentIndex >= maxNavigableIndex ? 0 : currentIndex + 1;
-			setHighlightedIndex(newIndex);
-			if (newIndex >= 0 && newIndex <= maxNavigableIndex) {
-				onSkillHighlight?.(displayedSkills[newIndex].skill);
-			}
-		} else if (arrowKeyPress.direction === "up") {
-			const newIndex = currentIndex === 0 ? maxNavigableIndex : currentIndex - 1;
-			setHighlightedIndex(newIndex);
-			if (newIndex >= 0 && newIndex <= maxNavigableIndex) {
-				onSkillHighlight?.(displayedSkills[newIndex].skill);
-			}
-		}
-
-		// Clear the arrow key press to prevent re-triggering
-		onArrowKeyProcessed?.();
-	}, [arrowKeyPress, onSkillHighlight, onArrowKeyProcessed, searchQuery, displayedSkills, highlightedIndex]);
 
 	// Initial stagger animation on mount
 	useEffect(() => {

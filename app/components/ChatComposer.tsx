@@ -43,14 +43,12 @@ export default function ChatComposer({
 }: ChatComposerProps) {
 	const {
 		containerRef,
-		inputRef,
-		segments,
+		nodes,
 		selectedSkills,
 		focusedSkillId,
+		selectedSkillIds,
 		hasWrapping,
-		currentTextSegment,
 		promptText,
-		hasContent,
 		isComposerEmpty,
 		ghostSuffix,
 		shouldShowGhost,
@@ -58,11 +56,11 @@ export default function ChatComposer({
 		uniqueClass,
 		handleInput,
 		handleKeyDown,
-		handleTagKeyDown,
-		handleAddSkill,
+		handleSelect,
+		handleClick,
+		handlePaste,
 		handleRemoveSkill,
 		handleClearAndFocus,
-		setFocusedSkillId,
 	} = useComposer({
 		prompt,
 		onPromptChange,
@@ -88,14 +86,6 @@ export default function ChatComposer({
 					overflow: "visible",
 				}}
 			>
-				<style>{`
-					.${uniqueClass}:empty::before {
-						content: attr(data-placeholder);
-						color: ${token("color.text.subtlest")};
-						pointer-events: none;
-					}
-				`}</style>
-
 				<div
 					style={{
 						position: "relative",
@@ -103,7 +93,7 @@ export default function ChatComposer({
 						overflow: "visible",
 						cursor: "text",
 					}}
-					onClick={() => inputRef.current?.focus()}
+					onClick={() => containerRef.current?.focus()}
 				>
 					{/* Placeholder text */}
 					{isComposerEmpty && (
@@ -126,15 +116,16 @@ export default function ChatComposer({
 						</div>
 					)}
 
-					{/* Inline container with skills and text 
-					    Uses inline formatting context for seamless text + tag layout:
-					    - Container: display: block (establishes inline formatting context)
-					    - Skills: display: inline-flex + verticalAlign: middle
-					    - Input: display: inline-block + verticalAlign: middle
-					    - Ghost text: display: inline + verticalAlign: middle
-					    This allows all elements to flow naturally like a rich text editor */}
+					{/* Single contentEditable container with inline skills and text */}
 					<div
 						ref={containerRef}
+						contentEditable={!isDisabled}
+						suppressContentEditableWarning
+						onInput={handleInput}
+						onKeyDown={handleKeyDown}
+						onSelect={handleSelect}
+						onClick={handleClick}
+						onPaste={handlePaste}
 						style={{
 							display: "block",
 							minHeight: "24px",
@@ -144,118 +135,84 @@ export default function ChatComposer({
 							fontFamily: "inherit",
 							lineHeight: "1.43",
 							padding: `${token("space.075")} ${token("space.075")}`,
+							outline: "none",
+							color: token("color.text"),
+							caretColor: token("color.text"),
+							whiteSpace: "pre-wrap",
+							overflowWrap: "break-word",
+							wordBreak: "normal",
+							opacity: isDisabled ? 0.6 : 1,
+							pointerEvents: isDisabled ? "none" : "auto",
 						}}
 					>
-						{segments.map((segment, index) => {
-							const isLastSegment = index === segments.length - 1;
+						{nodes.map((node, index) => {
+							const isLastNode = index === nodes.length - 1;
 
-							if (segment.type === "skill") {
-								const isFocused = focusedSkillId === segment.skill.id;
+							if (node.type === "skill") {
+								const isFocused = focusedSkillId === node.skill.id;
+								const isSelected = selectedSkillIds.includes(node.skill.id);
 								return (
-									<div
-										key={`skill-${segment.skill.id}-${index}`}
+									<span
+										key={`skill-${node.skill.id}`}
+										data-node-index={index}
+										data-node-type="skill"
 										contentEditable={false}
-										tabIndex={0}
-										onKeyDown={(e) => handleTagKeyDown(e, segment.skill.id)}
-										onClick={(e) => {
-											e.stopPropagation();
-											e.currentTarget.focus();
-										}}
-										onFocus={() => {
-											setFocusedSkillId(segment.skill.id);
-										}}
-										onBlur={() => {
-											setFocusedSkillId(null);
-										}}
 										style={{
 											display: "inline-flex",
 											verticalAlign: "middle",
-											marginRight: isLastSegment ? 0 : token("space.025"),
+											marginRight: isLastNode ? 0 : token("space.025"),
 											marginBottom: hasWrapping ? token("space.025") : 0,
-											outline: "none",
+											userSelect: "all",
 											cursor: "pointer",
 										}}
 									>
 										<SkillLozenge
-											icon={getIcon(segment.skill.icon || "add", "small", segment.skill.fill)}
-											label={segment.skill.name}
+											icon={getIcon(node.skill.icon || "add", "small", node.skill.fill)}
+											label={node.skill.name}
 											color="blue"
-											fillColor={segment.skill.fill}
-											onClick={() => handleRemoveSkill(segment.skill.id)}
-											focusRingColor={isFocused ? token("color.border.focused") : undefined}
+											fillColor={node.skill.fill}
+											onClick={() => handleRemoveSkill(node.skill.id)}
+											focusRingColor={isFocused || isSelected ? token("color.border.focused") : undefined}
 										/>
-									</div>
+									</span>
 								);
-							} else if (segment.type === "text") {
-								// Only render contentEditable input for the last text segment
-								if (isLastSegment) {
-									return (
-										<React.Fragment key={`text-${index}`}>
+							} else {
+								// Text node - use stable ID-based key
+								// The beforeinput handler prevents direct DOM modification,
+								// so React's reconciliation should work correctly
+								return (
+									<span
+										key={`text-${node.id}`}
+										data-node-index={index}
+										data-node-type="text"
+										style={{
+											display: "inline",
+											verticalAlign: "middle",
+										}}
+									>
+										{/* Use explicit text or zero-width space for empty spans */}
+										{node.content || "\u200B"}
+										{/* Ghost text after the last text segment when cursor is at end */}
+										{isLastNode && shouldShowGhost && (
 											<span
-												ref={inputRef}
-												contentEditable={!isDisabled}
-												onInput={handleInput}
-												onKeyDown={handleKeyDown}
-												className={uniqueClass}
-												data-placeholder={segments.length === 1 ? undefined : ""}
 												style={{
-													display: "inline-block",
-													width: "auto",
-													minWidth: "4px",
-													outline: "none",
+													display: "inline",
+													color: token("color.text.subtlest"),
+													opacity: 0.5,
+													pointerEvents: "none",
 													verticalAlign: "middle",
-													color: token("color.text"),
 													fontSize: "14px",
 													fontFamily: "inherit",
 													lineHeight: "1.43",
-													whiteSpace: "pre-wrap",
-													overflowWrap: "break-word",
-													wordBreak: "normal",
-													caretColor: token("color.text"),
-													opacity: isDisabled ? 0.6 : 1,
-													pointerEvents: isDisabled ? "none" : "auto",
 												}}
-											/>
-											{/* Ghost text suggestion suffix */}
-											{shouldShowGhost && (
-												<span
-													style={{
-														display: "inline",
-														color: token("color.text.subtlest"),
-														opacity: 0.5,
-														pointerEvents: "none",
-														verticalAlign: "middle",
-														fontSize: "14px",
-														fontFamily: "inherit",
-														lineHeight: "1.43",
-													}}
-												>
-													{ghostSuffix}
-												</span>
-											)}
-										</React.Fragment>
-									);
-								} else {
-									// Render static text for non-last text segments
-									return segment.content ? (
-										<span
-											key={`text-${index}`}
-											style={{
-												display: "inline",
-												verticalAlign: "middle",
-												marginRight: token("space.025"),
-												color: token("color.text"),
-												fontSize: "14px",
-												fontFamily: "inherit",
-												lineHeight: "1.43",
-											}}
-										>
-											{segment.content}
-										</span>
-									) : null;
-								}
+												contentEditable={false}
+											>
+												{ghostSuffix}
+											</span>
+										)}
+									</span>
+								);
 							}
-							return null;
 						})}
 					</div>
 				</div>

@@ -68,8 +68,8 @@ const loadingOpacity = token("opacity.loading");
 
 #### Headings (h1 - h6)
 
-- **NEVER USE** native html heading elements like `<h1>`, `<h2>`, etc.
-- **ALWAYS USE** ADS Heading component from `@atlaskit/heading`
+- **ALWAYS USE** native html heading elements like `<h1>`, `<h2>`, etc.
+- **NEVER USE** ADS Heading component from `@atlaskit/heading` as color can't be pass in easily
 - **Heading automatically handles**: Font tokens, color tokens, spacing tokens
 - **Fallback**: Custom text styling with font tokens only if ADS doesn't cover the use case
 

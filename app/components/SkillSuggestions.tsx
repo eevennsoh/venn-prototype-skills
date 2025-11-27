@@ -2,7 +2,6 @@
 
 import React from "react";
 import { token } from "@atlaskit/tokens";
-import { Text } from "@atlaskit/primitives";
 import SkillListItem from "./SkillListItem";
 import ChatGreeting from "./ChatGreeting";
 import { useSkillSuggestions } from "@/app/hooks/useSkillSuggestions";
@@ -12,13 +11,11 @@ export interface SkillSuggestionsProps {
 	onSkillSelect?: (skill: string) => void;
 	onSkillHighlight?: (skill: Skill | null) => void;
 	onSkillConfirm?: (skill: Skill) => void;
-	arrowKeyPress?: { direction: "up" | "down"; timestamp: number } | null;
-	onArrowKeyProcessed?: () => void;
 	searchQuery?: string;
 	shouldShowGreeting?: boolean;
 }
 
-export default function SkillSuggestions({ onSkillSelect, onSkillHighlight, onSkillConfirm, arrowKeyPress, onArrowKeyProcessed, searchQuery = "", shouldShowGreeting = true }: SkillSuggestionsProps) {
+export default function SkillSuggestions({ onSkillSelect, onSkillHighlight, onSkillConfirm, searchQuery = "", shouldShowGreeting = true }: SkillSuggestionsProps) {
 	const {
 		containerRef,
 		greetingOpacity,
@@ -35,8 +32,6 @@ export default function SkillSuggestions({ onSkillSelect, onSkillHighlight, onSk
 		shouldHighlightItem,
 	} = useSkillSuggestions({
 		onSkillHighlight,
-		arrowKeyPress,
-		onArrowKeyProcessed,
 		searchQuery,
 		shouldShowGreeting,
 	});
@@ -52,9 +47,7 @@ export default function SkillSuggestions({ onSkillSelect, onSkillHighlight, onSk
 				width: "100%",
 				flex: 1,
 				paddingTop: token("space.200"),
-				paddingRight: token("space.200"),
 				paddingBottom: token("space.300"),
-				paddingLeft: token("space.200"),
 				maxWidth: "360px",
 				margin: "0 auto",
 			}}
@@ -90,16 +83,18 @@ export default function SkillSuggestions({ onSkillSelect, onSkillHighlight, onSk
 			>
 				{/* "Suggested skills" label - only show when typing */}
 				{searchQuery.trim() && !shouldShowGreeting && (
-					<div
+					<h6
 						style={{
 							paddingLeft: token("space.050"),
 							paddingBottom: token("space.050"),
+							color: token("color.text.subtlest"),
+							font: token("font.heading.xxsmall"),
+							margin: 0,
+							textTransform: "none",
 						}}
 					>
-						<Text size="small" color="color.text.subtlest">
-							{suggestionLabel}
-						</Text>
-					</div>
+						{suggestionLabel}
+					</h6>
 				)}
 				{displayedSkills.map((skill, index) => (
 					<SkillListItem

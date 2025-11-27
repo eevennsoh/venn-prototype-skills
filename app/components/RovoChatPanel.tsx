@@ -226,8 +226,6 @@ export default function RovoChatPanel({ onClose, apiUrl }: RovoChatPanelProps) {
 						shouldShowGreeting={shouldShowGreeting}
 						onSkillHighlight={handleSkillHighlight}
 						onSkillConfirm={handleSkillConfirm}
-						arrowKeyPress={arrowKeyPress}
-						onArrowKeyProcessed={handleArrowKeyProcessed}
 						onSkillSelect={(skill) => {
 							setPrompt(skill);
 						}}
