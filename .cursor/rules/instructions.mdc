@@ -40,14 +40,15 @@ const largeSpacing = token("space.500");
 const borderWidth = token("border.width");
 const borderColor = token("color.border");
 
-// Elevation (shadows)
+// Elevation (surface)
 const surfaceElevation = token("elevation.surface");
 const overlayElevation = token("elevation.overlay");
 
 // Border Radius
-const smallRadius = token("radius.small");
-const mediumRadius = token("radius.medium");
-const largeRadius = token("radius.large");
+const smallRadius = token("radius.small"); // 4px
+const mediumRadius = token("radius.medium"); // 6px
+const largeRadius = token("radius.large"); // 8px
+const circleRadius = token("radius.full"); // Perfect circle
 
 // Opacity
 const disabledOpacity = token("opacity.disabled");
@@ -62,7 +63,7 @@ const loadingOpacity = token("opacity.loading");
 - **Examples**: `token('color.text')`, `token('color.text.accent.lime')`, `token('color.background.neutral')`
 - **NEVER USE**: Hex values like `#FFFFFF`, hardcoded color names
 - **Reference**: [ADS Color Tokens](https://atlassian.design/foundations/design-tokens)
-- **Fallback**: Tailwind color classes only when no appropriate token exists
+- **Fallback**: Tailwind color classes only when no appropriate token exists; Use Tailwind classes as final fallback
 
 ### 🔤 **Typography (Font, Text Styles)**
 
@@ -71,7 +72,7 @@ const loadingOpacity = token("opacity.loading");
 - **ALWAYS USE** native html heading elements like `<h1>`, `<h2>`, etc.
 - **NEVER USE** ADS Heading component from `@atlaskit/heading` as color can't be pass in easily
 - **Heading automatically handles**: Font tokens, color tokens, spacing tokens
-- **Fallback**: Custom text styling with font tokens only if ADS doesn't cover the use case
+- **Fallback**: Custom text styling with font tokens only if ADS doesn't cover the use case; Use Tailwind classes as final fallback
 
 #### Body Text (p, span, div)
 
@@ -82,6 +83,7 @@ const loadingOpacity = token("opacity.loading");
 - **Custom styling**: Apply ADS font tokens via `token('font.body.*')` if needed
 - **Examples**: `token('font.body.medium')`, `token('font.body.large')`
 - **NEVER USE** hardcoded font-size, line-height, letter-spacing values
+- **Fallback**: Use Tailwind classes as final fallback
 
 ### 📏 **Spacing (Padding, Margin, Gaps)**
 
@@ -89,7 +91,7 @@ const loadingOpacity = token("opacity.loading");
 - **Examples**: `token('space.025')`, `token('space.100')`, `token('space.500')`
 - **NEVER USE** pixel values (px), rem values, or Tailwind spacing classes like `p-4`, `m-8`
 - **Implementation**: Use inline styles with CSS variables: `style={{ padding: token('space.100') }}`
-- **Fallback**: Only use Tailwind spacing classes if specific token doesn't exist
+- **Fallback**: Only use Tailwind spacing classes if specific token doesn't exist; Use Tailwind classes as final fallback
 
 ### 🖼️ **Borders**
 
@@ -97,7 +99,7 @@ const loadingOpacity = token("opacity.loading");
 - **Examples**: `token('border.width')`, `token('color.border')`, `token('color.border.bold')`
 - **NEVER USE** hardcoded pixel values like `1px`, `2px`, or hex colors
 - **Implementation**: `style={{ border: `${token('border.width')} solid ${token('color.border')}` }}`
-- **Fallback**: Use Tailwind border classes only if no appropriate token exists
+- **Fallback**: Use Tailwind border classes only if no appropriate token exists; Use Tailwind classes as final fallback
 
 ### 🎭 **Elevation (Shadows)**
 
@@ -106,14 +108,16 @@ const loadingOpacity = token("opacity.loading");
 - **NEVER USE** hardcoded box-shadow values or custom shadow definitions
 - **Implementation**: `style={{ boxShadow: token('elevation.overlay') }}`
 - **Use Cases**: Cards, panels, modals, popovers, dropdowns
+- **Fallback**: Use Tailwind classes as final fallback
 
 ### 🔍 **Border Radius**
 
 - **ALWAYS USE** ADS radius tokens via `token('radius.*')`
-- **Examples**: `token('radius.small')`, `token('radius.medium')`, `token('radius.large')`
-- **NEVER USE** hardcoded pixel values like `4px`, `8px`, or `border-radius`
+- **NEVER USE** hardcoded pixel values like `4px`, `8px`, percentage values like `50%`, or direct design tokens `tokens('radius.100')`
+- **NEVER USE** `border.radius.*` - the correct prefix is just `radius.*`
 - **Implementation**: `style={{ borderRadius: token('radius.medium') }}`
-- **Fallback**: Use Tailwind radius classes only if no appropriate token exists
+- **For circles**: Use `token('radius.full')` instead of `50%`
+- **Fallback**: Use Tailwind classes as final fallback
 
 ### 👁️ **Opacity**
 
@@ -122,6 +126,7 @@ const loadingOpacity = token("opacity.loading");
 - **NEVER USE** hardcoded opacity values like `0.5`, `0.7`, or `opacity-50`
 - **Implementation**: `style={{ opacity: token('opacity.disabled') }}`
 - **Use Cases**: Disabled states, loading indicators, hover effects, transitions
+- **Fallback**: Use Tailwind classes as final fallback
 
 ### 🎨 **Lozenge**
 

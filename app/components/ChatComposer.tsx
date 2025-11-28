@@ -13,6 +13,7 @@ import InformationCircleIcon from "@atlaskit/icon/core/information-circle";
 import { Text } from "@atlaskit/primitives";
 import { getIcon } from "@/lib/icon-mapper";
 import SkillLozenge from "./SkillLozenge";
+import SkillHoverCard from "./SkillHoverCard";
 import { useComposer } from "../hooks/useComposer";
 import type { Skill } from "@/lib/skills";
 import type { EditorNode } from "@/lib/editor-utils";
@@ -169,14 +170,21 @@ export default function ChatComposer({
 											cursor: "pointer",
 										}}
 									>
-										<SkillLozenge
-											icon={getIcon(node.skill.icon || "add", "small", node.skill.fill)}
-											label={node.skill.name}
-											color="blue"
-											fillColor={node.skill.fill}
-											onClick={() => handleFocusSkill(node.skill.id)}
-											focusRingColor={isFocused || isSelected ? token("color.border.focused") : undefined}
-										/>
+										<SkillHoverCard
+									skillName={node.skill.name}
+									description={node.skill.description}
+									appName={node.skill.appName}
+									appLogo={node.skill.appLogo}
+								>
+											<SkillLozenge
+												icon={getIcon(node.skill.icon || "add", "small", node.skill.fill)}
+												label={node.skill.name}
+												color="blue"
+												fillColor={node.skill.fill}
+												onClick={() => handleFocusSkill(node.skill.id)}
+												focusRingColor={isFocused || isSelected ? token("color.border.focused") : undefined}
+											/>
+										</SkillHoverCard>
 									</span>
 								);
 							} else {
@@ -223,13 +231,11 @@ export default function ChatComposer({
 						marginTop: token("space.100"),
 					}}
 				>
-					{/* Left side: Tools */}
-					<div style={{ display: "flex", alignItems: "center", gap: token("space.050") }}>
-						<IconButton icon={AddIcon} label="Add" appearance="subtle" spacing="default" shape="circle" />
-						<IconButton icon={CustomizeIcon} label="Edit" appearance="subtle" spacing="default" shape="circle" />
-						<IconButton icon={SkillIcon} label="Preferences" appearance="subtle" spacing="default" shape="circle" />
-					</div>
-
+				{/* Left side: Tools */}
+				<div style={{ display: "flex", alignItems: "center", gap: token("space.050") }}>
+					<IconButton icon={AddIcon} label="Add" appearance="subtle" spacing="default" shape="circle" />
+					<IconButton icon={CustomizeIcon} label="Edit" appearance="subtle" spacing="default" shape="circle" />
+				</div>
 					{/* Right side: Send */}
 					<div style={{ display: "flex", alignItems: "center", gap: token("space.050") }}>
 						<IconButton icon={MicrophoneIcon} label="Voice Submit" appearance="subtle" spacing="default" shape="circle" />
