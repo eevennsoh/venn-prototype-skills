@@ -19,9 +19,10 @@ interface ChatComposerProps {
 	onPromptChange: (value: string) => void;
 	onSubmit: () => void;
 	isDisabled?: boolean;
+	onContentStateChange?: (hasContent: boolean) => void;
 }
 
-export default function ChatComposer({ prompt, onPromptChange, onSubmit, isDisabled = false }: ChatComposerProps) {
+export default function ChatComposer({ prompt, onPromptChange, onSubmit, isDisabled = false, onContentStateChange }: ChatComposerProps) {
 	const textareaRef = useRef<HTMLTextAreaElement>(null);
 	const editableRef = useRef<HTMLDivElement>(null);
 	const [suggestion, setSuggestion] = useState<Skill | null>(null);
@@ -77,6 +78,12 @@ export default function ChatComposer({ prompt, onPromptChange, onSubmit, isDisab
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [prompt, selectedSkills.length]);
 
+	// Track content state and notify parent
+	useEffect(() => {
+		const hasContent = prompt.trim().length > 0 || selectedSkills.length > 0;
+		onContentStateChange?.(hasContent);
+	}, [prompt, selectedSkills, onContentStateChange]);
+
 	// Extract the current word to provide suggestions for skill autocomplete
 	useEffect(() => {
 		// Get the last word being typed (after the last space)
@@ -88,7 +95,9 @@ export default function ChatComposer({ prompt, onPromptChange, onSubmit, isDisab
 			const results = searchSkills(lastWord);
 			// Filter out already selected skills
 			const availableResults = results.filter((skill) => !selectedSkills.some((s) => s.id === skill.id));
-			setSuggestion(availableResults[0] || null);
+			// Only show suggestion if the skill name starts with the same first letter as the current command
+			const firstLetterMatch = availableResults.filter((skill) => skill.name.toLowerCase().charAt(0) === lastWord.toLowerCase().charAt(0));
+			setSuggestion(firstLetterMatch[0] || null);
 		} else {
 			setCurrentCommand("");
 			setSuggestion(null);
@@ -143,7 +152,7 @@ export default function ChatComposer({ prompt, onPromptChange, onSubmit, isDisab
 								userSelect: "none",
 							}}
 						>
-							Ask, @mention, or / for actions
+							Ask, @mention, or / for skills
 						</div>
 					)}
 

@@ -47,17 +47,30 @@ export default function SkillLozenge({ icon, label, color = "blue", onClick, isS
 				marginRight: token("space.025"),
 			}}
 		>
-			{/* Colored left border slash */}
-			<div
-				style={{
-					position: "absolute",
-					left: 0,
-					top: 0,
-					bottom: 0,
+		{/* Colored left border slash */}
+		<div
+			style={{
+				position: "absolute",
+				left: 0,
+				top: 0,
+				bottom: 0,
 				width: token("border.width.selected"),
-					backgroundColor: borderColor,
-				}}
-			/>
+				backgroundColor: borderColor,
+			}}
+		/>
+		
+		{/* Diagonal slash stroke */}
+		<div
+			style={{
+				position: "absolute",
+				left: 0,
+				top: 0,
+				right: 0,
+				bottom: 0,
+				background: `linear-gradient(to bottom right, transparent 0%, transparent calc(50% - 1px), ${borderColor} calc(50% - 1px), ${borderColor} calc(50% + 1px), transparent calc(50% + 1px), transparent 100%)`,
+				pointerEvents: "none",
+			}}
+		/>
 
 			{/* Icon container */}
 			<div
