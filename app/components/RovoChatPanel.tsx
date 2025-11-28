@@ -12,7 +12,7 @@ import { useSystemPrompt } from "../contexts/SystemPromptContext";
 import { getIcon } from "@/lib/icon-mapper";
 import SkillLozenge from "./SkillLozenge";
 import type { Skill } from "@/lib/skills";
-import type { EditorNode } from "@/lib/editor-utils";
+import { type EditorNode, nodesToMessageContent } from "@/lib/editor-utils";
 import { useChatStream } from "../hooks/useChatStream";
 
 // Minimal markdown-to-HTML renderer for assistant messages
@@ -150,7 +150,10 @@ export default function RovoChatPanel({ onClose, apiUrl }: RovoChatPanelProps) {
 
 		// Build content from prompt and selected skills
 		let content = prompt.trim();
-		if (selectedSkills.length > 0) {
+
+		if (nodes && nodes.length > 0) {
+			content = nodesToMessageContent(nodes);
+		} else if (selectedSkills.length > 0) {
 			const skillNames = selectedSkills.map((skill) => skill.name).join(", ");
 			if (content) {
 				content = `${skillNames}: ${content}`;
@@ -256,7 +259,8 @@ export default function RovoChatPanel({ onClose, apiUrl }: RovoChatPanelProps) {
 											display: "flex",
 											flexWrap: "wrap",
 											alignItems: "center",
-											gap: token("space.050"),
+											rowGap: token("space.050"),
+											columnGap: 0,
 										}}
 									>
 										{message.nodes && message.nodes.length > 0 ? (

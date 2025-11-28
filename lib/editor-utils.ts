@@ -60,6 +60,23 @@ export function nodesToText(nodes: EditorNode[]): string {
 }
 
 /**
+ * Convert nodes to a string representation for the chat message, preserving order of skills and text.
+ */
+export function nodesToMessageContent(nodes: EditorNode[]): string {
+	return nodes
+		.map((node) => {
+			if (node.type === "text") {
+				return node.content;
+			} else if (node.type === "skill") {
+				return node.skill.name;
+			}
+			return "";
+		})
+		.join("")
+		.trim();
+}
+
+/**
  * Get all skills from nodes
  */
 export function nodesToSkills(nodes: EditorNode[]): Skill[] {
@@ -828,19 +845,17 @@ export function getSelectedSkillIds(nodes: EditorNode[], selection: EditorSelect
 
 	for (let i = start.nodeIndex; i <= end.nodeIndex && i < nodes.length; i++) {
 		const node = nodes[i];
-		if (node.type !== "skill") continue;
+		if (node.type === "skill") {
+			const isStartNode = i === start.nodeIndex;
+			const isEndNode = i === end.nodeIndex;
 
-		// Check if skill is within selection
-		if (i === start.nodeIndex && start.offset > 0) {
-			// Skill is at start but cursor is after it
-			continue;
-		}
-		if (i === end.nodeIndex && end.offset === 0) {
-			// Skill is at end but cursor is before it
-			continue;
-		}
+			const startsBeforeOrAt = !isStartNode || start.offset === 0;
+			const endsAfterOrAt = !isEndNode || end.offset === 1;
 
-		skillIds.push(node.skill.id);
+			if (startsBeforeOrAt && endsAfterOrAt) {
+				skillIds.push(node.skill.id);
+			}
+		}
 	}
 
 	return skillIds;

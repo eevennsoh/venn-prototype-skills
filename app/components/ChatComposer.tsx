@@ -163,7 +163,7 @@ export default function ChatComposer({
 										style={{
 											display: "inline-flex",
 											verticalAlign: "middle",
-											marginRight: isLastNode ? 0 : token("space.025"),
+											marginRight: 0,
 											marginBottom: hasWrapping ? token("space.025") : 0,
 											userSelect: "none",
 											cursor: "pointer",
