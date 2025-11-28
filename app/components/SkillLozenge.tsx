@@ -55,7 +55,8 @@ export default function SkillLozenge({ icon, label, color = "blue", onClick, isS
 				overflow: "visible",
 				height: "20px",
 				boxSizing: "border-box",
-				marginRight: 0,
+				marginLeft: token("space.025"),
+				marginRight: token("space.025"),
 				verticalAlign: "middle",
 				...(focusRingColor && {
 					outline: `2px solid ${focusRingColor}`,
