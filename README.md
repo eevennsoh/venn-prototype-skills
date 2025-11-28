@@ -96,4 +96,4 @@ See [VERIFIED_WORKING.md](./VERIFIED_WORKING.md) for end-to-end test results.
 - **Atlassian Design System:** https://atlassian.design
 - **AI Gateway Documentation:** Ask in #help-ai-gateway on Slack
 - **Deployment Best Practices:** [Kevin Grennan OG Master Prototyper](https://hello.atlassian.net/wiki/spaces/~712020bffd994093c8458c89e1e2f0d9abcb3a/pages/5977078534/How+to+Deploy+Design+Prototypes+with+Real+AI+Interactivity)
->>>>>>> f661367 (Initial commit: Rovo Chat Panel with skill suggestions)
+  > > > > > > > f661367 (Initial commit: Rovo Chat Panel with skill suggestions)
