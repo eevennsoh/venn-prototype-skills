@@ -47,15 +47,18 @@ export default function SkillLozenge({ icon, label, color = "blue", onClick, isS
 				marginRight: token("space.025"),
 			}}
 		>
-			{/* Colored left border slash */}
+			{/* Diagonal slash stroke */}
 			<div
 				style={{
 					position: "absolute",
 					left: 0,
 					top: 0,
 					bottom: 0,
-				width: token("border.width.selected"),
+					width: "2px",
 					backgroundColor: borderColor,
+					transform: "skewX(12deg)",
+					transformOrigin: "left center",
+					zIndex: 1,
 				}}
 			/>
 

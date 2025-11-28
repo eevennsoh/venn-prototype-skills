@@ -81,9 +81,13 @@ function LoadingWidget({ widgetType }: { widgetType?: string }) {
 
 export default function RovoChatPanel({ onClose, apiUrl }: RovoChatPanelProps) {
 	const [prompt, setPrompt] = useState("");
+	const [composerHasContent, setComposerHasContent] = useState(false);
 	const scrollRef = useRef<HTMLDivElement>(null);
 	const { messages, setMessages } = useRovoChat();
 	const { customPrompt } = useSystemPrompt();
+
+	// Derive greeting visibility: show when no messages and composer has no content
+	const shouldShowGreeting = messages.length === 0 && !composerHasContent;
 
 	useEffect(() => {
 		if (scrollRef.current) {
@@ -261,6 +265,8 @@ export default function RovoChatPanel({ onClose, apiUrl }: RovoChatPanelProps) {
 				height: "100vh",
 				maxHeight: "800px",
 				backgroundColor: token("elevation.surface"),
+				border: `1px solid ${token("color.border")}`,
+				borderRadius: token("space.150"),
 				display: "flex",
 				flexDirection: "column",
 				color: token("color.text"),
@@ -282,6 +288,7 @@ export default function RovoChatPanel({ onClose, apiUrl }: RovoChatPanelProps) {
 				{messages.length === 0 ? (
 					<SkillSuggestions
 						searchQuery={prompt}
+						shouldShowGreeting={shouldShowGreeting}
 						onSkillSelect={(skill) => {
 							setPrompt(skill);
 							// Optionally auto-submit after a short delay
@@ -303,11 +310,11 @@ export default function RovoChatPanel({ onClose, apiUrl }: RovoChatPanelProps) {
 							{messages.map((message) => (
 								<div
 									key={message.id}
-								style={{
-									display: "flex",
-									justifyContent: message.type === "user" ? "flex-end" : "flex-start",
-									paddingLeft: message.type === "user" ? token("space.200") : "0",
-								}}
+									style={{
+										display: "flex",
+										justifyContent: message.type === "user" ? "flex-end" : "flex-start",
+										paddingLeft: message.type === "user" ? token("space.200") : "0",
+									}}
 								>
 									{message.type === "user" ? (
 										<div
@@ -329,36 +336,37 @@ export default function RovoChatPanel({ onClose, apiUrl }: RovoChatPanelProps) {
 												width: "100%",
 											}}
 										>
-										<div
-											style={{
-												fontSize: "14px",
-												lineHeight: "1.43",
-												color: token("color.text"),
-												marginBottom: message.widget || message.widgetLoading ? token("space.100") : "0",
-												paddingLeft: token("space.100"),
-												paddingRight: token("space.100"),
-											}}
-											dangerouslySetInnerHTML={{ __html: renderMarkdownToHtml(message.content) }}
-										/>
-										{message.widgetLoading && <LoadingWidget widgetType={message.widget?.type} />}
-										{message.widget && !message.widgetLoading && <>{message.widget.type === "work-items" && <WorkItemsWidget data={message.widget.data} />}</>}
+											<div
+												style={{
+													fontSize: "14px",
+													lineHeight: "1.43",
+													color: token("color.text"),
+													marginBottom: message.widget || message.widgetLoading ? token("space.100") : "0",
+													paddingLeft: token("space.100"),
+													paddingRight: token("space.100"),
+												}}
+												dangerouslySetInnerHTML={{ __html: renderMarkdownToHtml(message.content) }}
+											/>
+											{message.widgetLoading && <LoadingWidget widgetType={message.widget?.type} />}
+											{message.widget && !message.widgetLoading && <>{message.widget.type === "work-items" && <WorkItemsWidget data={message.widget.data} />}</>}
 										</div>
 									)}
 								</div>
 							))}
 						</div>
 						{/* Show SkillSuggestions below messages */}
-							<SkillSuggestions
-								searchQuery={prompt}
-								onSkillSelect={(skill) => {
-									setPrompt(skill);
-								}}
-							/>
+						<SkillSuggestions
+							searchQuery={prompt}
+							shouldShowGreeting={shouldShowGreeting}
+							onSkillSelect={(skill) => {
+								setPrompt(skill);
+							}}
+						/>
 					</>
 				)}
 			</div>
 
-			<ChatComposer prompt={prompt} onPromptChange={setPrompt} onSubmit={handleSubmit} />
+			<ChatComposer prompt={prompt} onPromptChange={setPrompt} onSubmit={handleSubmit} onContentStateChange={setComposerHasContent} />
 		</div>
 	);
 }
