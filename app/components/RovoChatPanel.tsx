@@ -12,6 +12,7 @@ import { useSystemPrompt } from "../contexts/SystemPromptContext";
 import { getIcon } from "@/lib/icon-mapper";
 import SkillLozenge from "./SkillLozenge";
 import type { Skill } from "@/lib/skills";
+import type { EditorNode } from "@/lib/editor-utils";
 import { useChatStream } from "../hooks/useChatStream";
 
 // Minimal markdown-to-HTML renderer for assistant messages
@@ -84,6 +85,7 @@ function LoadingWidget({ widgetType }: { widgetType?: string }) {
 
 export default function RovoChatPanel({ onClose, apiUrl }: RovoChatPanelProps) {
 	const [prompt, setPrompt] = useState("");
+	const [currentCommand, setCurrentCommand] = useState("");
 	const [composerHasContent, setComposerHasContent] = useState(false);
 	const [selectedSkills, setSelectedSkills] = useState<Skill[]>([]);
 	const [pendingSkill, setPendingSkill] = useState<Skill | null>(null);
@@ -124,10 +126,8 @@ export default function RovoChatPanel({ onClose, apiUrl }: RovoChatPanelProps) {
 		setPendingSkill(null);
 	};
 
-	// Clear highlighted skill when prompt changes (user starts typing again)
-	useEffect(() => {
-		setHighlightedSkill(null);
-	}, [prompt]);
+	// Note: We no longer clear highlightedSkill on prompt change because
+	// useSkillSuggestions now automatically sets it to the first suggestion for ghost text
 
 	// Handle arrow key navigation from composer
 	const handleComposerKeyArrow = (direction: "up" | "down") => {
@@ -145,7 +145,7 @@ export default function RovoChatPanel({ onClose, apiUrl }: RovoChatPanelProps) {
 		}
 	}, [messages]);
 
-	const handleSubmit = async () => {
+	const handleSubmit = async (nodes?: EditorNode[]) => {
 		if (!composerHasContent) return;
 
 		// Build content from prompt and selected skills
@@ -165,6 +165,7 @@ export default function RovoChatPanel({ onClose, apiUrl }: RovoChatPanelProps) {
 			content: content,
 			promptText: prompt.trim(),
 			skills: selectedSkills,
+			nodes: nodes,
 		};
 
 		setMessages((prev) => [...prev, userMessage]);
@@ -222,13 +223,14 @@ export default function RovoChatPanel({ onClose, apiUrl }: RovoChatPanelProps) {
 			>
 				{messages.length === 0 ? (
 					<SkillSuggestions
-						searchQuery={prompt}
+						searchQuery={currentCommand}
 						shouldShowGreeting={shouldShowGreeting}
 						onSkillHighlight={handleSkillHighlight}
 						onSkillConfirm={handleSkillConfirm}
 						onSkillSelect={(skill) => {
 							setPrompt(skill);
 						}}
+						selectedSkills={selectedSkills}
 					/>
 				) : (
 					<div style={{ padding: token("space.150"), display: "flex", flexDirection: "column", gap: token("space.200"), paddingBottom: "calc(32px + 80px)" }}>
@@ -257,7 +259,26 @@ export default function RovoChatPanel({ onClose, apiUrl }: RovoChatPanelProps) {
 											gap: token("space.050"),
 										}}
 									>
-										{message.skills && message.skills.length > 0 ? (
+										{message.nodes && message.nodes.length > 0 ? (
+											<>
+												{message.nodes.map((node, index) => {
+													if (node.type === "skill") {
+														return (
+															<SkillLozenge
+																key={`msg-${message.id}-skill-${node.skill.id}-${index}`}
+																icon={getIcon(node.skill.icon || "add", "small", node.skill.fill, true)}
+																label={node.skill.name}
+																color="blue"
+																fillColor={node.skill.fill}
+																isInsideBlueBackground={true}
+															/>
+														);
+													} else {
+														return <span key={`msg-${message.id}-text-${index}`}>{node.content}</span>;
+													}
+												})}
+											</>
+										) : message.skills && message.skills.length > 0 ? (
 											<>
 												{message.skills.map((skill) => (
 													<SkillLozenge
@@ -307,6 +328,7 @@ export default function RovoChatPanel({ onClose, apiUrl }: RovoChatPanelProps) {
 				onSubmit={handleSubmit}
 				onContentStateChange={setComposerHasContent}
 				onSelectedSkillsChange={setSelectedSkills}
+				onCurrentCommandChange={setCurrentCommand}
 				pendingSkill={pendingSkill}
 				onPendingSkillConsumed={handlePendingSkillConsumed}
 				onKeyArrow={handleComposerKeyArrow}

@@ -16,6 +16,7 @@ import {
 	setDomSelectionFromPosition,
 	setDomSelectionFromRange,
 	insertSkillAtPosition,
+	insertSkillReplacingMatchedText,
 	removeSkillById,
 	deleteSelection,
 	getCurrentWord,
@@ -48,7 +49,7 @@ export interface UseInlineEditorProps {
 	/** Callback when the current word changes (for suggestions) */
 	onCurrentWordChange?: (word: string) => void;
 	/** Callback on submit (Enter key) */
-	onSubmit?: () => void;
+	onSubmit?: (nodes: EditorNode[]) => void;
 }
 
 export interface UseInlineEditorReturn {
@@ -70,7 +71,10 @@ export interface UseInlineEditorReturn {
 
 	// Actions
 	insertSkill: (skill: Skill) => void;
+	replaceCurrentTextWithSkill: (skill: Skill) => void;
+	replaceMatchedTextWithSkill: (skill: Skill, matchedText: string) => void;
 	removeSkill: (skillId: string) => void;
+	focusSkill: (skillId: string) => void;
 	clear: () => void;
 	focus: () => void;
 
@@ -609,7 +613,7 @@ export function useInlineEditor({
 			// Enter: Submit
 			if (e.key === "Enter" && !e.shiftKey) {
 				e.preventDefault();
-				onSubmit?.();
+				onSubmit?.(nodes);
 				return;
 			}
 
@@ -854,6 +858,58 @@ export function useInlineEditor({
 		[nodes, cursorPosition]
 	);
 
+	/**
+	 * Replace current text node content with a skill (used for Tab completion)
+	 * Preserves other nodes (existing skills, text before/after)
+	 */
+	const replaceCurrentTextWithSkill = useCallback(
+		(skill: Skill) => {
+			// Don't insert duplicates
+			const existingSkills = nodesToSkills(nodes);
+			if (existingSkills.some((s) => s.id === skill.id)) return;
+
+			// Use insertSkillAtPosition which correctly handles replacing the current word
+			// while preserving text before the last space
+			const { nodes: newNodes, newPosition } = insertSkillAtPosition(nodes, cursorPosition, skill);
+
+			setNodes(newNodes);
+			setCursorPosition(newPosition);
+			setFocusedSkillId(null);
+			setSelection(null);
+			pendingCursorRef.current = newPosition;
+
+			requestAnimationFrame(() => {
+				containerRef.current?.focus();
+			});
+		},
+		[nodes, cursorPosition]
+	);
+
+	/**
+	 * Replace matched text with a skill (used when accepting from suggestion panel)
+	 * This replaces only the specific text that matched the skill name
+	 */
+	const replaceMatchedTextWithSkill = useCallback(
+		(skill: Skill, matchedText: string) => {
+			// Don't insert duplicates
+			const existingSkills = nodesToSkills(nodes);
+			if (existingSkills.some((s) => s.id === skill.id)) return;
+
+			const { nodes: newNodes, newPosition } = insertSkillReplacingMatchedText(nodes, cursorPosition, skill, matchedText);
+
+			setNodes(newNodes);
+			setCursorPosition(newPosition);
+			setFocusedSkillId(null);
+			setSelection(null);
+			pendingCursorRef.current = newPosition;
+
+			requestAnimationFrame(() => {
+				containerRef.current?.focus();
+			});
+		},
+		[nodes, cursorPosition]
+	);
+
 	const removeSkillInternal = useCallback(
 		(skillId: string) => {
 			const { nodes: newNodes, removedIndex } = removeSkillById(nodes, skillId);
@@ -895,6 +951,23 @@ export function useInlineEditor({
 		containerRef.current?.focus();
 	}, []);
 
+	const focusSkill = useCallback(
+		(skillId: string) => {
+			// Find the node index for this skill
+			const nodeIndex = nodes.findIndex((node) => node.type === "skill" && node.skill.id === skillId);
+			if (nodeIndex === -1) return;
+
+			setFocusedSkillId(skillId);
+			setCursorPosition({ nodeIndex, offset: 0 });
+			setSelection(null);
+
+			requestAnimationFrame(() => {
+				containerRef.current?.focus();
+			});
+		},
+		[nodes]
+	);
+
 	// ============================================================================
 	// Derived State Getters
 	// ============================================================================
@@ -923,7 +996,10 @@ export function useInlineEditor({
 
 		// Actions
 		insertSkill,
+		replaceCurrentTextWithSkill,
+		replaceMatchedTextWithSkill,
 		removeSkill: removeSkillInternal,
+		focusSkill,
 		clear: clearEditor,
 		focus,
 

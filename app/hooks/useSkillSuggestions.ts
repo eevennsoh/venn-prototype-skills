@@ -17,6 +17,7 @@ interface UseSkillSuggestionsProps {
 	onSkillHighlight?: (skill: Skill | null) => void;
 	searchQuery?: string;
 	shouldShowGreeting?: boolean;
+	selectedSkills?: Skill[];
 }
 
 interface UseSkillSuggestionsReturn {
@@ -47,11 +48,7 @@ interface UseSkillSuggestionsReturn {
  * Custom hook for managing skill suggestions state and logic
  * Extracts animation management, highlighting, arrow key navigation, and skill display logic
  */
-export function useSkillSuggestions({
-	onSkillHighlight,
-	searchQuery = "",
-	shouldShowGreeting = true,
-}: UseSkillSuggestionsProps): UseSkillSuggestionsReturn {
+export function useSkillSuggestions({ onSkillHighlight, searchQuery = "", shouldShowGreeting = true, selectedSkills = [] }: UseSkillSuggestionsProps): UseSkillSuggestionsReturn {
 	const [greetingOpacity, setGreetingOpacity] = useState(0);
 	const [greetingTransform, setGreetingTransform] = useState("translateY(16px)");
 	const [skillsOpacity, setSkillsOpacity] = useState(0);
@@ -61,16 +58,23 @@ export function useSkillSuggestions({
 	const containerRef = useRef<HTMLDivElement>(null);
 	const isKeyboardNavigationRef = useRef(false);
 
+	// Get IDs of already-selected skills for filtering
+	const selectedSkillIds = useMemo(() => selectedSkills.map((s) => s.id), [selectedSkills]);
+
 	// Memoize skills calculation based on search query
 	const displayedSkills = useMemo(() => {
 		let skillsToDisplay: Skill[] = [];
 
 		if (searchQuery.trim()) {
 			// When typing/searching: show up to 5 search results + "Discover more skills"
-			skillsToDisplay = searchSkills(searchQuery).slice(0, 5);
+			// Filter out already-selected skills
+			skillsToDisplay = searchSkills(searchQuery)
+				.filter((skill) => !selectedSkillIds.includes(skill.id))
+				.slice(0, 5);
 		} else {
 			// Default state: show 5 default suggestions + "Discover more skills"
-			skillsToDisplay = getDefaultSuggestions(5);
+			// Filter out already-selected skills
+			skillsToDisplay = getDefaultSuggestions(5).filter((skill) => !selectedSkillIds.includes(skill.id));
 		}
 
 		// Always append "Discover more skills" as the last item
@@ -97,14 +101,30 @@ export function useSkillSuggestions({
 			icon: getIcon(skill.icon || "add", "small", skill.fill),
 			skill: skill,
 		}));
-	}, [searchQuery]);
+	}, [searchQuery, selectedSkillIds]);
 
-	// Reset highlighted index when displayed skills change
+	// Use a ref for the callback to avoid infinite loops
+	const onSkillHighlightRef = useRef(onSkillHighlight);
+	onSkillHighlightRef.current = onSkillHighlight;
+
+	// Reset highlighted index when displayed skills change, but still provide first skill for ghost text
 	useEffect(() => {
 		// No auto-highlighting when typing - only highlight on mouse hover or keyboard navigation
 		setHighlightedIndex(-1);
-	}, [searchQuery, displayedSkills.length]);
 
+		// But still provide first skill for ghost text purposes when typing
+		if (searchQuery.trim()) {
+			const discoverMore = getDiscoverMoreSkill();
+			const realSkills = displayedSkills.filter((s) => s.skill.id !== discoverMore.id);
+			if (realSkills.length > 0) {
+				onSkillHighlightRef.current?.(realSkills[0].skill);
+			} else {
+				onSkillHighlightRef.current?.(null);
+			}
+		} else {
+			onSkillHighlightRef.current?.(null);
+		}
+	}, [searchQuery, displayedSkills]);
 
 	// Initial stagger animation on mount
 	useEffect(() => {
@@ -150,6 +170,10 @@ export function useSkillSuggestions({
 
 			if (isDiscoverMore && searchQuery.trim() && hasRealSkills) {
 				// Don't highlight discover more when typing and there are real skills
+				// Clear visual highlight but keep first skill for ghost text
+				setHighlightedIndex(-1);
+				const realSkills = displayedSkills.filter((s) => s.skill.id !== discoverMore.id);
+				onSkillHighlight?.(realSkills[0]?.skill ?? null);
 				return;
 			}
 
@@ -160,9 +184,21 @@ export function useSkillSuggestions({
 	};
 
 	const handleContainerMouseLeave = () => {
-		// Reset highlight when mouse leaves the suggestions container
+		// Reset visual highlight when mouse leaves the suggestions container
 		setHighlightedIndex(-1);
-		onSkillHighlight?.(null);
+
+		// But restore first skill for ghost text purposes when typing
+		if (searchQuery.trim()) {
+			const discoverMore = getDiscoverMoreSkill();
+			const realSkills = displayedSkills.filter((s) => s.skill.id !== discoverMore.id);
+			if (realSkills.length > 0) {
+				onSkillHighlight?.(realSkills[0].skill);
+			} else {
+				onSkillHighlight?.(null);
+			}
+		} else {
+			onSkillHighlight?.(null);
+		}
 	};
 
 	const shouldHighlightItem = (index: number): boolean => {
@@ -204,4 +240,3 @@ export function useSkillSuggestions({
 		shouldHighlightItem,
 	};
 }
-

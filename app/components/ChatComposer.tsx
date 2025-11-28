@@ -15,14 +15,16 @@ import { getIcon } from "@/lib/icon-mapper";
 import SkillLozenge from "./SkillLozenge";
 import { useComposer } from "../hooks/useComposer";
 import type { Skill } from "@/lib/skills";
+import type { EditorNode } from "@/lib/editor-utils";
 
 interface ChatComposerProps {
 	prompt: string;
 	onPromptChange: (value: string) => void;
-	onSubmit: () => void;
+	onSubmit: (nodes: EditorNode[]) => void;
 	isDisabled?: boolean;
 	onContentStateChange?: (hasContent: boolean) => void;
 	onSelectedSkillsChange?: (skills: Skill[]) => void;
+	onCurrentCommandChange?: (command: string) => void;
 	pendingSkill?: Skill | null;
 	onPendingSkillConsumed?: () => void;
 	onKeyArrow?: (direction: "up" | "down") => void;
@@ -36,6 +38,7 @@ export default function ChatComposer({
 	isDisabled = false,
 	onContentStateChange,
 	onSelectedSkillsChange,
+	onCurrentCommandChange,
 	pendingSkill,
 	onPendingSkillConsumed,
 	onKeyArrow,
@@ -59,13 +62,14 @@ export default function ChatComposer({
 		handleSelect,
 		handleClick,
 		handlePaste,
-		handleRemoveSkill,
+		handleFocusSkill,
 		handleClearAndFocus,
 	} = useComposer({
 		prompt,
 		onPromptChange,
 		onContentStateChange,
 		onSelectedSkillsChange,
+		onCurrentCommandChange,
 		pendingSkill,
 		onPendingSkillConsumed,
 		onKeyArrow,
@@ -109,7 +113,7 @@ export default function ChatComposer({
 								color: token("color.text.subtlest"),
 								fontSize: "14px",
 								fontFamily: "inherit",
-								lineHeight: "1.43",
+								lineHeight: "20px",
 							}}
 						>
 							{placeholderSkill ? placeholderSkill.name : "Ask, @mention, or / for skills"}
@@ -128,12 +132,11 @@ export default function ChatComposer({
 						onPaste={handlePaste}
 						style={{
 							display: "block",
-							minHeight: "24px",
-							maxHeight: hasWrapping ? "none" : "24px",
+							minHeight: "20px",
 							overflow: "visible",
 							fontSize: "14px",
 							fontFamily: "inherit",
-							lineHeight: "1.43",
+							lineHeight: "20px",
 							padding: `${token("space.075")} ${token("space.075")}`,
 							outline: "none",
 							color: token("color.text"),
@@ -162,7 +165,7 @@ export default function ChatComposer({
 											verticalAlign: "middle",
 											marginRight: isLastNode ? 0 : token("space.025"),
 											marginBottom: hasWrapping ? token("space.025") : 0,
-											userSelect: "all",
+											userSelect: "none",
 											cursor: "pointer",
 										}}
 									>
@@ -171,7 +174,7 @@ export default function ChatComposer({
 											label={node.skill.name}
 											color="blue"
 											fillColor={node.skill.fill}
-											onClick={() => handleRemoveSkill(node.skill.id)}
+											onClick={() => handleFocusSkill(node.skill.id)}
 											focusRingColor={isFocused || isSelected ? token("color.border.focused") : undefined}
 										/>
 									</span>
@@ -196,14 +199,9 @@ export default function ChatComposer({
 										{isLastNode && shouldShowGhost && (
 											<span
 												style={{
-													display: "inline",
 													color: token("color.text.subtlest"),
 													opacity: 0.5,
 													pointerEvents: "none",
-													verticalAlign: "middle",
-													fontSize: "14px",
-													fontFamily: "inherit",
-													lineHeight: "1.43",
 												}}
 												contentEditable={false}
 											>
@@ -242,7 +240,7 @@ export default function ChatComposer({
 							spacing="default"
 							isDisabled={!(promptText.trim().length > 0 || selectedSkills.length > 0) || isDisabled}
 							onClick={() => {
-								onSubmit();
+								onSubmit(nodes);
 								handleClearAndFocus();
 							}}
 							shape="circle"

@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useRef, useEffect, useState, useMemo, useId, useCallback } from "react";
-import { searchSkills, getDiscoverMoreSkill } from "@/lib/skills-queries";
+import { searchSkills, getDiscoverMoreSkill, findMatchingSkills } from "@/lib/skills-queries";
 import type { Skill } from "@/lib/skills";
 import { useInlineEditor } from "./useInlineEditor";
-import type { EditorNode } from "@/lib/editor-utils";
+import { type EditorNode, getTextBeforeCursor } from "@/lib/editor-utils";
 
 // Re-export EditorNode as Segment for backward compatibility
 export type Segment = EditorNode;
@@ -14,12 +14,13 @@ interface UseComposerProps {
 	onPromptChange: (value: string) => void;
 	onContentStateChange?: (hasContent: boolean) => void;
 	onSelectedSkillsChange?: (skills: Skill[]) => void;
+	onCurrentCommandChange?: (command: string) => void;
 	pendingSkill?: Skill | null;
 	onPendingSkillConsumed?: () => void;
 	onKeyArrow?: (direction: "up" | "down") => void;
 	highlightedSkill?: Skill | null;
 	isDisabled?: boolean;
-	onSubmit: () => void;
+	onSubmit: (nodes: EditorNode[]) => void;
 }
 
 interface UseComposerReturn {
@@ -54,6 +55,7 @@ interface UseComposerReturn {
 	// Actions
 	handleAddSkill: (skill: Skill) => void;
 	handleRemoveSkill: (skillId: string) => void;
+	handleFocusSkill: (skillId: string) => void;
 	handleClearAndFocus: () => void;
 }
 
@@ -66,6 +68,7 @@ export function useComposer({
 	onPromptChange,
 	onContentStateChange,
 	onSelectedSkillsChange,
+	onCurrentCommandChange,
 	pendingSkill,
 	onPendingSkillConsumed,
 	onKeyArrow,
@@ -99,22 +102,38 @@ export function useComposer({
 		isDisabled,
 		onArrowUpDown: onKeyArrow,
 		onCurrentWordChange: (word) => {
-			setCurrentCommand(word);
-			// Update suggestions based on current word
-			if (word.length > 0) {
-				const results = searchSkills(word);
-				const existingSkills = editor.getSkills();
-				const availableResults = results.filter((skill) => !existingSkills.some((s) => s.id === skill.id));
-				setSuggestion(availableResults[0] || null);
-			} else {
-				setSuggestion(null);
-			}
+			// Logic moved to useEffect below to support multi-word suggestions
 		},
-		onSubmit: () => {
-			onSubmit();
+		onSubmit: (nodes) => {
+			onSubmit(nodes);
 			editor.clear();
 		},
 	});
+
+	// Update suggestions based on text before cursor (fuzzy matching)
+	useEffect(() => {
+		const textBefore = getTextBeforeCursor(editor.nodes, editor.cursorPosition);
+		const match = findMatchingSkills(textBefore);
+
+		if (match) {
+			const existingSkills = editor.getSkills();
+			const availableResults = match.skills.filter((skill) => !existingSkills.some((s) => s.id === skill.id));
+
+			if (availableResults.length > 0) {
+				setSuggestion(availableResults[0]);
+				setCurrentCommand(match.query);
+				onCurrentCommandChange?.(match.query);
+			} else {
+				setSuggestion(null);
+				setCurrentCommand("");
+				onCurrentCommandChange?.("");
+			}
+		} else {
+			setSuggestion(null);
+			setCurrentCommand("");
+			onCurrentCommandChange?.("");
+		}
+	}, [editor.nodes, editor.cursorPosition, onCurrentCommandChange]);
 
 	// Get derived state
 	const promptText = editor.getText();
@@ -162,13 +181,36 @@ export function useComposer({
 		editor.focus();
 	}, [editor]);
 
+	// Ghost text logic - calculate first so we can use it in Tab handler
+	const discoverMore = getDiscoverMoreSkill();
+	const isHighlightedDiscoverMore = highlightedSkill?.id === discoverMore.id;
+	const existingSkillIds = selectedSkills.map((s) => s.id);
+
+	// Filter out already selected skills from ghost target
+	const rawGhostTargetSkill = (isHighlightedDiscoverMore ? null : highlightedSkill ?? null) ?? suggestion;
+	const ghostTargetSkill = rawGhostTargetSkill && existingSkillIds.includes(rawGhostTargetSkill.id) ? null : rawGhostTargetSkill;
+
 	// Custom keyboard handler that wraps the editor's handler
 	const handleKeyDown = useCallback(
 		(e: React.KeyboardEvent<HTMLDivElement>) => {
-			// Handle Tab for skill insertion
-			if (e.key === "Tab" && suggestion && currentCommand) {
+			// Handle Tab for skill insertion - use the skill shown in ghost text
+			const tabTargetSkill = ghostTargetSkill;
+			if (e.key === "Tab" && tabTargetSkill && promptText.trim()) {
 				e.preventDefault();
-				editor.insertSkill(suggestion);
+
+				// Determine if this skill is from the highlighted suggestion panel or inline typing
+				// If it's from highlightedSkill (not from suggestion), replace matched text
+				// Otherwise, replace just the current word
+				const isFromHighlightedSuggestion = highlightedSkill && !isHighlightedDiscoverMore && highlightedSkill.id === tabTargetSkill.id;
+
+				if (isFromHighlightedSuggestion && currentCommand) {
+					// User selected from suggestion panel - replace the matched text
+					editor.replaceMatchedTextWithSkill(tabTargetSkill, currentCommand);
+				} else {
+					// User typed and we're autocompleting - replace just the current word
+					editor.replaceCurrentTextWithSkill(tabTargetSkill);
+				}
+
 				setSuggestion(null);
 				setCurrentCommand("");
 				return;
@@ -177,19 +219,21 @@ export function useComposer({
 			// Delegate to editor's handler
 			editor.handleKeyDown(e);
 		},
-		[editor, suggestion, currentCommand]
+		[editor, ghostTargetSkill, promptText, highlightedSkill, isHighlightedDiscoverMore, currentCommand]
 	);
 
-	// Ghost text logic
-	const discoverMore = getDiscoverMoreSkill();
-	const isHighlightedDiscoverMore = highlightedSkill?.id === discoverMore.id;
-	const ghostTargetSkill = (isHighlightedDiscoverMore ? null : highlightedSkill ?? null) ?? suggestion;
-	const ghostSuffix = ghostTargetSkill && currentCommand ? ghostTargetSkill.name.substring(currentCommand.length) : "";
-
-	// Only show ghost text if cursor is at the rightmost position
+	// Only show ghost text if cursor is at the rightmost position in a text node
 	const cursorPosition = editor.cursorPosition;
 	const activeNode = editor.nodes[cursorPosition.nodeIndex];
 	const isCursorAtEnd = activeNode?.type === "text" && cursorPosition.offset === activeNode.content.length;
+
+	// Calculate ghost suffix based on the CURRENT WORD being typed (not full text node)
+	// This allows ghost text to work when there's text before the current word (e.g., "dd d" -> ghost for "d")
+	// Use currentCommand which tracks the word after the last space
+	const skillName = ghostTargetSkill?.name ?? "";
+	const matchesStart = currentCommand.length > 0 && skillName.toLowerCase().startsWith(currentCommand.toLowerCase());
+	const ghostSuffix = ghostTargetSkill && matchesStart ? skillName.substring(currentCommand.length) : "";
+
 	const shouldShowGhost = Boolean(ghostSuffix && currentCommand.length > 0 && isCursorAtEnd);
 
 	// Placeholder skill
@@ -206,6 +250,13 @@ export function useComposer({
 	const handleRemoveSkill = useCallback(
 		(skillId: string) => {
 			editor.removeSkill(skillId);
+		},
+		[editor]
+	);
+
+	const handleFocusSkill = useCallback(
+		(skillId: string) => {
+			editor.focusSkill(skillId);
 		},
 		[editor]
 	);
@@ -247,6 +298,7 @@ export function useComposer({
 		// Actions
 		handleAddSkill,
 		handleRemoveSkill,
+		handleFocusSkill,
 		handleClearAndFocus,
 	};
 }

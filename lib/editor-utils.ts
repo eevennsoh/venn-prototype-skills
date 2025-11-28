@@ -583,6 +583,113 @@ export function insertSkillAtPosition(nodes: EditorNode[], position: EditorPosit
 }
 
 /**
+ * Insert a skill at the current cursor position, replacing a specific matched text
+ * This is used when accepting a skill from suggestions where we know exactly what text matched
+ */
+export function insertSkillReplacingMatchedText(nodes: EditorNode[], position: EditorPosition, skill: Skill, matchedText: string): { nodes: EditorNode[]; newPosition: EditorPosition } {
+	const node = nodes[position.nodeIndex];
+
+	if (!node || node.type !== "text") {
+		// Insert skill after current position
+		const newNodes = [
+			...nodes.slice(0, position.nodeIndex + 1),
+			{ type: "skill" as const, skill },
+			{ type: "text" as const, content: "", id: generateTextNodeId() },
+			...nodes.slice(position.nodeIndex + 1),
+		];
+
+		return {
+			nodes: normalizeNodes(newNodes),
+			newPosition: { nodeIndex: position.nodeIndex + 2, offset: 0 },
+		};
+	}
+
+	const textContent = node.content;
+	const beforeCursor = textContent.slice(0, position.offset);
+	const afterCursor = textContent.slice(position.offset);
+
+	// Find the matched text in the beforeCursor string
+	// Look for the last occurrence of matchedText (case-insensitive)
+	const lowerBeforeCursor = beforeCursor.toLowerCase();
+	const lowerMatchedText = matchedText.toLowerCase();
+	const matchIndex = lowerBeforeCursor.lastIndexOf(lowerMatchedText);
+
+	if (matchIndex === -1) {
+		// Matched text not found, fall back to replacing current word
+		const lastSpaceIndex = beforeCursor.lastIndexOf(" ");
+		const textBeforeWord = lastSpaceIndex === -1 ? "" : beforeCursor.slice(0, lastSpaceIndex + 1);
+
+		const newNodes: EditorNode[] = [
+			...nodes.slice(0, position.nodeIndex),
+			...(textBeforeWord ? [{ type: "text" as const, content: textBeforeWord, id: generateTextNodeId() }] : []),
+			{ type: "skill" as const, skill },
+			{ type: "text" as const, content: afterCursor, id: generateTextNodeId() },
+			...nodes.slice(position.nodeIndex + 1),
+		];
+
+		const normalized = normalizeNodes(newNodes);
+		let newNodeIndex = 0;
+		for (let i = 0; i < normalized.length; i++) {
+			const n = normalized[i];
+			if (n.type === "skill" && n.skill.id === skill.id) {
+				newNodeIndex = i + 1;
+				break;
+			}
+		}
+
+		if (newNodeIndex >= normalized.length || normalized[newNodeIndex].type !== "text") {
+			normalized.splice(newNodeIndex, 0, { type: "text", content: "", id: generateTextNodeId() });
+		}
+
+		return {
+			nodes: normalized,
+			newPosition: { nodeIndex: newNodeIndex, offset: 0 },
+		};
+	}
+
+	// Replace the matched text with the skill
+	const textBeforeMatch = beforeCursor.slice(0, matchIndex);
+	const textAfterMatch = beforeCursor.slice(matchIndex + matchedText.length);
+
+	// Combine textAfterMatch (any text between match and cursor) with afterCursor
+	const textAfterSkill = textAfterMatch + afterCursor;
+
+	const newNodes: EditorNode[] = [
+		...nodes.slice(0, position.nodeIndex),
+		...(textBeforeMatch ? [{ type: "text" as const, content: textBeforeMatch, id: generateTextNodeId() }] : []),
+		{ type: "skill" as const, skill },
+		{ type: "text" as const, content: textAfterSkill, id: generateTextNodeId() },
+		...nodes.slice(position.nodeIndex + 1),
+	];
+
+	const normalized = normalizeNodes(newNodes);
+
+	// Find the position after the inserted skill
+	let newNodeIndex = 0;
+	for (let i = 0; i < normalized.length; i++) {
+		const n = normalized[i];
+		if (n.type === "skill" && n.skill.id === skill.id) {
+			newNodeIndex = i + 1;
+			break;
+		}
+	}
+
+	// Ensure there's a text node after the skill
+	if (newNodeIndex >= normalized.length || normalized[newNodeIndex].type !== "text") {
+		normalized.splice(newNodeIndex, 0, { type: "text", content: "", id: generateTextNodeId() });
+	}
+
+	// Calculate offset in the text node after the skill
+	// We want to position cursor after any text that was between the match and the original cursor
+	const offset = textAfterMatch.length;
+
+	return {
+		nodes: normalized,
+		newPosition: { nodeIndex: newNodeIndex, offset },
+	};
+}
+
+/**
  * Remove a skill by ID
  */
 export function removeSkillById(nodes: EditorNode[], skillId: string): { nodes: EditorNode[]; removedIndex: number } {
@@ -699,6 +806,15 @@ export function getCurrentWord(nodes: EditorNode[], position: EditorPosition): s
 	const textBeforeCursor = node.content.slice(0, position.offset);
 	const lastSpaceIndex = textBeforeCursor.lastIndexOf(" ");
 	return textBeforeCursor.slice(lastSpaceIndex + 1);
+}
+
+/**
+ * Get the full text content of the current node up to the cursor position
+ */
+export function getTextBeforeCursor(nodes: EditorNode[], position: EditorPosition): string {
+	const node = nodes[position.nodeIndex];
+	if (!node || node.type !== "text") return "";
+	return node.content.slice(0, position.offset);
 }
 
 /**

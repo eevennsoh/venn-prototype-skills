@@ -42,9 +42,7 @@ export function searchSkills(query: string): Skill[] {
 
 	const lowerQuery = query.toLowerCase();
 
-	const results = data.skills
-		.filter((skill) => skill.name.toLowerCase().startsWith(lowerQuery))
-		.sort((a, b) => a.name.localeCompare(b.name)); // Sort alphabetically
+	const results = data.skills.filter((skill) => skill.name.toLowerCase().startsWith(lowerQuery)).sort((a, b) => a.name.localeCompare(b.name)); // Sort alphabetically
 
 	return results;
 }
@@ -78,4 +76,47 @@ export function getDiscoverMoreSkill(): Skill {
 		fill: "color.icon.subtlest",
 		tags: ["discover", "explore", "skills"],
 	};
+}
+
+/**
+ * Find skills that match the suffix of the provided text.
+ * Used for "fuzzy" matching where the user might have typed multiple words.
+ * Returns the matching skills and the matched suffix (query).
+ */
+export function findMatchingSkills(text: string): { skills: Skill[]; query: string } | null {
+	if (!text) return null;
+
+	const lowerText = text.toLowerCase();
+	// Look at the last 50 chars max
+	const searchWindow = lowerText.slice(-50);
+
+	// Find all potential start positions (word boundaries)
+	// We want to find indices where a new word starts
+	const startIndices: number[] = [0]; // Always check the full window
+
+	for (let i = 0; i < searchWindow.length; i++) {
+		if (searchWindow[i] === " " && i + 1 < searchWindow.length) {
+			startIndices.push(i + 1);
+		}
+	}
+
+	// Sort indices by length of suffix (descending) - we want longest match first
+	// index 0 means length 50. index 49 means length 1.
+	// We want smallest index first.
+	startIndices.sort((a, b) => a - b);
+
+	for (const startIndex of startIndices) {
+		const suffix = searchWindow.slice(startIndex);
+		if (!suffix.trim()) continue; // Skip empty or whitespace-only queries
+
+		const matches = data.skills.filter((skill) => skill.name.toLowerCase().startsWith(suffix)).sort((a, b) => a.name.localeCompare(b.name));
+
+		if (matches.length > 0) {
+			// Return the original case suffix from the input text
+			const originalSuffix = text.slice(-suffix.length);
+			return { skills: matches, query: originalSuffix };
+		}
+	}
+
+	return null;
 }

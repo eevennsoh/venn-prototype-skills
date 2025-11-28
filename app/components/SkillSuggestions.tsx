@@ -13,9 +13,10 @@ export interface SkillSuggestionsProps {
 	onSkillConfirm?: (skill: Skill) => void;
 	searchQuery?: string;
 	shouldShowGreeting?: boolean;
+	selectedSkills?: Skill[];
 }
 
-export default function SkillSuggestions({ onSkillSelect, onSkillHighlight, onSkillConfirm, searchQuery = "", shouldShowGreeting = true }: SkillSuggestionsProps) {
+export default function SkillSuggestions({ onSkillSelect, onSkillHighlight, onSkillConfirm, searchQuery = "", shouldShowGreeting = true, selectedSkills = [] }: SkillSuggestionsProps) {
 	const {
 		containerRef,
 		greetingOpacity,
@@ -34,6 +35,7 @@ export default function SkillSuggestions({ onSkillSelect, onSkillHighlight, onSk
 		onSkillHighlight,
 		searchQuery,
 		shouldShowGreeting,
+		selectedSkills,
 	});
 
 	return (
