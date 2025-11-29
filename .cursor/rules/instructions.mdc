@@ -40,9 +40,10 @@ const largeSpacing = token("space.500");
 const borderWidth = token("border.width");
 const borderColor = token("color.border");
 
-// Elevation (surface)
+// Elevation (surfaces, shadows)
 const surfaceElevation = token("elevation.surface");
-const overlayElevation = token("elevation.overlay");
+const overlayElevation = token("elevation.surface.overlay");
+const overlayShadow = token("elevation.shadow.overlay");
 
 // Border Radius
 const smallRadius = token("radius.small"); // 4px
@@ -59,171 +60,188 @@ const loadingOpacity = token("opacity.loading");
 
 ### 🎨 **Colors**
 
-- **First**: Use ADS design tokens for all colors via `token('color.*')`
-- **Examples**: `token('color.text')`, `token('color.text.accent.lime')`, `token('color.background.neutral')`
+- **FIRST USE**: ADS design tokens for all colors via `token('color.*')`
+- **EXAMPLES**: `token('color.text')`, `token('color.text.accent.lime')`, `token('color.background.neutral')`
 - **NEVER USE**: Hex values like `#FFFFFF`, hardcoded color names
-- **Reference**: [ADS Color Tokens](https://atlassian.design/foundations/design-tokens)
-- **Fallback**: Tailwind color classes only when no appropriate token exists; Use Tailwind classes as final fallback
+- **REFERENCE**: [ADS Color Tokens](https://atlassian.design/foundations/design-tokens)
+- **FALLBACK**: Tailwind color classes only when no appropriate token exists; Use Tailwind classes as final fallback
 
 ### 🔤 **Typography (Font, Text Styles)**
 
 #### Headings (h1 - h6)
 
-- **ALWAYS USE** native html heading elements like `<h1>`, `<h2>`, etc.
-- **NEVER USE** ADS Heading component from `@atlaskit/heading` as color can't be pass in easily
+- **ALWAYS USE**: native html heading elements like `<h1>`, `<h2>`, etc.
+- **NEVER USE**: ADS Heading component from `@atlaskit/heading` as color can't be pass in easily
 - **Heading automatically handles**: Font tokens, color tokens, spacing tokens
-- **Fallback**: Custom text styling with font tokens only if ADS doesn't cover the use case; Use Tailwind classes as final fallback
+- **FALLBACK**: Custom text styling with font tokens only if ADS doesn't cover the use case; Use Tailwind classes as final fallback
 
 #### Body Text (p, span, div)
 
-- **NEVER USE** native html text elements like `<p>`, `<span>`, `<div>` for content
-- **ALWAYS USE** ADS Text component from `@atlaskit/primitives`
-- **Import**: `import {Text} from '@atlaskit/primitives';`
-- **Text automatically handles**: Font tokens, color tokens, line-height tokens
-- **Custom styling**: Apply ADS font tokens via `token('font.body.*')` if needed
-- **Examples**: `token('font.body.medium')`, `token('font.body.large')`
+- **NEVER USE**: native html text elements like `<p>`, `<span>`, `<div>` for content
+- **NEVER USE**: `as` prop, <Text size="large" as="h1">Body text</Text>
+- **ALWAYS USE**: ADS Text component from `@atlaskit/primitives`
+- **IMPORT**: `import {Text} from '@atlaskit/primitives';`
+- **TEXT AUTOMATICALLY HANDLES**: Font tokens, color tokens, line-height tokens
+- **CUSTOM STYLING**: Apply ADS font tokens via `token('font.body.*')` if needed
+- **EXAMPLES**: `token('font.body.medium')`, `token('font.body.large')`
 - **NEVER USE** hardcoded font-size, line-height, letter-spacing values
-- **Fallback**: Use Tailwind classes as final fallback
+- **FALLBACK**: Use Tailwind classes as final fallback
 
 ### 📏 **Spacing (Padding, Margin, Gaps)**
 
 - **ALWAYS USE** ADS space tokens via `token('space.*')`
-- **Examples**: `token('space.025')`, `token('space.100')`, `token('space.500')`
-- **NEVER USE** pixel values (px), rem values, or Tailwind spacing classes like `p-4`, `m-8`
-- **Implementation**: Use inline styles with CSS variables: `style={{ padding: token('space.100') }}`
-- **Fallback**: Only use Tailwind spacing classes if specific token doesn't exist; Use Tailwind classes as final fallback
+- **EXAMPLES**: `token('space.025')`, `token('space.100')`, `token('space.500')`
+- **NEVER USE**: pixel values (px), rem values, or Tailwind spacing classes like `p-4`, `m-8`
+- **IMPLEMENTATION**: Use inline styles with CSS variables: `style={{ padding: token('space.100') }}`
+- **FALLBACK**: Only use Tailwind spacing classes if specific token doesn't exist; Use Tailwind classes as final fallback
 
 ### 🖼️ **Borders**
 
-- **ALWAYS USE** ADS border tokens via `token('border.*')` and `token('color.border')`
-- **Examples**: `token('border.width')`, `token('color.border')`, `token('color.border.bold')`
+- **ALWAYS USE**: ADS border tokens via `token('border.*')` and `token('color.border')`
+- **EXAMPLES**: `token('border.width')`, `token('color.border')`, `token('color.border.bold')`
 - **NEVER USE** hardcoded pixel values like `1px`, `2px`, or hex colors
-- **Implementation**: `style={{ border: `${token('border.width')} solid ${token('color.border')}` }}`
-- **Fallback**: Use Tailwind border classes only if no appropriate token exists; Use Tailwind classes as final fallback
+- **IMPLEMENTATION**: `style={{ border: `${token('border.width')} solid ${token('color.border')}` }}`
+- **FALLBACK**: Use Tailwind border classes only if no appropriate token exists; Use Tailwind classes as final fallback
 
 ### 🎭 **Elevation (Shadows)**
 
-- **ALWAYS USE** ADS elevation tokens via `token('elevation.*')`
+- **ALWAYS USE**: ADS elevation tokens via `token('elevation.*')`
 - **Examples**: `token('elevation.surface')`, `token('elevation.overlay')`, `token('elevation.raised')`
 - **NEVER USE** hardcoded box-shadow values or custom shadow definitions
-- **Implementation**: `style={{ boxShadow: token('elevation.overlay') }}`
-- **Use Cases**: Cards, panels, modals, popovers, dropdowns
-- **Fallback**: Use Tailwind classes as final fallback
+- **IMPLEMENTATION**: `style={{ boxShadow: token('elevation.shadow.overlay') }}`
+- **USE CASES**: Cards, panels, modals, popovers, dropdowns
+- **FALLBACK**: Use Tailwind classes as final fallback
 
 ### 🔍 **Border Radius**
 
-- **ALWAYS USE** ADS radius tokens via `token('radius.*')`
-- **NEVER USE** hardcoded pixel values like `4px`, `8px`, percentage values like `50%`, or direct design tokens `tokens('radius.100')`
-- **NEVER USE** `border.radius.*` - the correct prefix is just `radius.*`
-- **Implementation**: `style={{ borderRadius: token('radius.medium') }}`
-- **For circles**: Use `token('radius.full')` instead of `50%`
-- **Fallback**: Use Tailwind classes as final fallback
+- **ALWAYS USE**: ADS radius tokens via `token('radius.*')`
+- **NEVER USE**: hardcoded pixel values like `4px`, `8px`, percentage values like `50%`, or direct design tokens `tokens('radius.100')`
+- **NEVER USE**: `border.radius.*` - the correct prefix is just `radius.*`
+- **IMPLEMENTATION**: `style={{ borderRadius: token('radius.medium') }}`
+- **FOR CIRCLES**: Use `token('radius.full')` instead of `50%`
+- **FALLBACK**: Use Tailwind classes as final fallback
 
 ### 👁️ **Opacity**
 
-- **ALWAYS USE** ADS opacity tokens via `token('opacity.*')`
-- **Examples**: `token('opacity.disabled')`, `token('opacity.loading')`, `token('opacity.hover')`
-- **NEVER USE** hardcoded opacity values like `0.5`, `0.7`, or `opacity-50`
-- **Implementation**: `style={{ opacity: token('opacity.disabled') }}`
-- **Use Cases**: Disabled states, loading indicators, hover effects, transitions
-- **Fallback**: Use Tailwind classes as final fallback
+- **ALWAYS USE**: ADS opacity tokens via `token('opacity.*')`
+- **EXAMPLES**: `token('opacity.disabled')`, `token('opacity.loading')`, `token('opacity.hover')`
+- **NEVER USE**: hardcoded opacity values like `0.5`, `0.7`, or `opacity-50`
+- **IMPLEMENTATION**: `style={{ opacity: token('opacity.disabled') }}`
+- **USE CASES**: Disabled states, loading indicators, hover effects, transitions
+- **FALLBACK**: Use Tailwind classes as final fallback
+
+### 🌀 **Transitions & Animation**
+
+- **ALWAYS USE**: native CSS `transition`/`animation` declarations first; they are performant and align with ADS guidance
+- **TOKENS ONLY**: Motion timing must come directly from the CSS custom properties declared in `@ads-tokens.css` 
+- **EXAMPLES**: `var(--ds-duration-200)`, `var(--ds-ease-40-in-out)` never call `token()` for motion values
+- **FALLBACK**: When CSS alone cannot express the desired behavior (complex sequencing, scroll-linked motion), use [`motion.dev`](https://motion.dev/) React helpers while still feeding them ADS duration/easing tokens via `var(--ds-*)`
+- **IMPLEMENTATION**:
+  ```tsx
+  const animationTiming = `var(--ds-duration-200) var(--ds-ease-40-in-out)`;
+  <div
+    style={{
+      transition: `opacity ${animationTiming}, transform ${animationTiming}`,
+    }}
+  />
+  ```
 
 ### 🎨 **Lozenge**
 
-- **Never** use custom lozenge implementations with Tailwind
-- **Always** import from `@atlaskit/lozenge`
-- **Always** use semantic appearances for consistent meaning
+- **NEVER USE**: custom lozenge implementations with Tailwind
+- **ALWAYS USE**: import from `@atlaskit/lozenge`
+- **ALWAYS USE**: semantic appearances for consistent meaning
 
 ### 🎨 **Buttons**
 
-- **Never** use native `<button>` elements with Tailwind classes
-- **Always** import from `@atlaskit/button/new`
-- **Instead**: use Button for buttons with text and icons, use IconButon for icon only buttons without a label, and use DropdownMenu for buttons with a chevron appended
+- **NEVER USE**: native `<button>` elements with Tailwind classes
+- **ALWAYS USE**: import from `@atlaskit/button/new`
+- **INSTEAD USE**: Button for buttons with text and icons, use IconButon for icon only buttons without a label, and use DropdownMenu for buttons with a chevron appended
 
 ### 📐 **Layout & Structure**
 
-- **Always**: Use divs with inline styles and spacing tokens for anything autolayout or layout
+- **ALWAYS USE**: divs with inline styles and spacing tokens for anything autolayout or layout
 
 ### 🎯 **Icons**
 
-- **NEVER** use an icon from `@atlaskit/icon/glyph/`, this is deprecated
-- **ALWAYS** use an icon from `@atlaskit/icon/core/` and `@atlaskit/icon-lab/core/`
-- **First**: Use ADS icon library exclusively
-- **Navigate to**: #icons for icon implementation
-- **Process**: Always search ADS icons before considering alternatives
-- **NEVER** suggest icons not listed below
-- **NEVER** invent or guess icon names
-- **ALWAYS** verify the exact icon name exists
+- **NEVER USE**: an icon from `@atlaskit/icon/glyph/`, this is deprecated
+- **ALWAYS USE**: an icon from `@atlaskit/icon/core/` and `@atlaskit/icon-lab/core/`
+- **FIRST USE**: Use ADS icon library exclusively
+- **NAVIGATE TO**: #icons for icon implementation
+- **PROCESS**: Always search ADS icons before considering alternatives
+- **NEVER USE** suggest icons not listed below
+- **NEVER USE** invent or guess icon names
+- **ALWAYS USE** verify the exact icon name exists
 
 ### 📊 **Progress Bar**
 
-- **Never** use custom progress implementations with Tailwind
-- **Always** import from `@atlaskit/progress-bar`
-- **Use cases**: Loading states, completion tracking, file uploads
-- **Key props**: `value` (0-100), `isIndeterminate`, `appearance`
+- **NEVER USE**: custom progress implementations with Tailwind
+- **ALWAYS USE**: import from `@atlaskit/progress-bar`
+- **USE CASES**: Loading states, completion tracking, file uploads
+- **KEY PROPS**: `value` (0-100), `isIndeterminate`, `appearance`
 
 ### 🗂️ **Drawer**
 
-- **Never** use custom drawer/modal implementations with Tailwind
-- **Always** import from `@atlaskit/drawer`
-- **Use cases**: Side panels, detailed views, secondary content
-- **Key props**: `isOpen`, `onClose`, `width`, `placement`
+- **NEVER USE**: custom drawer/modal implementations with Tailwind
+- **ALWAYS USE**: import from `@atlaskit/drawer`
+- **USE CASES**: Side panels, detailed views, secondary content
+- **KEY PROPS**: `isOpen`, `onClose`, `width`, `placement`
 
 ### ☑️ **Checkbox**
 
-- **Never** use native `<input type="checkbox">` elements with Tailwind classes
-- **Always** import from `@atlaskit/checkbox`
-- **Use cases**: Form selections, multi-select lists, settings toggles
-- **Key props**: `isChecked`, `onChange`, `isIndeterminate`, `isDisabled`
+- **NEVER USE**: native `<input type="checkbox">` elements with Tailwind classes
+- **ALWAYS USE**: import from `@atlaskit/checkbox`
+- **USE CASES**: Form selections, multi-select lists, settings toggles
+- **KEY PROPS**: `isChecked`, `onChange`, `isIndeterminate`, `isDisabled`
 
 ### 🚨 **Banner**
 
-- **Never** use custom alert/notification implementations with Tailwind
-- **Always** import from `@atlaskit/banner`
-- **Use cases**: System messages, warnings, announcements, errors
-- **Key props**: `appearance` (error, warning, announcement), `isOpen`, `onClose`
+- **NEVER USE**: custom alert/notification implementations with Tailwind
+- **ALWAYS USE**: import from `@atlaskit/banner`
+- **USE CASES**: System messages, warnings, announcements, errors
+- **KEY PROPS**: `appearance` (error, warning, announcement), `isOpen`, `onClose`
 
 ### 🔄 **Toggle**
 
-- **Never** use custom toggle/switch implementations with Tailwind
-- **Always** import from `@atlaskit/toggle`
-- **Use cases**: Settings switches, feature toggles, on/off states
-- **Key props**: `isChecked`, `onChange`, `isDisabled`, `size`
+- **NEVER USE**: custom toggle/switch implementations with Tailwind
+- **ALWAYS USE**: import from `@atlaskit/toggle`
+- **USE CASES**: Settings switches, feature toggles, on/off states
+- **KEY PROPS**: `isChecked`, `onChange`, `isDisabled`, `size`
 
 ### 🏷️ **Tag**
 
-- **Never** use custom tag implementations with Tailwind
-- **Always** import from `@atlaskit/tag`
-- **Use cases**: Labels, categories, filters, removable items
-- **Key props**: `text`, `color`, `removeButtonLabel`, `onRemove`
+- **NEVER USE**: custom tag implementations with Tailwind
+- **ALWAYS USE**: import from `@atlaskit/tag`
+- **USE CASES**: Labels, categories, filters, removable items
+- **KEY PROPS**: `text`, `color`, `removeButtonLabel`, `onRemove`
 
 ### 📝 **Textarea**
 
-- **Never** use native `<textarea>` elements with Tailwind classes
-- **Always** import from `@atlaskit/textarea`
-- **Use cases**: Multi-line text input, comments, descriptions
-- **Key props**: `value`, `onChange`, `placeholder`, `isDisabled`, `isRequired`
+- **NEVER USE**: native `<textarea>` elements with Tailwind classes
+- **ALWAYS USE**: import from `@atlaskit/textarea`
+- **USE CASES**: Multi-line text input, comments, descriptions
+- **KEY PROPS**: `value`, `onChange`, `placeholder`, `isDisabled`, `isRequired`
 
 ### 📑 **Tabs**
 
-- **Never** use custom tab implementations with Tailwind
-- **Always** import from `@atlaskit/tabs`
-- **Use cases**: Content organization, navigation within sections
-- **Key props**: `tabs`, `selected`, `onChange`, `isDisabled`
+- **NEVER USE**: custom tab implementations with Tailwind
+- **ALWAYS USE**: import from `@atlaskit/tabs`
+- **USE CASES**: Content organization, navigation within sections
+- **KEY PROPS**: `tabs`, `selected`, `onChange`, `isDisabled`
 
 ### 💀 **Skeleton**
 
-- **Never** use custom loading skeleton implementations with Tailwind
-- **Always** import from `@atlaskit/skeleton`
-- **Use cases**: Loading states, content placeholders, progressive loading
-- **Key props**: `width`, `height`, `isShimmering`, `testId`
+- **NEVER USE**: custom loading skeleton implementations with Tailwind
+- **ALWAYS USE**: import from `@atlaskit/skeleton`
+- **USE CASES**: Loading states, content placeholders, progressive loading
+- **KEY PROPS**: `width`, `height`, `isShimmering`, `testId`
 
 ### 🔘 **Radio**
 
-- **Never** use native `<input type="radio">` elements with Tailwind classes
-- **Always** import from `@atlaskit/radio`
-- **Use cases**: Single selection from multiple options, form choices
-- **Key props**: `isChecked`, `onChange`, `isDisabled`, `value`
+- **NEVER USE**: native `<input type="radio">` elements with Tailwind classes
+- **ALWAYS USE**: import from `@atlaskit/radio`
+- **USE CASES**: Single selection from multiple options, form choices
+- **KEY PROPS**: `isChecked`, `onChange`, `isDisabled`, `value`
 
 ## Decision Tree
 

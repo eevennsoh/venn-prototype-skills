@@ -314,22 +314,31 @@
 	--ds-z800: 800; /* Tooltip */
 
 	/* Motion Duration Tokens */
-	--ds-duration-none: 0ms;
+	/* --ds-duration-none: 0ms;
 	--ds-duration-small: 100ms;
 	--ds-duration-medium: 350ms;
 	--ds-duration-large: 700ms;
 	--ds-duration-exit-small: 50ms;
 	--ds-duration-exit-medium: 175ms;
-	--ds-duration-exit-large: 350ms;
+	--ds-duration-exit-large: 350ms; */
+	--ds-duration-50: 50ms;
+	--ds-duration-100: 100ms;
+	--ds-duration-150: 150ms;
+	--ds-duration-200: 200ms;
+	--ds-duration-400: 400ms;
+	--ds-duration-600: 600ms;
 
 	/* Motion Easing Tokens */
-	--ds-ease-in-out: cubic-bezier(0.15, 1, 0.3, 1);
+	/* --ds-ease-in-out: cubic-bezier(0.15, 1, 0.3, 1);
 	--ds-ease-out: cubic-bezier(0.2, 0, 0, 1);
 	--ds-ease-in: cubic-bezier(0.8, 0, 0, 0.8);
 	--ds-ease-in-40-out: cubic-bezier(0.4, 0, 0, 1);
 	--ds-ease-in-60-out: cubic-bezier(0.6, 0, 0, 1);
 	--ds-ease-in-80-out: cubic-bezier(0.8, 0, 0, 1);
-	--ds-ease-linear: cubic-bezier(0, 0, 1, 1);
+	--ds-ease-linear: cubic-bezier(0, 0, 1, 1); */
+	--ds-ease-60-in: cubic-bezier(0.6, 0.01, 0.72, 0.68);
+	--ds-ease-40-in-out: cubic-bezier(0.4, 0, 0, 1);
+	--ds-ease-40-out: cubic-bezier(0, 0.4, 0, 1);
 
 	/* Theming Mapping */
 	/* Blue Base Tokens */
