@@ -1,6 +1,10 @@
 ---
 description: Rules for using the Atlassian Design System
 globs:
+  - "**/*.tsx" # React TypeScript components
+  - "**/*.ts" # TypeScript files
+  - "**/*.jsx" # React JavaScript components
+  - "**/*.js" # JavaScript files
 alwaysApply: true
 ---
 
@@ -133,18 +137,49 @@ const loadingOpacity = token("opacity.loading");
 ### 🌀 **Transitions & Animation**
 
 - **ALWAYS USE**: native CSS `transition`/`animation` declarations first; they are performant and align with ADS guidance
-- **TOKENS ONLY**: Motion timing must come directly from the CSS custom properties declared in `@ads-tokens.css` 
-- **EXAMPLES**: `var(--ds-duration-200)`, `var(--ds-ease-40-in-out)` never call `token()` for motion values
-- **FALLBACK**: When CSS alone cannot express the desired behavior (complex sequencing, scroll-linked motion), use [`motion.dev`](https://motion.dev/) React helpers while still feeding them ADS duration/easing tokens via `var(--ds-*)`
-- **IMPLEMENTATION**:
-  ```tsx
-  const animationTiming = `var(--ds-duration-200) var(--ds-ease-40-in-out)`;
-  <div
-    style={{
-      transition: `opacity ${animationTiming}, transform ${animationTiming}`,
-    }}
-  />
-  ```
+- **TOKENS ONLY**: Motion duration, easing curves, and scale values must come directly from CSS custom properties declared in `@ads-tokens.css`
+- **NEVER USE**: `token()` function for motion values - always use `var(--ds-*)` directly
+- **FALLBACK**: When CSS alone cannot express the desired behavior (complex sequencing, scroll-linked motion), use [`motion.dev`](https://motion.dev/) React helpers while still feeding them ADS tokens via `var(--ds-*)`
+
+#### **IMPLEMENTAION EXAMPLES**
+
+```tsx
+// Fade in with slide down effect
+<div
+	style={{
+		// Use duration and easing curve tokens
+		transition: `opacity var(--ds-duration-200) var(--ds-ease-40-in-out),
+		             transform var(--ds-duration-200) var(--ds-ease-40-in-out)`,
+		opacity: isVisible ? 1 : 0,
+		// Slide down from slightly above (use negative pixel value for translateY)
+		transform: isVisible ? 'translateY(0)' : 'translateY(-8px)',
+	}}
+/>
+
+// Scale animation with exit curve
+<div
+	style={{
+		transition: `all var(--ds-duration-400) var(--ds-ease-cubic-out)`,
+		// Use scale tokens for zoom in/out effects
+		transform: isExiting
+			? 'scale(var(--ds-scale-95))'
+			: 'scale(var(--ds-scale-100))',
+		opacity: isExiting ? 0 : 1,
+	}}
+/>
+
+// Combined scale and fade for entrance
+<div
+	style={{
+		transition: `transform var(--ds-duration-200) var(--ds-ease-40-in-out),
+		             opacity var(--ds-duration-200) var(--ds-ease-40-in-out)`,
+		transform: isEntering
+			? 'scale(var(--ds-scale-100))'
+			: 'scale(var(--ds-scale-95))',
+		opacity: isEntering ? 1 : 0,
+	}}
+/>
+```
 
 ### 🎨 **Lozenge**
 

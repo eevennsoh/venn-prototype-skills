@@ -321,12 +321,13 @@
 	--ds-duration-exit-small: 50ms;
 	--ds-duration-exit-medium: 175ms;
 	--ds-duration-exit-large: 350ms; */
-	--ds-duration-50: 50ms;
-	--ds-duration-100: 100ms;
-	--ds-duration-150: 150ms;
-	--ds-duration-200: 200ms;
-	--ds-duration-400: 400ms;
-	--ds-duration-600: 600ms;
+	--ds-duration-0: 0ms; /* Use for no animation */
+	--ds-duration-50: 50ms; /* Use for general UI hover, pressed, selected, focused, checked, unchecked states */
+	--ds-duration-100: 100ms; /* Use for most quick, interactive UI state changes (e.g., button hover, selected) */
+	--ds-duration-150: 150ms; /* Use for lightweight overlay show/hide, toast/drawer gentle pop */
+	--ds-duration-200: 200ms; /* Use for moderate UI transitions and slightly more prominent panels/overlays */
+	--ds-duration-400: 400ms; /* Use for major navigation, feature reveal, modals, intro/outro */
+	--ds-duration-600: 600ms; /* Use sparingly: large transitions, onboarding, multi-step flows */
 
 	/* Motion Easing Tokens */
 	/* --ds-ease-in-out: cubic-bezier(0.15, 1, 0.3, 1);
@@ -334,11 +335,16 @@
 	--ds-ease-in: cubic-bezier(0.8, 0, 0, 0.8);
 	--ds-ease-in-40-out: cubic-bezier(0.4, 0, 0, 1);
 	--ds-ease-in-60-out: cubic-bezier(0.6, 0, 0, 1);
-	--ds-ease-in-80-out: cubic-bezier(0.8, 0, 0, 1);
-	--ds-ease-linear: cubic-bezier(0, 0, 1, 1); */
-	--ds-ease-60-in: cubic-bezier(0.6, 0.01, 0.72, 0.68);
-	--ds-ease-40-in-out: cubic-bezier(0.4, 0, 0, 1);
-	--ds-ease-40-out: cubic-bezier(0, 0.4, 0, 1);
+	--ds-ease-in-80-out: cubic-bezier(0.8, 0, 0, 1); */
+	--ds-ease-linear: cubic-bezier(0, 0, 1, 1); /* Use for deterministic linear animations */
+	--ds-ease-40-in-out: cubic-bezier(0.4, 0, 0, 1); /* Use for efault show and entrane animations */
+	--ds-ease-40-out: cubic-bezier(0, 0.4, 0, 1); /* Use for general UI hover, pressed, selected, focused, checked, unchecked states */
+	--ds-ease-60-in: cubic-bezier(0.6, 0.01, 0.72, 0.68); /* Use for alternate show and entrace animations for more build up in anticipation */
+	--ds-ease-cubic-out: cubic-bezier(0.33, 1, 0.68, 1); /* Use for default hide and exit animations */
+
+	/* Motion Scale Tokens */
+	--ds-scale-95: 95%; /* Use for lower bound transform value for scale */
+	--ds-scale-100: 100%; /* Use for upper bound transform value for scale */
 
 	/* Theming Mapping */
 	/* Blue Base Tokens */

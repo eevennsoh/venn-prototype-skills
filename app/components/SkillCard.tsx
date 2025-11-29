@@ -104,7 +104,7 @@ export const SkillCard = ({ loading: propsLoading, activeStep: propsActiveStep, 
 				margin: "0 auto",
 				display: "flex",
 				flexDirection: "column",
-				gap: loading ? 0 : token("space.150"),
+				gap: isExpanded ? token("space.150") : "0px",
 				backgroundColor: token("elevation.surface"),
 				borderRadius: token("radius.large"),
 				boxShadow: token("elevation.shadow.raised"),
@@ -234,20 +234,24 @@ export const SkillCard = ({ loading: propsLoading, activeStep: propsActiveStep, 
 				)}
 			</div>
 
-			{/* Body Content (Active Step + Upcoming) */}
-			<div
-				style={{
-					maxHeight: loading || !isExpanded ? "0px" : "2000px",
-					opacity: loading || !isExpanded ? 0 : 1,
-					overflow: "hidden",
-					transition: `all var(--ds-duration-600) var(--ds-ease-40-in-out)`,
-					display: "flex",
-					flexDirection: "column",
-					gap: token("space.200"),
-				}}
-			>
-				{plan && (
-					<>
+			{/* Body Content (Active Step + Upcoming) - Animated collapse */}
+			{!loading && plan && (
+				<div
+					style={{
+						maxHeight: isExpanded ? "800px" : "0px",
+						opacity: isExpanded ? 1 : 0,
+						overflow: "hidden",
+						paddingTop: isExpanded ? token("space.200") : "0px",
+						transition: `all var(--ds-duration-200) var(--ds-ease-40-in-out)`,
+					}}
+				>
+					<div
+						style={{
+							display: "flex",
+							flexDirection: "column",
+							gap: token("space.200"),
+						}}
+					>
 						{/* Active Step */}
 						<div>
 							{plan.steps.map((step, index) => {
@@ -299,9 +303,9 @@ export const SkillCard = ({ loading: propsLoading, activeStep: propsActiveStep, 
 								</div>
 							</div>
 						)}
-					</>
-				)}
-			</div>
+					</div>
+				</div>
+			)}
 			<style>{`
 				@keyframes fadeIn {
 					from { opacity: 0; transform: translateY(5px); }
