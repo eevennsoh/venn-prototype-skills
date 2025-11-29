@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { token } from "@atlaskit/tokens";
 import { Text } from "@atlaskit/primitives";
 import Button, { IconButton } from "@atlaskit/button/new";
-import SuccessIcon from "@atlaskit/icon/glyph/check-circle";
 import ClipboardIcon from "@atlaskit/icon/core/clipboard";
 import ChevronUpIcon from "@atlaskit/icon/core/chevron-up";
 import { mockSkillPlan, SkillPlan, SkillStepData } from "../../lib/mockSkillPlan";
@@ -22,6 +21,7 @@ export const SkillCard = ({ loading: propsLoading, activeStep: propsActiveStep, 
 	const [internalIsPlanCompleted, setInternalIsPlanCompleted] = useState(false);
 	const [dotStep, setDotStep] = useState(0);
 	const [isExpanded, setIsExpanded] = useState(true);
+	const [expandedSteps, setExpandedSteps] = useState<Record<string, boolean>>({});
 
 	// Derive state from props or internal state
 	const loading = propsLoading !== undefined ? propsLoading : internalLoading;
@@ -46,7 +46,7 @@ export const SkillCard = ({ loading: propsLoading, activeStep: propsActiveStep, 
 	useEffect(() => {
 		if (loading) {
 			const interval = setInterval(() => {
-				setDotStep((prev) => (prev + 1) % 3);
+				setDotStep((prev) => (prev + 1) % 4);
 			}, 200);
 			return () => clearInterval(interval);
 		}
@@ -55,47 +55,41 @@ export const SkillCard = ({ loading: propsLoading, activeStep: propsActiveStep, 
 	const handleApprove = () => {
 		if (!plan) return;
 
+		// Collapse current step
+		const currentStepId = plan.steps[activeStepIndex].id;
+		setExpandedSteps((prev) => ({ ...prev, [currentStepId]: false }));
+
 		// Mark current step as completed (in a real app, this would update data)
 		// For local state, we just move index
 		if (activeStepIndex < plan.steps.length - 1) {
+			const nextStepId = plan.steps[activeStepIndex + 1].id;
+			setExpandedSteps((prev) => ({ ...prev, [nextStepId]: true }));
 			setInternalActiveStepIndex((prev) => prev + 1);
 		} else {
+			// Last step completed - mark as completed and auto-collapse the card
 			setInternalIsPlanCompleted(true);
+			setIsExpanded(false);
 		}
 	};
 
 	const handleSkip = () => {
 		if (!plan) return;
 
+		// Collapse current step
+		const currentStepId = plan.steps[activeStepIndex].id;
+		setExpandedSteps((prev) => ({ ...prev, [currentStepId]: false }));
+
 		// Move to next step
 		if (activeStepIndex < plan.steps.length - 1) {
+			const nextStepId = plan.steps[activeStepIndex + 1].id;
+			setExpandedSteps((prev) => ({ ...prev, [nextStepId]: true }));
 			setInternalActiveStepIndex((prev) => prev + 1);
 		} else {
+			// Last step skipped - mark as completed and auto-collapse the card
 			setInternalIsPlanCompleted(true);
+			setIsExpanded(false);
 		}
 	};
-
-	if (isPlanCompleted) {
-		return (
-			<div
-				style={{
-					padding: token("space.300"),
-					backgroundColor: token("color.background.success"),
-					borderRadius: token("radius.large"),
-					border: `1px solid ${token("color.border.success")}`,
-					display: "flex",
-					alignItems: "center",
-					gap: token("space.200"),
-				}}
-			>
-				<SuccessIcon label="Success" primaryColor={token("color.icon.success")} />
-				<div>
-					<h4 style={{ fontWeight: "bold", margin: 0 }}>{plan?.title} Completed!</h4>
-					<Text as="p">You've finished all steps in this skill plan.</Text>
-				</div>
-			</div>
-		);
-	}
 
 	return (
 		<div
@@ -104,12 +98,11 @@ export const SkillCard = ({ loading: propsLoading, activeStep: propsActiveStep, 
 				margin: "0 auto",
 				display: "flex",
 				flexDirection: "column",
-				gap: isExpanded ? token("space.150") : "0px",
 				backgroundColor: token("elevation.surface"),
 				borderRadius: token("radius.large"),
 				boxShadow: token("elevation.shadow.raised"),
 				padding: token("space.200"),
-				transition: `all var(--ds-duration-400) var(--ds-ease-40-in-out)`,
+				transition: `all var(--ds-duration-200) var(--ds-ease-40-in-out)`,
 			}}
 		>
 			{/* Header */}
@@ -119,6 +112,7 @@ export const SkillCard = ({ loading: propsLoading, activeStep: propsActiveStep, 
 					alignItems: "center",
 					justifyContent: "space-between",
 					transition: `all var(--ds-duration-200) var(--ds-ease-40-in-out)`,
+					marginBottom: !loading && isExpanded ? token("space.150") : "0px",
 				}}
 			>
 				<div style={{ display: "flex", alignItems: "center", gap: token("space.150"), height: loading ? "40px" : "auto" }}>
@@ -157,17 +151,6 @@ export const SkillCard = ({ loading: propsLoading, activeStep: propsActiveStep, 
 										<span
 											style={{
 												color: "#1868DB",
-												opacity: 1,
-												transition: `opacity var(--ds-duration-200) var(--ds-ease-40-in-out)`,
-												fontSize: "16px",
-												lineHeight: "20px",
-											}}
-										>
-											.
-										</span>
-										<span
-											style={{
-												color: "#BF63F3",
 												opacity: dotStep >= 1 ? 1 : 0,
 												transition: `opacity var(--ds-duration-200) var(--ds-ease-40-in-out)`,
 												fontSize: "16px",
@@ -178,8 +161,19 @@ export const SkillCard = ({ loading: propsLoading, activeStep: propsActiveStep, 
 										</span>
 										<span
 											style={{
-												color: "#FCA700",
+												color: "#BF63F3",
 												opacity: dotStep >= 2 ? 1 : 0,
+												transition: `opacity var(--ds-duration-200) var(--ds-ease-40-in-out)`,
+												fontSize: "16px",
+												lineHeight: "20px",
+											}}
+										>
+											.
+										</span>
+										<span
+											style={{
+												color: "#FCA700",
+												opacity: dotStep >= 3 ? 1 : 0,
 												transition: `opacity var(--ds-duration-200) var(--ds-ease-40-in-out)`,
 												fontSize: "16px",
 												lineHeight: "20px",
@@ -241,7 +235,6 @@ export const SkillCard = ({ loading: propsLoading, activeStep: propsActiveStep, 
 						maxHeight: isExpanded ? "800px" : "0px",
 						opacity: isExpanded ? 1 : 0,
 						overflow: "hidden",
-						paddingTop: isExpanded ? token("space.200") : "0px",
 						transition: `all var(--ds-duration-200) var(--ds-ease-40-in-out)`,
 					}}
 				>
@@ -249,14 +242,35 @@ export const SkillCard = ({ loading: propsLoading, activeStep: propsActiveStep, 
 						style={{
 							display: "flex",
 							flexDirection: "column",
-							gap: token("space.200"),
+							gap: token("space.150"),
 						}}
 					>
-						{/* Active Step */}
-						<div>
+						{/* Active and Completed Steps */}
+						<div style={{ display: "flex", flexDirection: "column" }}>
 							{plan.steps.map((step, index) => {
-								if (index === activeStepIndex) {
-									return <SkillStep key={step.id} step={step} isActive={true} isCompleted={false} onApprove={handleApprove} onSkip={handleSkip} />;
+								if (index <= activeStepIndex) {
+									const isStepExpanded = expandedSteps[step.id] ?? index === activeStepIndex;
+									const isFirst = index === 0;
+									const isLast = index === activeStepIndex;
+									return (
+										<SkillStep
+											key={step.id}
+											step={step}
+											isActive={index === activeStepIndex}
+											isCompleted={index < activeStepIndex}
+											isExpanded={isStepExpanded}
+											isFirst={isFirst}
+											isLast={isLast}
+											onToggleExpand={() =>
+												setExpandedSteps((prev) => ({
+													...prev,
+													[step.id]: !isStepExpanded,
+												}))
+											}
+											onApprove={handleApprove}
+											onSkip={handleSkip}
+										/>
+									);
 								}
 								return null;
 							})}
@@ -272,34 +286,72 @@ export const SkillCard = ({ loading: propsLoading, activeStep: propsActiveStep, 
 								}}
 							>
 								<h5 style={{ margin: `0 0 ${token("space.200")} 0`, fontSize: "12px", fontWeight: "bold", color: token("color.text.subtle") }}>Upcoming steps</h5>
-								<div style={{ display: "flex", flexDirection: "column", gap: token("space.200") }}>
-									{plan.steps.map((step, index) => {
-										if (index > activeStepIndex) {
-											return (
-												<div key={step.id} style={{ display: "flex", alignItems: "center", gap: token("space.150") }}>
+								<div style={{ display: "flex", gap: token("space.150") }}>
+									{/* Timeline column (dots + lines) */}
+									<div style={{ display: "flex", flexDirection: "column", alignItems: "center", paddingTop: "6px" }}>
+										{plan.steps.map((step, index) => {
+											if (index > activeStepIndex) {
+												const isLast = index === plan.steps.length - 1;
+												return (
+													<React.Fragment key={step.id}>
+														{/* Dot */}
+														<div
+															style={{
+																width: "8px",
+																height: "8px",
+																borderRadius: token("radius.full"),
+																backgroundColor: token("color.border"),
+																flexShrink: 0,
+															}}
+														/>
+														{/* Line with gaps */}
+														{!isLast && (
+															<div
+																style={{
+																	width: "1px",
+																	height: token("space.150"),
+																	backgroundColor: token("color.border"),
+																	marginTop: token("space.050"),
+																	marginBottom: token("space.050"),
+																}}
+															/>
+														)}
+													</React.Fragment>
+												);
+											}
+											return null;
+										})}
+									</div>
+									
+									{/* Labels column */}
+									<div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
+										{plan.steps.map((step, index) => {
+											if (index > activeStepIndex) {
+												const isLast = index === plan.steps.length - 1;
+												return (
 													<div
+														key={step.id}
 														style={{
-															width: 24,
-															height: 24,
-															display: "flex",
-															alignItems: "center",
-															justifyContent: "center",
-															color: token("color.icon.brand"),
-															backgroundColor: token("color.background.neutral"),
-															borderRadius: token("radius.small"),
+															paddingBottom: isLast ? "0px" : token("space.150"),
 														}}
 													>
-														{/* Placeholder for dynamic icons based on step content */}
-														<span style={{ fontSize: "10px", fontWeight: "bold" }}>{index + 1}</span>
+														<Text
+															as="p"
+															style={{
+																fontWeight: 500,
+																color: token("color.text"),
+																fontSize: "14px",
+																lineHeight: "20px",
+															}}
+														>
+															{step.title}
+														</Text>
 													</div>
-													<span style={{ fontWeight: 500, color: token("color.text") }}>
-														<Text as="p">{step.title}</Text>
-													</span>
-												</div>
-											);
-										}
-										return null;
-									})}
+												);
+											}
+											return null;
+										})}
+									</div>
 								</div>
 							</div>
 						)}

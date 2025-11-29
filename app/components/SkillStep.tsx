@@ -11,21 +11,28 @@ interface SkillStepProps {
 	step: SkillStepData;
 	isActive: boolean;
 	isCompleted: boolean;
+	isExpanded: boolean;
+	isFirst?: boolean;
+	isLast?: boolean;
+	onToggleExpand: () => void;
 	onApprove: () => void;
 	onSkip: () => void;
 }
 
-export const SkillStep = ({ step, isActive, isCompleted, onApprove, onSkip }: SkillStepProps) => {
+export const SkillStep = ({ step, isActive, isCompleted, isExpanded, isFirst = true, isLast = true, onToggleExpand, onApprove, onSkip }: SkillStepProps) => {
 	const stepNumber = step.id.split("-")[1];
-	const [isExpanded, setIsExpanded] = useState(true);
+
+	// Calculate border radius based on position
+	const borderRadius =
+		isFirst && isLast ? token("radius.large") : isFirst ? `${token("radius.large")} ${token("radius.large")} 0 0` : isLast ? `0 0 ${token("radius.large")} ${token("radius.large")}` : "0";
 
 	return (
 		<div
 			style={{
 				border: `${token("border.width")} solid ${token("color.border")}`,
-				borderRadius: token("radius.large"),
+				borderTop: !isFirst ? "none" : `${token("border.width")} solid ${token("color.border")}`,
+				borderRadius: borderRadius,
 				backgroundColor: token("elevation.surface"),
-				marginBottom: token("space.100"),
 				overflow: "hidden",
 				display: "flex",
 				flexDirection: "column",
@@ -73,31 +80,30 @@ export const SkillStep = ({ step, isActive, isCompleted, onApprove, onSkip }: Sk
 							label={isExpanded ? "Collapse" : "Expand"}
 							appearance="subtle"
 							spacing="compact"
-							onClick={() => setIsExpanded(!isExpanded)}
+							onClick={onToggleExpand}
 							shape="circle"
 						/>
 					</div>
 				</div>
 			</div>
 
-			{/* Body Content - Scrollable */}
-			<div
-				style={{
-					maxHeight: isActive && isExpanded ? "300px" : "0px",
-					opacity: isActive && isExpanded ? 1 : 0,
-					transition: `all var(--ds-duration-200) var(--ds-ease-40-in-out)`,
-					overflow: "hidden",
-					paddingLeft: token("space.200"),
-					paddingRight: token("space.200"),
-					paddingBottom: isActive && isExpanded ? token("space.150") : "0px",
-					flexGrow: 1,
-				}}
-			>
-				<Text as="p" size="small">
-					{step.description}
-				</Text>
-			</div>
-
+		{/* Body Content - Scrollable */}
+		<div
+			style={{
+				maxHeight: isExpanded ? "300px" : "0px",
+				opacity: isExpanded ? 1 : 0,
+				transition: `all var(--ds-duration-200) var(--ds-ease-40-in-out)`,
+				overflow: "hidden",
+				paddingLeft: token("space.200"),
+				paddingRight: token("space.200"),
+				paddingBottom: isExpanded ? token("space.150") : "0px",
+				flexGrow: 1,
+			}}
+		>
+			<Text as="p" size="small">
+				{step.description}
+			</Text>
+		</div>
 			{/* Sticky Footer */}
 			<div
 				style={{
